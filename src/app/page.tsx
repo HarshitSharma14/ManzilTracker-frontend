@@ -1700,34 +1700,73 @@ const GoalTracker: React.FC = () => {
                           transition={{ duration: 0.6, delay: 0.4 }}
                           className="bg-gradient-to-br from-indigo-900/30 via-purple-900/30 to-black/50 p-8 rounded-xl border border-indigo-500/20"
                         >
-                          <h2 className="text-3xl font-bold text-white mb-4">Technology Stack</h2>
+                          <h2 className="text-3xl font-bold text-white mb-4">What's Powering This App</h2>
                           <div className="space-y-3 text-white/90">
                             <p>
-                              This Goal Tracker application is built using modern React with TypeScript, showcasing
-                              a fully interactive and responsive interface. It leverages several key technologies:
+                              I built this Goal Tracker with modern React and TypeScript to create an interactive
+                              experience. Here's what's under the hood:
                             </p>
                             <ul className="list-disc pl-6 space-y-2 mt-4">
                               <li>
-                                <span className="text-purple-400 font-semibold">React</span> - For building the
-                                interactive UI components with hooks for state management
+                                <span className="text-purple-400 font-semibold">React</span> - Handles all the interactive
+                                elements and state management
                               </li>
                               <li>
-                                <span className="text-blue-400 font-semibold">TypeScript</span> - Provides type
-                                safety and better developer experience
+                                <span className="text-blue-400 font-semibold">TypeScript</span> - Makes everything
+                                more reliable with type checking
                               </li>
                               <li>
-                                <span className="text-pink-400 font-semibold">Framer Motion</span> - Powers all
-                                the smooth animations and transitions between states
+                                <span className="text-pink-400 font-semibold">Framer Motion</span> - Creates all those
+                                smooth animations you see when moving around
                               </li>
                               <li>
-                                <span className="text-green-400 font-semibold">Recharts</span> - Creates the
-                                interactive pie charts for goal progress visualization
+                                <span className="text-green-400 font-semibold">Recharts</span> - Powers the progress
+                                pie charts that show how you're doing
                               </li>
                               <li>
-                                <span className="text-yellow-400 font-semibold">LocalStorage API</span> - Persists
-                                user goals and progress across sessions
+                                <span className="text-yellow-400 font-semibold">LocalStorage</span> - Saves your goals
+                                right in your browser so they'll be there next time
                               </li>
                             </ul>
+                          </div>
+                        </motion.section>
+
+                        {/* How the App Works - NEW SECTION */}
+                        <motion.section
+                          initial={{ opacity: 0, x: 30 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.6, delay: 0.5 }}
+                          className="bg-gradient-to-br from-cyan-900/30 via-blue-900/30 to-black/50 p-8 rounded-xl border border-cyan-500/20"
+                        >
+                          <h2 className="text-3xl font-bold text-white mb-4">How This App Works</h2>
+                          <div className="space-y-4 text-white/90">
+                            <p>
+                              The app has three main levels that you can move between by scrolling or using the navigation buttons:
+                            </p>
+
+                            <div>
+                              <h3 className="text-xl font-semibold text-white/90 mb-2">Level 1: Home Screen</h3>
+                              <p>
+                                This is where you start - the cosmic bubbles welcome screen with the "Make a New Goal" button.
+                                From here, you can scroll down or click the navigation buttons to explore.
+                              </p>
+                            </div>
+
+                            <div>
+                              <h3 className="text-xl font-semibold text-white/90 mb-2">Level 2: Goals Dashboard</h3>
+                              <p>
+                                The middle level lets you view and manage your Personal and Team goals. Click on any
+                                goal card to see details and track progress on your milestones.
+                              </p>
+                            </div>
+
+                            <div>
+                              <h3 className="text-xl font-semibold text-white/90 mb-2">Level 3: About Page</h3>
+                              <p>
+                                That's where you are now! This level shares info about how the app was built
+                                and its features. You can scroll back up to return to your goals anytime.
+                              </p>
+                            </div>
                           </div>
                         </motion.section>
 
@@ -1738,39 +1777,37 @@ const GoalTracker: React.FC = () => {
                           transition={{ duration: 0.6, delay: 0.6 }}
                           className="bg-gradient-to-br from-purple-900/30 via-indigo-900/30 to-black/50 p-8 rounded-xl border border-purple-500/20"
                         >
-                          <h2 className="text-3xl font-bold text-white mb-4">Key Features</h2>
+                          <h2 className="text-3xl font-bold text-white mb-4">Cool Features</h2>
                           <div className="space-y-4 text-white/90">
                             <div>
-                              <h3 className="text-xl font-semibold text-white/90 mb-2">Multi-Level Navigation</h3>
+                              <h3 className="text-xl font-semibold text-white/90 mb-2">Smooth Level Transitions</h3>
                               <p>
-                                The application features a unique multi-level navigation system that uses scroll-based
-                                transitions with cloud animations to move between different functional areas.
+                                When you scroll between screens, you'll see those awesome cloud animations. They make
+                                moving through the app feel like an experience, not just clicking around.
                               </p>
                             </div>
 
                             <div>
-                              <h3 className="text-xl font-semibold text-white/90 mb-2">Interactive Goal Management</h3>
+                              <h3 className="text-xl font-semibold text-white/90 mb-2">Personal & Team Goals</h3>
                               <p>
-                                Users can create, view, and update both personal and team goals with customizable
-                                milestones. Each milestone has a weightage value that contributes to the overall
-                                goal progress.
+                                You can create goals just for yourself or for your whole team. Each goal has milestones
+                                with different weights, so you can track what's most important.
                               </p>
                             </div>
 
                             <div>
-                              <h3 className="text-xl font-semibold text-white/90 mb-2">Progress Visualization</h3>
+                              <h3 className="text-xl font-semibold text-white/90 mb-2">Visual Progress Tracking</h3>
                               <p>
-                                Goal progress is visualized through animated pie charts and an interactive milestone
-                                map that shows the path to completion. The visual elements adapt dynamically as users
-                                mark milestones as complete.
+                                The pie charts and progress maps show exactly how far you've come. When you complete
+                                a milestone, you'll see your progress update in real-time.
                               </p>
                             </div>
 
                             <div>
-                              <h3 className="text-xl font-semibold text-white/90 mb-2">Persistent Storage</h3>
+                              <h3 className="text-xl font-semibold text-white/90 mb-2">Everything Saves Automatically</h3>
                               <p>
-                                All user-created goals and progress updates are stored in the browser's localStorage,
-                                ensuring that data persists between sessions without requiring a backend server.
+                                Close the browser, come back later - your goals will still be there. Everything
+                                saves right in your browser so you don't need to create an account.
                               </p>
                             </div>
                           </div>
@@ -1783,35 +1820,34 @@ const GoalTracker: React.FC = () => {
                           transition={{ duration: 0.6, delay: 0.8 }}
                           className="bg-gradient-to-br from-blue-900/30 via-indigo-900/30 to-black/50 p-8 rounded-xl border border-blue-500/20"
                         >
-                          <h2 className="text-3xl font-bold text-white mb-4">Design Philosophy</h2>
+                          <h2 className="text-3xl font-bold text-white mb-4">The Vision Behind It</h2>
                           <div className="space-y-4 text-white/90">
                             <p>
-                              The Goal Tracker embraces a futuristic, immersive design language that aims to make
-                              goal setting and tracking an engaging experience rather than a mundane task.
+                              I wanted to make goal tracking actually fun - something you'd want to use, not
+                              just another boring to-do list app.
                             </p>
 
                             <div>
-                              <h3 className="text-xl font-semibold text-white/90 mb-2">Immersive User Interface</h3>
+                              <h3 className="text-xl font-semibold text-white/90 mb-2">It Reacts to You</h3>
                               <p>
-                                The floating bubbles and dots create an interactive cosmic environment that responds
-                                to user movements. This design choice creates a sense of depth and makes the interface
-                                feel alive and responsive.
+                                Notice how the floating bubbles and dots respond to your mouse movements? That's
+                                intentional - it makes the app feel alive and responsive to what you're doing.
                               </p>
                             </div>
 
                             <div>
-                              <h3 className="text-xl font-semibold text-white/90 mb-2">Intuitive Workflow</h3>
+                              <h3 className="text-xl font-semibold text-white/90 mb-2">Guided Experience</h3>
                               <p>
-                                The application guides users through a logical progression of steps when creating
-                                goals, with contextual information and feedback at each stage.
+                                Creating goals walks you through clear steps, so you always know what to do next.
+                                The UI gives you feedback as you go, making everything feel intuitive.
                               </p>
                             </div>
 
                             <div>
-                              <h3 className="text-xl font-semibold text-white/90 mb-2">Accessibility Considerations</h3>
+                              <h3 className="text-xl font-semibold text-white/90 mb-2">Easy on the Eyes</h3>
                               <p>
-                                Despite the rich visual effects, care has been taken to ensure text remains readable
-                                with appropriate contrast ratios, and interactive elements have clear focus states.
+                                Even with all the visual effects, I made sure text is easy to read and buttons
+                                are clear. You can use this app for hours without eye strain.
                               </p>
                             </div>
                           </div>
@@ -1824,123 +1860,249 @@ const GoalTracker: React.FC = () => {
                           transition={{ duration: 0.6, delay: 1.0 }}
                           className="bg-gradient-to-br from-teal-900/30 via-blue-900/30 to-black/50 p-8 rounded-xl border border-teal-500/20"
                         >
-                          <h2 className="text-3xl font-bold text-white mb-4">Technical Highlights</h2>
+                          <h2 className="text-3xl font-bold text-white mb-4">Tech Highlights</h2>
                           <div className="space-y-4 text-white/90">
                             <div>
-                              <h3 className="text-xl font-semibold text-white/90 mb-2">Accurate Progress Calculation</h3>
+                              <h3 className="text-xl font-semibold text-white/90 mb-2">Smart Progress Calculation</h3>
                               <p>
-                                Goal progress is calculated based on the cumulative weightage of completed milestones,
-                                providing an accurate representation of advancement toward the overall objective.
+                                The app doesn't just count completed tasks - it weighs each milestone based on
+                                importance so your progress percentage actually makes sense.
                               </p>
                             </div>
 
                             <div>
-                              <h3 className="text-xl font-semibold text-white/90 mb-2">Optimized Animation Performance</h3>
+                              <h3 className="text-xl font-semibold text-white/90 mb-2">Smooth Performance</h3>
                               <p>
-                                Animations are optimized using GPU acceleration and selective rendering to maintain
-                                smooth performance even on lower-powered devices.
+                                All those fancy animations don't slow things down. I optimized everything to use
+                                your GPU efficiently, so it runs well even on older devices.
                               </p>
                             </div>
 
                             <div>
-                              <h3 className="text-xl font-semibold text-white/90 mb-2">Responsive Design Approach</h3>
+                              <h3 className="text-xl font-semibold text-white/90 mb-2">Works on Any Device</h3>
                               <p>
-                                The application adapts seamlessly to different screen sizes using a mobile-first
-                                approach, with special attention to touch interactions for mobile users.
+                                Try resizing your browser or opening this on your phone - everything adapts
+                                automatically. I built it mobile-first to ensure it works great everywhere.
                               </p>
                             </div>
-                          </div>
-                        </motion.section>
-
-                        {/* Future Enhancements */}
-                        <motion.section
-                          initial={{ opacity: 0, x: 30 }}
-                          animate={{ opacity: 1, x: 0 }}
-                          transition={{ duration: 0.6, delay: 1.2 }}
-                          className="bg-gradient-to-br from-pink-900/30 via-purple-900/30 to-black/50 p-8 rounded-xl border border-pink-500/20 mb-8"
-                        >
-                          <h2 className="text-3xl font-bold text-white mb-4">Future Enhancements</h2>
-                          <div className="space-y-3 text-white/90">
-                            <p>
-                              While the current implementation provides a solid foundation, several enhancements are planned:
-                            </p>
-                            <ul className="list-disc pl-6 space-y-2 mt-4">
-                              <li>Cloud synchronization to share goals across devices</li>
-                              <li>Advanced analytics to track goal completion patterns over time</li>
-                              <li>Integration with calendar APIs for deadline management</li>
-                              <li>Expanded team collaboration features with real-time updates</li>
-                              <li>Customizable themes and interface options</li>
-                            </ul>
                           </div>
                         </motion.section>
 
                         {/* Navigation hint */}
                         <div className="text-center my-12 text-white/70">
-                          <p>Scroll up to return to the Goals Dashboard</p>
+                          <p>Scroll up to go back to your goals</p>
+                          <svg className="w-8 h-8 mx-auto mt-2 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                          </svg>
+                        </div>
+                      </div>
+                      <div className="space-y-12 mb-20">
+                        {/* Technology Stack */}
+                        <motion.section
+                          initial={{ opacity: 0, x: -30 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.6, delay: 0.4 }}
+                          className="bg-gradient-to-br from-indigo-900/30 via-purple-900/30 to-black/50 p-8 rounded-xl border border-indigo-500/20"
+                        >
+                          <h2 className="text-3xl font-bold text-white mb-4">What's Powering This App</h2>
+                          <div className="space-y-3 text-white/90">
+                            <p>
+                              I built this Goal Tracker with modern React and TypeScript to create an interactive
+                              experience. Here's what's under the hood:
+                            </p>
+                            <ul className="list-disc pl-6 space-y-2 mt-4">
+                              <li>
+                                <span className="text-purple-400 font-semibold">React</span> - Handles all the interactive
+                                elements and state management
+                              </li>
+                              <li>
+                                <span className="text-blue-400 font-semibold">TypeScript</span> - Makes everything
+                                more reliable with type checking
+                              </li>
+                              <li>
+                                <span className="text-pink-400 font-semibold">Framer Motion</span> - Creates all those
+                                smooth animations you see when moving around
+                              </li>
+                              <li>
+                                <span className="text-green-400 font-semibold">Recharts</span> - Powers the progress
+                                pie charts that show how you're doing
+                              </li>
+                              <li>
+                                <span className="text-yellow-400 font-semibold">LocalStorage</span> - Saves your goals
+                                right in your browser so they'll be there next time
+                              </li>
+                            </ul>
+                          </div>
+                        </motion.section>
+
+                        {/* How the App Works - NEW SECTION */}
+                        <motion.section
+                          initial={{ opacity: 0, x: 30 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.6, delay: 0.5 }}
+                          className="bg-gradient-to-br from-cyan-900/30 via-blue-900/30 to-black/50 p-8 rounded-xl border border-cyan-500/20"
+                        >
+                          <h2 className="text-3xl font-bold text-white mb-4">How This App Works</h2>
+                          <div className="space-y-4 text-white/90">
+                            <p>
+                              The app has three main levels that you can move between by scrolling or using the navigation buttons:
+                            </p>
+
+                            <div>
+                              <h3 className="text-xl font-semibold text-white/90 mb-2">Level 1: Home Screen</h3>
+                              <p>
+                                This is where you start - the cosmic bubbles welcome screen with the "Make a New Goal" button.
+                                From here, you can scroll down or click the navigation buttons to explore.
+                              </p>
+                            </div>
+
+                            <div>
+                              <h3 className="text-xl font-semibold text-white/90 mb-2">Level 2: Goals Dashboard</h3>
+                              <p>
+                                The middle level lets you view and manage your Personal and Team goals. Click on any
+                                goal card to see details and track progress on your milestones.
+                              </p>
+                            </div>
+
+                            <div>
+                              <h3 className="text-xl font-semibold text-white/90 mb-2">Level 3: About Page</h3>
+                              <p>
+                                That's where you are now! This level shares info about how the app was built
+                                and its features. You can scroll back up to return to your goals anytime.
+                              </p>
+                            </div>
+                          </div>
+                        </motion.section>
+
+                        {/* Key Features */}
+                        <motion.section
+                          initial={{ opacity: 0, x: 30 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.6, delay: 0.6 }}
+                          className="bg-gradient-to-br from-purple-900/30 via-indigo-900/30 to-black/50 p-8 rounded-xl border border-purple-500/20"
+                        >
+                          <h2 className="text-3xl font-bold text-white mb-4">Cool Features</h2>
+                          <div className="space-y-4 text-white/90">
+                            <div>
+                              <h3 className="text-xl font-semibold text-white/90 mb-2">Smooth Level Transitions</h3>
+                              <p>
+                                When you scroll between screens, you'll see those awesome cloud animations. They make
+                                moving through the app feel like an experience, not just clicking around.
+                              </p>
+                            </div>
+
+                            <div>
+                              <h3 className="text-xl font-semibold text-white/90 mb-2">Personal & Team Goals</h3>
+                              <p>
+                                You can create goals just for yourself or for your whole team. Each goal has milestones
+                                with different weights, so you can track what's most important.
+                              </p>
+                            </div>
+
+                            <div>
+                              <h3 className="text-xl font-semibold text-white/90 mb-2">Visual Progress Tracking</h3>
+                              <p>
+                                The pie charts and progress maps show exactly how far you've come. When you complete
+                                a milestone, you'll see your progress update in real-time.
+                              </p>
+                            </div>
+
+                            <div>
+                              <h3 className="text-xl font-semibold text-white/90 mb-2">Everything Saves Automatically</h3>
+                              <p>
+                                Close the browser, come back later - your goals will still be there. Everything
+                                saves right in your browser so you don't need to create an account.
+                              </p>
+                            </div>
+                          </div>
+                        </motion.section>
+
+                        {/* Design Philosophy */}
+                        <motion.section
+                          initial={{ opacity: 0, y: 30 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.6, delay: 0.8 }}
+                          className="bg-gradient-to-br from-blue-900/30 via-indigo-900/30 to-black/50 p-8 rounded-xl border border-blue-500/20"
+                        >
+                          <h2 className="text-3xl font-bold text-white mb-4">The Vision Behind It</h2>
+                          <div className="space-y-4 text-white/90">
+                            <p>
+                              I wanted to make goal tracking actually fun - something you'd want to use, not
+                              just another boring to-do list app.
+                            </p>
+
+                            <div>
+                              <h3 className="text-xl font-semibold text-white/90 mb-2">It Reacts to You</h3>
+                              <p>
+                                Notice how the floating bubbles and dots respond to your mouse movements? That's
+                                intentional - it makes the app feel alive and responsive to what you're doing.
+                              </p>
+                            </div>
+
+                            <div>
+                              <h3 className="text-xl font-semibold text-white/90 mb-2">Guided Experience</h3>
+                              <p>
+                                Creating goals walks you through clear steps, so you always know what to do next.
+                                The UI gives you feedback as you go, making everything feel intuitive.
+                              </p>
+                            </div>
+
+                            <div>
+                              <h3 className="text-xl font-semibold text-white/90 mb-2">Easy on the Eyes</h3>
+                              <p>
+                                Even with all the visual effects, I made sure text is easy to read and buttons
+                                are clear. You can use this app for hours without eye strain.
+                              </p>
+                            </div>
+                          </div>
+                        </motion.section>
+
+                        {/* Technical Implementation */}
+                        <motion.section
+                          initial={{ opacity: 0, x: -30 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.6, delay: 1.0 }}
+                          className="bg-gradient-to-br from-teal-900/30 via-blue-900/30 to-black/50 p-8 rounded-xl border border-teal-500/20"
+                        >
+                          <h2 className="text-3xl font-bold text-white mb-4">Tech Highlights</h2>
+                          <div className="space-y-4 text-white/90">
+                            <div>
+                              <h3 className="text-xl font-semibold text-white/90 mb-2">Smart Progress Calculation</h3>
+                              <p>
+                                The app doesn't just count completed tasks - it weighs each milestone based on
+                                importance so your progress percentage actually makes sense.
+                              </p>
+                            </div>
+
+                            <div>
+                              <h3 className="text-xl font-semibold text-white/90 mb-2">Smooth Performance</h3>
+                              <p>
+                                All those fancy animations don't slow things down. I optimized everything to use
+                                your GPU efficiently, so it runs well even on older devices.
+                              </p>
+                            </div>
+
+                            <div>
+                              <h3 className="text-xl font-semibold text-white/90 mb-2">Works on Any Device</h3>
+                              <p>
+                                Try resizing your browser or opening this on your phone - everything adapts
+                                automatically. I built it mobile-first to ensure it works great everywhere.
+                              </p>
+                            </div>
+                          </div>
+                        </motion.section>
+
+                        {/* Navigation hint */}
+                        <div className="text-center my-12 text-white/70">
+                          <p>Scroll up to go back to your goals</p>
                           <svg className="w-8 h-8 mx-auto mt-2 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
                           </svg>
                         </div>
                       </div>
 
-                      {/* Duplicate sections for infinite loop */}
-                      <div className="space-y-12">
-                        {/* Technology Stack (repeated) */}
-                        <section className="bg-gradient-to-br from-indigo-900/30 via-purple-900/30 to-black/50 p-8 rounded-xl border border-indigo-500/20">
-                          <h2 className="text-3xl font-bold text-white mb-4">Technology Stack</h2>
-                          <div className="space-y-3 text-white/90">
-                            <p>
-                              This Goal Tracker application is built using modern React with TypeScript, showcasing
-                              a fully interactive and responsive interface. It leverages several key technologies:
-                            </p>
-                            <ul className="list-disc pl-6 space-y-2 mt-4">
-                              <li>
-                                <span className="text-purple-400 font-semibold">React</span> - For building the
-                                interactive UI components with hooks for state management
-                              </li>
-                              <li>
-                                <span className="text-blue-400 font-semibold">TypeScript</span> - Provides type
-                                safety and better developer experience
-                              </li>
-                              <li>
-                                <span className="text-pink-400 font-semibold">Framer Motion</span> - Powers all
-                                the smooth animations and transitions between states
-                              </li>
-                              <li>
-                                <span className="text-green-400 font-semibold">Recharts</span> - Creates the
-                                interactive pie charts for goal progress visualization
-                              </li>
-                              <li>
-                                <span className="text-yellow-400 font-semibold">LocalStorage API</span> - Persists
-                                user goals and progress across sessions
-                              </li>
-                            </ul>
-                          </div>
-                        </section>
 
-                        {/* Key Features (repeated) */}
-                        <section className="bg-gradient-to-br from-purple-900/30 via-indigo-900/30 to-black/50 p-8 rounded-xl border border-purple-500/20">
-                          <h2 className="text-3xl font-bold text-white mb-4">Key Features</h2>
-                          <div className="space-y-4 text-white/90">
-                            <div>
-                              <h3 className="text-xl font-semibold text-white/90 mb-2">Multi-Level Navigation</h3>
-                              <p>
-                                The application features a unique multi-level navigation system that uses scroll-based
-                                transitions with cloud animations to move between different functional areas.
-                              </p>
-                            </div>
 
-                            <div>
-                              <h3 className="text-xl font-semibold text-white/90 mb-2">Interactive Goal Management</h3>
-                              <p>
-                                Users can create, view, and update both personal and team goals with customizable
-                                milestones. Each milestone has a weightage value that contributes to the overall
-                                goal progress.
-                              </p>
-                            </div>
-                          </div>
-                        </section>
-                      </div>
                     </motion.div>
 
                     {/* Gradient overlays for top and bottom fade effects */}
