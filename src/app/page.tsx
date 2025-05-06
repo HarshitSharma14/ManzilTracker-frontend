@@ -11,6 +11,11 @@ import Head from "next/head";
 <style jsx global>{`
       @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
 
+       @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Rajdhani:wght@300;400;500;600;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&display=swap');
+ 
+
       @keyframes cloudDrift {
     0% {
       transform: scale(1) translateY(30px);
@@ -905,10 +910,6 @@ const GoalTracker: React.FC = () => {
   return (
     <>
 
-      <Head>
-        <link rel="icon" type="image/svg" href="/icon.svg" />
-        <title>Goal Tracker</title>
-      </Head>
 
       <div className="relative h-screen overflow-hidden bg-gradient-to-b from-black via-black to-purple-900" ref={containerRef}>
         {/* Floating Dots - Always present in all levels */}
@@ -944,6 +945,99 @@ const GoalTracker: React.FC = () => {
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
             >
+              <motion.nav
+                className="absolute top-0 left-0 right-0 z-40 px-4 py-6"
+                animate={{
+                  opacity: (isExpanding || fadeLevel1) ? 0 : 1,
+                }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+              >
+                <div className="max-w-screen-xl mx-auto flex justify-end">
+                  <div className="flex space-x-6 sm:space-x-10">
+                    <motion.button
+                      onClick={() => {
+                        setFadeLevel1(true);
+                        setTimeout(() => {
+                          setTransitioning("expanding");
+                          setScrollDirection("down");
+                          setCloudPhase("active");
+                          setTimeout(() => {
+                            setScrollPhase("active");
+                          }, 300);
+                          setTimeout(() => {
+                            setTransitioning(null);
+                            setCloudPhase(null);
+                            setScrollPhase(null);
+                            setLevel(1);
+                            setFadeLevel1(false);
+                            setScrollDirection(null);
+                          }, 1200);
+                        }, 200);
+                      }}
+                      whileHover={{
+                        scale: 1.05,
+                        textShadow: "0 0 15px rgba(96, 165, 250, 0.8), 0 0 10px rgba(37, 99, 235, 0.6)"
+                      }}
+                      whileTap={{ scale: 0.98 }}
+                      className="relative px-6 sm:px-8 py-2 text-sm sm:text-base tracking-wider uppercase text-blue-400 font-medium rounded-md overflow-hidden bg-transparent backdrop-blur-sm transition-all duration-300 font-['Rajdhani'] font-semibold letter-spacing-wider"
+                    >
+                      <span className="relative z-10">GOALS</span>
+                      <motion.div
+                        className="absolute inset-0 rounded-md opacity-40"
+                        animate={{
+                          boxShadow: ["0 0 0px rgba(59, 130, 246, 0)", "0 0 10px rgba(59, 130, 246, 0.5)", "0 0 0px rgba(59, 130, 246, 0)"]
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          repeatType: "reverse"
+                        }}
+                      />
+                    </motion.button>
+
+                    <motion.button
+                      onClick={() => {
+                        setFadeLevel1(true);
+                        setTimeout(() => {
+                          setTransitioning("expanding");
+                          setScrollDirection("down");
+                          setCloudPhase("active");
+                          setTimeout(() => {
+                            setScrollPhase("active");
+                          }, 300);
+                          setTimeout(() => {
+                            setTransitioning(null);
+                            setCloudPhase(null);
+                            setScrollPhase(null);
+                            setLevel(2);
+                            setFadeLevel1(false);
+                            setScrollDirection(null);
+                          }, 1200);
+                        }, 200);
+                      }}
+                      whileHover={{
+                        scale: 1.05,
+                        textShadow: "0 0 15px rgba(192, 132, 252, 0.8), 0 0 10px rgba(126, 34, 206, 0.6)"
+                      }}
+                      whileTap={{ scale: 0.98 }}
+                      className="relative px-6 sm:px-8 py-2 text-sm sm:text-base tracking-wider uppercase text-purple-400  rounded-md overflow-hidden bg-transparent backdrop-blur-sm transition-all duration-300 font-['Rajdhani'] font-semibold letter-spacing-wider"
+                    >
+                      <span className="relative z-10">ABOUT</span>
+                      <motion.div
+                        className="absolute inset-0 rounded-md opacity-40"
+                        animate={{
+                          boxShadow: ["0 0 0px rgba(168, 85, 247, 0)", "0 0 10px rgba(168, 85, 247, 0.5)", "0 0 0px rgba(168, 85, 247, 0)"]
+                        }}
+                        transition={{
+                          duration: 2.2,
+                          repeat: Infinity,
+                          repeatType: "reverse"
+                        }}
+                      />
+                    </motion.button>
+                  </div>
+                </div>
+              </motion.nav>
               {/* Bubbles */}
               {BUBBLES.map((bubble) => {
                 const isHovered = hoveredBubble === bubble.id;
@@ -990,16 +1084,79 @@ const GoalTracker: React.FC = () => {
                 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
               >
-                {/* Top section - Title */}
-                <div className="mt-6 sm:mt-8">
-                  <motion.h1
-                    className="text-4xl sm:text-6xl font-bold text-white text-center"
+                {/* Enhanced Top section - Title with animations */}
+                {/* <motion.div
+      className="absolute inset-0 flex flex-col items-center justify-between py-12 sm:py-16 px-4 z-30"
+      animate={{
+        opacity: (isExpanding || fadeLevel1) ? 0 : 1,
+      }}
+      transition={{ duration: 0.6, ease: "easeOut" }}
+    > */}
+                {/* Enhanced Top section - Title with animations */}
+                <div className="mt-6 sm:mt-16 w-full flex flex-col items-center">
+                  <motion.div
                     initial={{ opacity: 0, y: -20 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+                    className="relative"
                   >
-                    GOAL TRACKER
-                  </motion.h1>
+                    <motion.h1
+                      className="text-5xl sm:text-7xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-cyan-300 via-teal-200 to-emerald-300 text-center font-['Orbitron'] tracking-wider"
+                      animate={{
+                        textShadow: [
+                          "0 0 15px rgba(34, 211, 238, 0.5)",
+                          "0 0 25px rgba(34, 211, 238, 0.8)",
+                          "0 0 15px rgba(34, 211, 238, 0.5)"
+                        ]
+                      }}
+                      transition={{
+                        duration: 3,
+                        repeat: Infinity,
+                        repeatType: "reverse"
+                      }}
+                    >
+                      GOAL TRACKER
+                    </motion.h1>
+
+                    {/* Animated underline */}
+                    <motion.div
+                      className="h-1 bg-gradient-to-r from-cyan-400 via-teal-300 to-emerald-400 rounded-full mt-1"
+                      initial={{ width: 0, opacity: 0 }}
+                      animate={{ width: "100%", opacity: 1 }}
+                      transition={{ duration: 1, delay: 0.8 }}
+                    />
+
+                    {/* Animated tech dots under the title */}
+                    <div className="flex justify-center mt-2 space-x-2">
+                      {[0, 1, 2, 3, 4].map((dot) => (
+                        <motion.div
+                          key={dot}
+                          className="w-1.5 h-1.5 rounded-full bg-cyan-400"
+                          initial={{ opacity: 0 }}
+                          animate={{
+                            opacity: [0.2, 1, 0.2],
+                            scale: [0.8, 1.2, 0.8]
+                          }}
+                          transition={{
+                            duration: 2,
+                            repeat: Infinity,
+                            repeatType: "reverse",
+                            delay: dot * 0.2
+                          }}
+                        />
+                      ))}
+                    </div>
+                  </motion.div>
+
+                  {/* Animated subtitle */}
+                  <motion.p
+                    className="mt-4 text-sm sm:text-base text-cyan-200/80 font-['Rajdhani'] tracking-widest"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ duration: 1, delay: 1 }}
+                  >
+                    VISUALIZE • TRACK • ACHIEVE
+                  </motion.p>
                 </div>
 
                 {/* Middle section - Button */}
@@ -1247,6 +1404,69 @@ const GoalTracker: React.FC = () => {
                         <h2 className="text-2xl sm:text-4xl font-bold text-white mb-2 sm:mb-4">Team Goals</h2>
                         <p className="text-white/80 text-center text-sm sm:text-base">Collaborate on shared objectives and monitor team progress</p>
                       </div>
+                    </motion.div>
+                    <motion.div
+                      className="fixed bottom-8 left-0 right-0 z-50 flex flex-col items-center"
+                      initial={{ opacity: 0 }}
+                      animate={{
+                        opacity: fadeLevel1 ? 0 : 1,
+                        y: fadeLevel1 ? 10 : 0
+                      }}
+                      transition={{
+                        opacity: { duration: 0.3 },
+                        y: { duration: 0.2 }
+                      }}
+                    >
+                      <motion.p
+                        className="text-sm sm:text-base text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-300 to-pink-400 font-semibold tracking-wider mb-2"
+                      >
+                        SCROLL TO SEE SITE DETAILS
+                      </motion.p>
+
+                      <motion.div
+                        className="relative"
+                        animate={{
+                          y: [0, 10, 0],
+                        }}
+                        transition={{
+                          duration: 2,
+                          repeat: Infinity,
+                          repeatType: "reverse"
+                        }}
+                      >
+                        {/* Glowing arrow */}
+                        <svg width="32" height="32" viewBox="0 0 24 24" className="text-blue-400">
+                          <motion.path
+                            d="M12 4 L12 20 M5 13 L12 20 L19 13"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            fill="none"
+                            initial={{ pathLength: 0, opacity: 0 }}
+                            animate={{
+                              pathLength: 1,
+                              opacity: 1,
+                            }}
+                            transition={{ duration: 1.5, ease: "easeInOut" }}
+                          />
+                          <motion.path
+                            d="M12 4 L12 20 M5 13 L12 20 L19 13"
+                            stroke="white"
+                            strokeWidth="1"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            fill="none"
+                            initial={{ pathLength: 0, opacity: 0 }}
+                            animate={{ pathLength: 1, opacity: 0.8 }}
+                            transition={{ duration: 1.5, ease: "easeInOut", delay: 0.3 }}
+                          />
+                        </svg>
+
+                        {/* Enhanced glow effect */}
+                        <div className="absolute -inset-2 bg-blue-500/20 rounded-full blur-xl z-0"></div>
+                        <div className="absolute -inset-1 bg-blue-400/30 rounded-full blur-md z-0"></div>
+                      </motion.div>
                     </motion.div>
                   </motion.div>
                 ) : (
