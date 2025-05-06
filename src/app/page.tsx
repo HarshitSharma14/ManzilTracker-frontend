@@ -6,7 +6,6 @@ import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { v4 as uuidv4 } from 'uuid';
 import Head from "next/head";
 
-
 {/* Add all styles globally */ }
 <style jsx global>{`
       @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
