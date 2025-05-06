@@ -4,6 +4,206 @@ import { useState, useEffect, useRef } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from 'recharts';
 import { v4 as uuidv4 } from 'uuid';
+import Head from "next/head";
+
+
+{/* Add all styles globally */ }
+<style jsx global>{`
+      @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&display=swap');
+
+      @keyframes cloudDrift {
+    0% {
+      transform: scale(1) translateY(30px);
+      opacity: 0.5;
+    }
+    50% {
+      transform: scale(1.05) translateY(0px);
+      opacity: 0.9;
+    }
+    100% {
+      transform: scale(1.1) translateY(-30px);
+      opacity: 0.6;
+    }
+  }
+
+  .mix-blend-screen {
+    mix-blend-mode: screen;
+  }
+
+  .pink-scrollbar::-webkit-scrollbar {
+    height: 8px;
+  }
+
+  .pink-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .pink-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #be185d;
+    border-radius: 8px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+  }
+
+  .pink-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: #9d174d;
+  }
+
+  .pink-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #be185d transparent;
+  }
+
+  .octagon-button {
+    position: relative;
+    padding: 1.5rem 3rem;
+    font-size: 1.2rem;
+    color: #fff;
+    background-color: #0D1127;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
+    box-shadow: 0 0 0 5px #5978F3;
+  }
+
+  .octagon-button:hover {
+    background-color: #0F1C53;
+    transform: scale(1.05);
+  }
+
+  .octagon-button:active {
+    transform: scale(0.95);
+  }
+
+  @keyframes borderAnimate1 {
+    0% {
+      transform: translateX(-100%);
+    }
+    100% {
+      transform: translateX(100%);
+    }
+  }
+
+  @keyframes borderAnimate2 {
+    0% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateY(100%);
+    }
+  }
+
+  @keyframes borderAnimate3 {
+    0% {
+      transform: translateX(100%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  @keyframes borderAnimate4 {
+    0% {
+      transform: translateY(100%);
+    }
+    100% {
+      transform: translateY(-100%);
+    }
+  }
+
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+    @keyframes borderAnimate1 {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100%); }
+    }
+    @keyframes borderAnimate2 {
+      0% { transform: translateY(-100%); }
+      100% { transform: translateY(100%); }
+    }
+    @keyframes borderAnimate3 {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+    @keyframes borderAnimate4 {
+      0% { transform: translateY(100%); }
+      100% { transform: translateY(-100%); }
+    }
+@import url('https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100..900;1,100..900&family=Open+Sans:ital,wght@0,300..800;1,300..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap');
+
+    /* Custom scrollbar styles - COMPLETELY hide scrollbar */
+    .custom-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .custom-scrollbar {
+      -ms-overflow-style: none;  /* IE and Edge */
+      scrollbar-width: none;     /* Firefox */
+    }
+
+    .modal-scrollbar {
+      overflow-y: auto;
+      overflow-x: hidden;
+
+      /* Firefox */
+      scrollbar-width: thin;
+      scrollbar-color: #6d28d9 transparent;
+    }
+
+    /* Chrome, Safari */
+    .modal-scrollbar::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    .modal-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .modal-scrollbar::-webkit-scrollbar-thumb {
+      background-color: #6d28d9; /* Purple-700 */
+      border-radius: 8px;
+      border: 2px solid transparent;
+      background-clip: padding-box;
+    }
+
+    .modal-scrollbar::-webkit-scrollbar-thumb:hover {
+      background-color: #5b21b6; /* Purple-800 */
+    }
+
+    /* Pink scrollbar for goals */
+    .pink-scrollbar::-webkit-scrollbar {
+      height: 8px;
+      width: 8px;
+    }
+
+    .pink-scrollbar::-webkit-scrollbar-track {
+      background: transparent;
+    }
+
+    .pink-scrollbar::-webkit-scrollbar-thumb {
+      background-color: #be185d; /* Pink-700 */
+      border-radius: 8px;
+      border: 2px solid transparent;
+      background-clip: padding-box;
+    }
+
+    .pink-scrollbar::-webkit-scrollbar-thumb:hover {
+      background-color: #9d174d; /* Pink-800 */
+    }
+
+    .pink-scrollbar {
+      scrollbar-width: thin;
+      scrollbar-color: #be185d transparent;
+    }
+  `}</style>
 
 // Type definitions
 type BubbleColor = "purple" | "blue" | "indigo" | "pink" | "teal";
@@ -209,200 +409,7 @@ const FuturisticButton: React.FC<{ onClick: () => void; fadeOut?: boolean }> = (
         </motion.button>
       </div>
 
-      {/* Add all styles globally */}
-      <style jsx global>{`
-      @keyframes cloudDrift {
-    0% {
-      transform: scale(1) translateY(30px);
-      opacity: 0.5;
-    }
-    50% {
-      transform: scale(1.05) translateY(0px);
-      opacity: 0.9;
-    }
-    100% {
-      transform: scale(1.1) translateY(-30px);
-      opacity: 0.6;
-    }
-  }
 
-  .mix-blend-screen {
-    mix-blend-mode: screen;
-  }
-
-  .pink-scrollbar::-webkit-scrollbar {
-    height: 8px;
-  }
-
-  .pink-scrollbar::-webkit-scrollbar-track {
-    background: transparent;
-  }
-
-  .pink-scrollbar::-webkit-scrollbar-thumb {
-    background-color: #be185d;
-    border-radius: 8px;
-    border: 2px solid transparent;
-    background-clip: padding-box;
-  }
-
-  .pink-scrollbar::-webkit-scrollbar-thumb:hover {
-    background-color: #9d174d;
-  }
-
-  .pink-scrollbar {
-    scrollbar-width: thin;
-    scrollbar-color: #be185d transparent;
-  }
-
-  .octagon-button {
-    position: relative;
-    padding: 1.5rem 3rem;
-    font-size: 1.2rem;
-    color: #fff;
-    background-color: #0D1127;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s ease, transform 0.2s ease;
-    clip-path: polygon(30% 0%, 70% 0%, 100% 30%, 100% 70%, 70% 100%, 30% 100%, 0% 70%, 0% 30%);
-    box-shadow: 0 0 0 5px #5978F3;
-  }
-
-  .octagon-button:hover {
-    background-color: #0F1C53;
-    transform: scale(1.05);
-  }
-
-  .octagon-button:active {
-    transform: scale(0.95);
-  }
-
-  @keyframes borderAnimate1 {
-    0% {
-      transform: translateX(-100%);
-    }
-    100% {
-      transform: translateX(100%);
-    }
-  }
-
-  @keyframes borderAnimate2 {
-    0% {
-      transform: translateY(-100%);
-    }
-    100% {
-      transform: translateY(100%);
-    }
-  }
-
-  @keyframes borderAnimate3 {
-    0% {
-      transform: translateX(100%);
-    }
-    100% {
-      transform: translateX(-100%);
-    }
-  }
-
-  @keyframes borderAnimate4 {
-    0% {
-      transform: translateY(100%);
-    }
-    100% {
-      transform: translateY(-100%);
-    }
-  }
-
-  .hide-scrollbar::-webkit-scrollbar {
-    display: none;
-  }
-
-  .hide-scrollbar {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-  }
-    
-    @keyframes borderAnimate1 {
-      0% { transform: translateX(-100%); }
-      100% { transform: translateX(100%); }
-    }
-    @keyframes borderAnimate2 {
-      0% { transform: translateY(-100%); }
-      100% { transform: translateY(100%); }
-    }
-    @keyframes borderAnimate3 {
-      0% { transform: translateX(100%); }
-      100% { transform: translateX(-100%); }
-    }
-    @keyframes borderAnimate4 {
-      0% { transform: translateY(100%); }
-      100% { transform: translateY(-100%); }
-    }
-
-    /* Custom scrollbar styles - COMPLETELY hide scrollbar */
-    .custom-scrollbar::-webkit-scrollbar {
-      display: none;
-    }
-
-    .custom-scrollbar {
-      -ms-overflow-style: none;  /* IE and Edge */
-      scrollbar-width: none;     /* Firefox */
-    }
-
-    .modal-scrollbar {
-      overflow-y: auto;
-      overflow-x: hidden;
-
-      /* Firefox */
-      scrollbar-width: thin;
-      scrollbar-color: #6d28d9 transparent;
-    }
-
-    /* Chrome, Safari */
-    .modal-scrollbar::-webkit-scrollbar {
-      width: 8px;
-    }
-
-    .modal-scrollbar::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    .modal-scrollbar::-webkit-scrollbar-thumb {
-      background-color: #6d28d9; /* Purple-700 */
-      border-radius: 8px;
-      border: 2px solid transparent;
-      background-clip: padding-box;
-    }
-
-    .modal-scrollbar::-webkit-scrollbar-thumb:hover {
-      background-color: #5b21b6; /* Purple-800 */
-    }
-
-    /* Pink scrollbar for goals */
-    .pink-scrollbar::-webkit-scrollbar {
-      height: 8px;
-      width: 8px;
-    }
-
-    .pink-scrollbar::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    .pink-scrollbar::-webkit-scrollbar-thumb {
-      background-color: #be185d; /* Pink-700 */
-      border-radius: 8px;
-      border: 2px solid transparent;
-      background-clip: padding-box;
-    }
-
-    .pink-scrollbar::-webkit-scrollbar-thumb:hover {
-      background-color: #9d174d; /* Pink-800 */
-    }
-
-    .pink-scrollbar {
-      scrollbar-width: thin;
-      scrollbar-color: #be185d transparent;
-    }
-  `}</style>
     </>
   );
 };
@@ -896,2034 +903,2040 @@ const GoalTracker: React.FC = () => {
   const isShrinking = transitioning === "shrinking";
 
   return (
-    <div className="relative h-screen overflow-hidden bg-gradient-to-b from-black via-black to-purple-900" ref={containerRef}>
-      {/* Floating Dots - Always present in all levels */}
-      {dots.map((dot) => (
-        <motion.div
-          key={dot.id}
-          className="absolute rounded-full bg-white pointer-events-none"
-          initial={{ opacity: 0 }}
-          animate={{
-            opacity: fadeLevel1 ? 0.05 : dot.opacity,
-            scale: fadeLevel1 ? 0.7 : 1
-          }}
-          transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
-          style={{
-            width: `${dot.size}px`,
-            height: `${dot.size}px`,
-            opacity: fadeLevel1 ? 0.05 : dot.opacity,
-            left: `${dot.x}%`,
-            top: `${dot.y}%`,
-            zIndex: 5,
-            transition: "opacity 0.3s ease-out"
-          }}
-        />
-      ))}
+    <>
 
-      <AnimatePresence mode="wait">
-        {/* Level 1 - Home Screen */}
-        {(level === 0 || (transitioning === "shrinking" && !scrollPhase)) && (
+      <Head>
+        <link rel="icon" type="image/svg" href="/icon.svg" />
+        <title>Goal Tracker</title>
+      </Head>
+
+      <div className="relative h-screen overflow-hidden bg-gradient-to-b from-black via-black to-purple-900" ref={containerRef}>
+        {/* Floating Dots - Always present in all levels */}
+        {dots.map((dot) => (
           <motion.div
-            key="level-1"
-            className="relative h-screen w-full"
-            initial={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
-          >
-            {/* Bubbles */}
-            {BUBBLES.map((bubble) => {
-              const isHovered = hoveredBubble === bubble.id;
-              const styles = colorStyleMap[bubble.color];
+            key={dot.id}
+            className="absolute rounded-full bg-white pointer-events-none"
+            initial={{ opacity: 0 }}
+            animate={{
+              opacity: fadeLevel1 ? 0.05 : dot.opacity,
+              scale: fadeLevel1 ? 0.7 : 1
+            }}
+            transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 }}
+            style={{
+              width: `${dot.size}px`,
+              height: `${dot.size}px`,
+              opacity: fadeLevel1 ? 0.05 : dot.opacity,
+              left: `${dot.x}%`,
+              top: `${dot.y}%`,
+              zIndex: 5,
+              transition: "opacity 0.3s ease-out"
+            }}
+          />
+        ))}
 
-              return (
-                <motion.div
-                  key={bubble.id}
-                  className="absolute rounded-full pointer-events-auto cursor-pointer"
-                  initial={{ scale: 0, opacity: 0 }}
-                  animate={{
-                    scale: isExpanding ? 25 : 1,
-                    opacity: isExpanding ? (isHovered ? 0.9 : 0.4) : (isHovered ? 0.9 : 0.4),
-                  }}
-                  transition={{
-                    duration: 5,
-                    ease: "easeOut",
-                    delay: 0.1 + parseInt(bubble.id) * 0.03
-                  }}
-                  style={{
-                    left: `${bubble.x}%`,
-                    top: `${bubble.y}%`,
-                    width: `${bubble.size}px`,
-                    height: `${bubble.size}px`,
-                    backgroundColor: styles.bg,
-                    opacity: isExpanding ? (isHovered ? 0.9 : 0.4) : (isHovered ? 0.9 : 0.4),
-                    boxShadow: isHovered ? `0 0 80px 40px ${styles.glow}` : "none",
-                    transition: "box-shadow 0.5s ease-in-out, opacity 0.5s ease-in-out",
-                    willChange: "box-shadow, opacity, transform",
-                    zIndex: isHovered ? 20 : 5,
-                  }}
-                  onMouseEnter={() => setHoveredBubble(bubble.id)}
-                  onMouseLeave={() => setHoveredBubble(null)}
-                />
-              );
-            })}
+        <AnimatePresence mode="wait">
+          {/* Level 1 - Home Screen */}
+          {(level === 0 || (transitioning === "shrinking" && !scrollPhase)) && (
+            <motion.div
+              key="level-1"
+              className="relative h-screen w-full"
+              initial={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5 }}
+            >
+              {/* Bubbles */}
+              {BUBBLES.map((bubble) => {
+                const isHovered = hoveredBubble === bubble.id;
+                const styles = colorStyleMap[bubble.color];
 
-            {/* Title text */}
-            <div className="absolute inset-0 flex flex-col items-center justify-center z-30">
-              <motion.h1
-                className="text-6xl font-bold text-white"
-                initial={{ opacity: 0, y: 30 }}
+                return (
+                  <motion.div
+                    key={bubble.id}
+                    className="absolute rounded-full pointer-events-auto cursor-pointer"
+                    initial={{ scale: 0, opacity: 0 }}
+                    animate={{
+                      scale: isExpanding ? 25 : 1,
+                      opacity: isExpanding ? (isHovered ? 0.9 : 0.4) : (isHovered ? 0.9 : 0.4),
+                    }}
+                    transition={{
+                      duration: 5,
+                      ease: "easeOut",
+                      delay: 0.1 + parseInt(bubble.id) * 0.03
+                    }}
+                    style={{
+                      left: `${bubble.x}%`,
+                      top: `${bubble.y}%`,
+                      width: `${bubble.size}px`,
+                      height: `${bubble.size}px`,
+                      backgroundColor: styles.bg,
+                      opacity: isExpanding ? (isHovered ? 0.9 : 0.4) : (isHovered ? 0.9 : 0.4),
+                      boxShadow: isHovered ? `0 0 80px 40px ${styles.glow}` : "none",
+                      transition: "box-shadow 0.5s ease-in-out, opacity 0.5s ease-in-out",
+                      willChange: "box-shadow, opacity, transform",
+                      zIndex: isHovered ? 20 : 5,
+                    }}
+                    onMouseEnter={() => setHoveredBubble(bubble.id)}
+                    onMouseLeave={() => setHoveredBubble(null)}
+                  />
+                );
+              })}
+
+              {/* Title text */}
+              {/* <div className="absolute inset-0 flex flex-col items-center justify-center z-30"> */}
+              <motion.div
+                className="absolute inset-0 flex flex-col items-center justify-between py-12 sm:py-16 px-4 z-30"
                 animate={{
                   opacity: (isExpanding || fadeLevel1) ? 0 : 1,
-                  y: (isExpanding || fadeLevel1) ? 30 : 0
                 }}
                 transition={{ duration: 0.6, ease: "easeOut" }}
               >
-                GOAL TRACKER
-              </motion.h1>
-              <FuturisticButton
-                onClick={openModal}
-                fadeOut={isExpanding || fadeLevel1} // Pass a prop to control fading
-              />
-            </div>
+                {/* Top section - Title */}
+                <div className="mt-6 sm:mt-8">
+                  <motion.h1
+                    className="text-4xl sm:text-6xl font-bold text-white text-center"
+                    initial={{ opacity: 0, y: -20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+                  >
+                    GOAL TRACKER
+                  </motion.h1>
+                </div>
 
-            {/* Scroll indicator - positioned at bottom of screen */}
-            <motion.div
-              className="absolute bottom-16 left-0 right-0 flex flex-col items-center justify-center z-30 pointer-events-none"
-              initial={{ opacity: 0, y: 20 }}
-              animate={{
-                opacity: (isExpanding || fadeLevel1) ? 0 : 1,
-                y: (isExpanding || fadeLevel1) ? 30 : 0
-              }}
-              transition={{ duration: 0.6, ease: "easeOut" }}
-            >
-              <motion.div
-                className="mb-1 px-6 py-3 bg-gradient-to-r from-indigo-900/30 to-purple-900/30 backdrop-blur-sm rounded-lg border border-indigo-500/30 shadow-lg shadow-indigo-500/20"
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                transition={{ delay: 1, duration: 0.8 }}
-              >
-                <p className="text-lg sm:text-xl text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-300 to-pink-400 font-semibold tracking-wider">
-                  SCROLL TO CHECK YOUR GOALS
-                </p>
-              </motion.div>
+                {/* Middle section - Button */}
+                <div className="flex-grow flex items-center justify-self-auto mb-5 -mt-20 sm:-mt-40">
+                  <FuturisticButton onClick={openModal} />
+                </div>
 
-              <motion.div
-                className="relative"
-                animate={{
-                  y: [0, 10, 0],
-                }}
-                transition={{
-                  duration: 2,
-                  repeat: Infinity,
-                  repeatType: "reverse"
-                }}
-              >
-                {/* Glowing arrow */}
-                <svg width="40" height="40" viewBox="0 0 24 24" className="text-blue-400">
-                  <motion.path
-                    d="M12 4 L12 20 M5 13 L12 20 L19 13"
-                    stroke="currentColor"
-                    strokeWidth="2"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    fill="none"
-                    initial={{ pathLength: 0, opacity: 0 }}
+                {/* Bottom section - Scroll indicator */}
+                <div className="mb-4 mt-4 sm:mb-6 flex flex-col items-center justify-end">
+                  <motion.p
+                    className="text-sm sm:text-lg md:text-xl text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-purple-300 to-pink-400 font-semibold tracking-wider mb-4"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    transition={{ delay: 1.2, duration: 0.8 }}
+                  >
+                    SCROLL TO CHECK YOUR GOALS
+                  </motion.p>
+
+                  <motion.div
+                    className="relative"
                     animate={{
-                      pathLength: 1,
-                      opacity: 1,
+                      y: [0, 10, 0],
                     }}
-                    transition={{ duration: 1.5, ease: "easeInOut" }}
-                  />
-                  <motion.path
-                    d="M12 4 L12 20 M5 13 L12 20 L19 13"
-                    stroke="white"
-                    strokeWidth="1"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    fill="none"
-                    initial={{ pathLength: 0, opacity: 0 }}
-                    animate={{ pathLength: 1, opacity: 0.8 }}
-                    transition={{ duration: 1.5, ease: "easeInOut", delay: 0.3 }}
-                  />
-                </svg>
-
-                {/* Enhanced glow effect */}
-                <div className="absolute -inset-2 bg-blue-500/20 rounded-full blur-xl z-0"></div>
-                <div className="absolute -inset-1 bg-blue-400/30 rounded-full blur-md z-0"></div>
-              </motion.div>
-            </motion.div>
-          </motion.div>
-        )}
-
-        {/* Cloud animation for transitions */}
-        {cloudPhase === "active" && scrollDirection === "down" && (
-          <motion.div
-            key="cloud-scroll"
-            className="absolute inset-0 z-50 pointer-events-none"
-            initial={{ opacity: 1 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1 }}
-          >
-            {[0, 1, 2, 3, 4].map((i) => (
-              <motion.div
-                key={`cloud-${i}`}
-                className="absolute left-0 right-0"
-                style={{
-                  backgroundImage: `url('/clouds.png')`,
-                  backgroundSize: "100% 100%",
-                  backgroundRepeat: "no-repeat",
-                  backgroundPosition: "top center",
-                  height: "100vh",
-                  width: "100%",
-                  opacity: 0.6 + i * 0.1, // increasing opacity for depth effect
-                  zIndex: 50 + i,
-                }}
-                initial={{ y: `${100 + i * 100}%` }}
-                animate={{ y: `${-100 + i * 50}%` }}
-                transition={{ duration: 1.5 + i * 0.1, ease: "easeInOut" }}
-              />
-            ))}
-          </motion.div>
-        )}
-
-        {/* Cloud animation for scrolling up */}
-        {cloudPhase === "active" && scrollDirection === "up" && (
-          <motion.div
-            key="cloud-reverse"
-            className="absolute inset-0 z-50 pointer-events-none"
-            initial={{ opacity: 1 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1 }}
-          >
-            {[0, 1, 2, 3, 4].map((i) => (
-              <motion.div
-                key={`reverse-cloud-${i}`}
-                className="absolute left-0 right-0"
-                style={{
-                  backgroundImage: `url('/clouds.png')`,
-                  backgroundSize: "100% 100%",
-                  backgroundRepeat: "no-repeat",
-                  backgroundPosition: "top center",
-                  height: "100vh",
-                  width: "100%",
-                  opacity: 0.6 + i * 0.1,
-                  zIndex: 50 + i,
-                }}
-                initial={{ y: `${-100 + i * 50}%` }}
-                animate={{ y: `${100 + i * 100}%` }}
-                transition={{ duration: 1.5 + i * 0.1, ease: "easeInOut" }}
-              />
-            ))}
-          </motion.div>
-        )}
-
-        {scrollPhase === "active" && (
-          <motion.div
-            key="scroll-effect"
-            className="absolute inset-0 z-60"
-            initial={{ y: "100%" }}
-            animate={{ y: "0%" }}
-            transition={{ duration: 0.6, ease: "easeInOut" }}
-          />
-        )}
-
-        {/* Level 2 - Goals Dashboard */}
-        {(level === 1) && (
-          <motion.div
-            key="level-2"
-            className="absolute inset-0 z-40"
-            initial={{ opacity: 0 }}
-            animate={{ opacity: level === 1 ? 1 : isExpanding ? 1 : 0 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5, delay: isExpanding ? 0.7 : 0 }}
-          >
-            <AnimatePresence mode="wait">
-              {!showGoalsModal ? (
-                <motion.div
-                  key="main-cards"
-                  className="h-full flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 px-4"
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.6 }}
-                >
-                  {/* Personal Goal Card */}
-                  <motion.div
-                    initial={{ opacity: 1, x: 0, y: 0 }}
-                    animate={
-                      activeGoalType === 'team'
-                        ? { x: `-${slideOffset}`, opacity: 0 }
-                        : activeGoalType === 'personal'
-                          ? { opacity: 0 }
-                          : fadeLevel1
-                            ? { opacity: 0, y: 10 } // Changed from 0.3 to 0 for complete fade
-                            : { x: 0, y: 0, opacity: 1 }
-                    }
-                    exit={
-                      activeGoalType === 'team'
-                        ? { x: `-${slideOffset}`, opacity: 0 }
-                        : { opacity: 0 }
-                    }
-                    transition={{ duration: 0.6, ease: 'easeInOut' }} // Faster transition (0.2s instead of 0.3s)
-                    onClick={() => {
-                      setActiveGoalType('personal');
-                      setShowGoalsModal(true);
-                    }}
-                    whileHover={{ scale: 1.02 }}
-                    className="relative w-[90vw] sm:w-[400px] h-[300px] sm:h-[500px] cursor-pointer group overflow-hidden rounded-md"
-                  >
-                    {/* Animated Glowing Borders */}
-                    <span className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-[#0c002b] to-[#1779ff] animate-[borderAnimate1_2s_linear_infinite_1s] z-10"></span>
-                    <span className="absolute top-0 right-0 w-0.5 h-full bg-gradient-to-b from-[#0c002b] to-[#1779ff] animate-[borderAnimate2_2s_linear_infinite_2s] z-10"></span>
-                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-l from-[#0c002b] to-[#1779ff] animate-[borderAnimate3_2s_linear_infinite_1s] z-10"></span>
-                    <span className="absolute top-0 left-0 w-0.5 h-full bg-gradient-to-t from-[#0c002b] to-[#1779ff] animate-[borderAnimate4_2s_linear_infinite_2s] z-10"></span>
-
-                    {/* Card background */}
-                    <div className="absolute inset-0 rounded-md bg-gradient-to-br from-indigo-900/50 via-purple-900/50 to-black/70 backdrop-blur-sm border border-indigo-500/20 z-0" />
-
-                    {/* Content */}
-                    <div className="relative z-20 h-full flex flex-col items-center justify-center p-4 sm:p-8">
-                      <svg className="w-16 sm:w-24 h-16 sm:h-24 text-indigo-400 mb-4 sm:mb-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                      </svg>
-                      <h2 className="text-2xl sm:text-4xl font-bold text-white mb-2 sm:mb-4">Personal Goals</h2>
-                      <p className="text-white/80 text-center text-sm sm:text-base">Manage your individual objectives and track personal progress</p>
-                    </div>
-                  </motion.div>
-
-                  {/* Team Goal Card */}
-                  <motion.div
-                    initial={{ opacity: 1, x: 0, y: 0 }}
-                    animate={
-                      activeGoalType === 'personal'
-                        ? { x: slideOffset, opacity: 0 }
-                        : activeGoalType === 'team'
-                          ? { opacity: 0 }
-                          : fadeLevel1
-                            ? { opacity: 0, y: 10 } // Changed from 0.3 to 0 for complete fade
-                            : { x: 0, y: 0, opacity: 1 }
-                    }
-                    exit={
-                      activeGoalType === 'personal'
-                        ? { x: slideOffset, opacity: 0 }
-                        : { opacity: 0 }
-                    }
-                    transition={{ duration: 0.6, ease: 'easeInOut' }} // Faster transition (0.2s instead of 0.3s)
-                    onClick={() => {
-                      setActiveGoalType('team');
-                      setShowGoalsModal(true);
-                    }}
-                    whileHover={{ scale: 1.02 }}
-                    className="relative w-[90vw] sm:w-[400px] h-[300px] sm:h-[500px] cursor-pointer group overflow-hidden rounded-md"
-                  >
-                    {/* Animated Glowing Borders */}
-                    <span className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-[#0c002b] to-[#ff00cc] animate-[borderAnimate1_2s_linear_infinite_1s] z-10"></span>
-                    <span className="absolute top-0 right-0 w-0.5 h-full bg-gradient-to-b from-[#0c002b] to-[#ff00cc] animate-[borderAnimate2_2s_linear_infinite_2s] z-10"></span>
-                    <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-l from-[#0c002b] to-[#ff00cc] animate-[borderAnimate3_2s_linear_infinite_1s] z-10"></span>
-                    <span className="absolute top-0 left-0 w-0.5 h-full bg-gradient-to-t from-[#0c002b] to-[#ff00cc] animate-[borderAnimate4_2s_linear_infinite_2s] z-10"></span>
-
-                    {/* Background */}
-                    <div className="absolute inset-0 rounded-md bg-gradient-to-br from-purple-900/50 via-indigo-900/50 to-black/70 backdrop-blur-sm border border-purple-500/20 z-0" />
-
-                    {/* Content */}
-                    <div className="relative z-20 h-full flex flex-col items-center justify-center p-4 sm:p-8">
-                      <svg className="w-16 sm:w-24 h-16 sm:h-24 text-purple-400 mb-4 sm:mb-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
-                      </svg>
-                      <h2 className="text-2xl sm:text-4xl font-bold text-white mb-2 sm:mb-4">Team Goals</h2>
-                      <p className="text-white/80 text-center text-sm sm:text-base">Collaborate on shared objectives and monitor team progress</p>
-                    </div>
-                  </motion.div>
-                </motion.div>
-              ) : (
-                <motion.div
-                  key="goals-modal"
-                  initial={{
-                    opacity: 0,
-                    scale: 0.8,
-                    x: activeGoalType === 'personal'
-                      ? (isMobile ? '0%' : '-25%')
-                      : (isMobile ? '0%' : '25%'),
-                    y: isMobile ? '-10%' : '0%',
-                  }}
-                  animate={{
-                    opacity: 1,
-                    scale: 1,
-                    x: '0%',
-                    y: '0%',
-                  }}
-                  exit={{
-                    opacity: 0,
-                    scale: 0.8,
-                  }}
-                  transition={{ duration: 0.5, ease: 'easeInOut' }}
-                  className="h-full flex items-center justify-center px-4"
-                  style={{
-                    transformOrigin: activeGoalType === 'personal' ? 'left center' : 'right center',
-                  }}
-                >
-                  <div className="relative w-full max-w-6xl h-[90vh] bg-gradient-to-b from-black/95 via-purple-900/80 to-indigo-900/95 rounded-lg p-4 sm:p-8 backdrop-blur-sm border border-indigo-500/20">
-                    {/* Close button */}
-                    <button
-                      onClick={() => {
-                        setShowGoalsModal(false);
-                        setTimeout(() => {
-                          setActiveGoalType(null);
-                        }, 500);
-                      }}
-                      className="absolute top-4 right-4 text-white/60 hover:text-white transition-colors z-50"
-                    >
-                      <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                      </svg>
-                    </button>
-
-                    {/* Header */}
-                    <div className="mb-6 sm:mb-8">
-                      <h2 className="text-2xl sm:text-4xl font-bold text-white mb-2">
-                        {activeGoalType === 'personal' ? 'Personal Goals' : 'Team Goals'}
-                      </h2>
-                      <p className="text-white/80 text-sm sm:text-base">
-                        {activeGoalType === 'personal'
-                          ? 'Track your individual progress and achievements'
-                          : 'Collaborate and achieve goals together'}
-                      </p>
-                    </div>
-
-                    {/* Goals Grid */}
-                    <div className="h-[calc(100%-6rem)] sm:h-[calc(100%-8rem)] overflow-hidden pr-2 sm:pr-4 flex flex-col">
-                      <div className="w-full flex-1 overflow-x-auto overflow-y-hidden hide-scrollbar snap-x snap-mandatory scroll-smooth">
-                        <div className="flex flex-row gap-4 sm:gap-6 h-full py-4">
-                          {goals
-                            .filter(goal => goal.type === activeGoalType)
-                            .map((goal) => (
-                              <motion.div
-                                key={goal.id}
-                                initial={{ opacity: 0, x: 100 }}
-                                animate={{ opacity: 1, x: 0 }}
-                                transition={{ duration: 0.3 }}
-                                onClick={() => handleGoalClick(goal)}
-                                whileHover={{ scale: 1.02 }}
-                                className="flex-shrink-0 snap-start w-[90vw] sm:w-[400px] h-[520px] bg-gradient-to-br from-indigo-900/30 via-purple-900/30 to-black/50 backdrop-blur-sm rounded-lg p-4 sm:p-6 border border-white/10 relative overflow-hidden flex flex-col cursor-pointer"
-                              >
-                                {/* Completed checkmark */}
-                                {goal.completed && (
-                                  <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-green-500 flex items-center justify-center z-10">
-                                    <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-                                    </svg>
-                                  </div>
-                                )}
-
-                                {/* Title - Fixed height */}
-                                <div className="h-16 mb-3">
-                                  <h3 className="text-xl font-bold text-white line-clamp-2 leading-8">
-                                    {goal.name}
-                                  </h3>
-                                </div>
-
-                                {/* Description - Fixed height */}
-                                <div className="h-12 mb-3">
-                                  {goal.description && (
-                                    <p className="text-sm text-white/80 line-clamp-2 leading-6">
-                                      {goal.description}
-                                    </p>
-                                  )}
-                                </div>
-
-                                {/* Pie Chart - Fixed height */}
-                                <div className="h-40 flex justify-center items-center mb-3">
-                                  <div className="w-32 h-32 relative">
-                                    <ResponsiveContainer width="100%" height="100%">
-                                      <PieChart>
-                                        <Pie
-                                          data={[
-                                            { value: calculateGoalProgress(goal.milestones) },
-                                            { value: 100 - calculateGoalProgress(goal.milestones) }
-                                          ]}
-                                          cx="50%"
-                                          cy="50%"
-                                          innerRadius="65%"
-                                          outerRadius="95%"
-                                          startAngle={90}
-                                          endAngle={-270}
-                                          dataKey="value"
-                                          strokeWidth={0}
-                                        >
-                                          <Cell fill="#6D28D9" />
-                                          <Cell fill="#374151" />
-                                        </Pie>
-                                      </PieChart>
-                                    </ResponsiveContainer>
-                                    <div className="absolute inset-0 flex items-center justify-center">
-                                      <span className="text-3xl font-bold text-white">
-                                        {calculateGoalProgress(goal.milestones)}%
-                                      </span>
-                                    </div>
-                                  </div>
-                                </div>
-
-                                {/* Next Milestone - Fixed height */}
-                                <div className="h-14 mb-2">
-                                  <h4 className="text-base font-semibold text-white mb-1">Next Milestone</h4>
-                                  <p className="text-white/80 text-sm line-clamp-1">
-                                    {goal.milestones.find(m => !m.completed)?.text || 'All milestones completed!'}
-                                  </p>
-                                </div>
-
-                                {/* Deadline - Fixed height */}
-                                <div className="h-5 mb-3">
-                                  <p className="text-xs text-white/60">Deadline: {new Date(goal.deadline).toLocaleDateString()}</p>
-                                </div>
-
-                                {/* Team Members - Fixed height */}
-                                {goal.type === 'team' && (
-                                  <div className="h-18 mt-auto">
-                                    <h4 className="text-sm font-medium text-white mb-2">Team Members</h4>
-                                    <div className="flex gap-2">
-                                      {goal.teamMembers && goal.teamMembers.length > 0 ? (
-                                        goal.teamMembers.map((member) => (
-                                          <span
-                                            key={member.id}
-                                            className="text-sm text-white/80"
-                                          >
-                                            {member.name}
-                                          </span>
-                                        ))
-                                      ) : (
-                                        <p className="text-white/60 text-sm">No team members assigned</p>
-                                      )}
-                                    </div>
-                                  </div>
-                                )}
-                              </motion.div>
-                            ))}
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </motion.div>
-        )}
-
-        {/* Level 3 - About the Site */}
-        {/* Level 3 - About the Site with Auto-Scrolling Content */}
-        {/* Level 3 - About the Site with Auto-Scrolling Content */}
-
-        {/* Level 3 - About the Site with Auto-Scrolling Content Inside Container */}
-        <AnimatePresence>
-
-          {(level === 2) && (
-            <motion.div
-              key="level-3"
-              className="absolute inset-0 z-40"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: level === 2 ? 1 : isExpanding ? 1 : 0 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 1, delay: isExpanding ? 0.7 : 0 }}
-            >
-              {/* Full page dark gradient background */}
-              <div className="absolute inset-0 bg-gradient-to-b from-black via-black/90 to-purple-900/40 z-0"></div>
-
-              <div className="h-full w-full overflow-y-auto relative z-10">
-                {/* Fixed Header - stays at the top */}
-                <motion.div
-                  initial={{ opacity: 0, y: 30 }}
-                  animate={{ opacity: fadeLevel3 ? 0 : 1, y: fadeLevel3 ? 10 : 0 }}
-                  transition={{ duration: 0.2, ease: "easeOut" }} // Faster fade for transitions
-                  className="sticky top-0 z-30 pt-12 pb-8 text-center bg-gradient-to-b from-black via-black/90 to-transparent"
-                >
-                  <h1 className="text-5xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-pink-500 mb-6">
-                    About This Site
-                  </h1>
-                </motion.div>
-
-                {/* Auto-scrolling container for content */}
-                <motion.div
-                  className="relative h-[80vh] overflow-hidden mx-auto max-w-4xl px-4 md:px-8 mb-20"
-                  animate={{ opacity: fadeLevel3 ? 0 : 1 }}
-                  transition={{ duration: 0.2, ease: "easeOut" }} // Faster fade for transitions
-                >                {/* This div will scroll infinitely */}
-                  <motion.div
-                    className="w-full"
-                    initial={{ y: 0 }}
-                    animate={{ y: "-100%" }}
                     transition={{
-                      duration: 60, // 1 minute to scroll through all content
-                      ease: "linear",
+                      duration: 2,
                       repeat: Infinity,
-                      repeatType: "loop"
+                      repeatType: "reverse"
                     }}
                   >
-                    {/* Content sections */}
-                    <div className="space-y-12 mb-20">
-                      {/* Technology Stack */}
-                      <motion.section
-                        initial={{ opacity: 0, x: -30 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.6, delay: 0.4 }}
-                        className="bg-gradient-to-br from-indigo-900/30 via-purple-900/30 to-black/50 p-8 rounded-xl border border-indigo-500/20"
-                      >
-                        <h2 className="text-3xl font-bold text-white mb-4">Technology Stack</h2>
-                        <div className="space-y-3 text-white/90">
-                          <p>
-                            This Goal Tracker application is built using modern React with TypeScript, showcasing
-                            a fully interactive and responsive interface. It leverages several key technologies:
-                          </p>
-                          <ul className="list-disc pl-6 space-y-2 mt-4">
-                            <li>
-                              <span className="text-purple-400 font-semibold">React</span> - For building the
-                              interactive UI components with hooks for state management
-                            </li>
-                            <li>
-                              <span className="text-blue-400 font-semibold">TypeScript</span> - Provides type
-                              safety and better developer experience
-                            </li>
-                            <li>
-                              <span className="text-pink-400 font-semibold">Framer Motion</span> - Powers all
-                              the smooth animations and transitions between states
-                            </li>
-                            <li>
-                              <span className="text-green-400 font-semibold">Recharts</span> - Creates the
-                              interactive pie charts for goal progress visualization
-                            </li>
-                            <li>
-                              <span className="text-yellow-400 font-semibold">LocalStorage API</span> - Persists
-                              user goals and progress across sessions
-                            </li>
-                          </ul>
-                        </div>
-                      </motion.section>
+                    {/* Glowing arrow */}
+                    <svg width="32" height="32" viewBox="0 0 24 24" className="text-blue-400">
+                      <motion.path
+                        d="M12 4 L12 20 M5 13 L12 20 L19 13"
+                        stroke="currentColor"
+                        strokeWidth="2"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        fill="none"
+                        initial={{ pathLength: 0, opacity: 0 }}
+                        animate={{
+                          pathLength: 1,
+                          opacity: 1,
+                        }}
+                        transition={{ duration: 1.5, ease: "easeInOut" }}
+                      />
+                      <motion.path
+                        d="M12 4 L12 20 M5 13 L12 20 L19 13"
+                        stroke="white"
+                        strokeWidth="1"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        fill="none"
+                        initial={{ pathLength: 0, opacity: 0 }}
+                        animate={{ pathLength: 1, opacity: 0.8 }}
+                        transition={{ duration: 1.5, ease: "easeInOut", delay: 0.3 }}
+                      />
+                    </svg>
 
-                      {/* Key Features */}
-                      <motion.section
-                        initial={{ opacity: 0, x: 30 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.6, delay: 0.6 }}
-                        className="bg-gradient-to-br from-purple-900/30 via-indigo-900/30 to-black/50 p-8 rounded-xl border border-purple-500/20"
-                      >
-                        <h2 className="text-3xl font-bold text-white mb-4">Key Features</h2>
-                        <div className="space-y-4 text-white/90">
-                          <div>
-                            <h3 className="text-xl font-semibold text-white/90 mb-2">Multi-Level Navigation</h3>
-                            <p>
-                              The application features a unique multi-level navigation system that uses scroll-based
-                              transitions with cloud animations to move between different functional areas.
-                            </p>
-                          </div>
-
-                          <div>
-                            <h3 className="text-xl font-semibold text-white/90 mb-2">Interactive Goal Management</h3>
-                            <p>
-                              Users can create, view, and update both personal and team goals with customizable
-                              milestones. Each milestone has a weightage value that contributes to the overall
-                              goal progress.
-                            </p>
-                          </div>
-
-                          <div>
-                            <h3 className="text-xl font-semibold text-white/90 mb-2">Progress Visualization</h3>
-                            <p>
-                              Goal progress is visualized through animated pie charts and an interactive milestone
-                              map that shows the path to completion. The visual elements adapt dynamically as users
-                              mark milestones as complete.
-                            </p>
-                          </div>
-
-                          <div>
-                            <h3 className="text-xl font-semibold text-white/90 mb-2">Persistent Storage</h3>
-                            <p>
-                              All user-created goals and progress updates are stored in the browser's localStorage,
-                              ensuring that data persists between sessions without requiring a backend server.
-                            </p>
-                          </div>
-                        </div>
-                      </motion.section>
-
-                      {/* Design Philosophy */}
-                      <motion.section
-                        initial={{ opacity: 0, y: 30 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        transition={{ duration: 0.6, delay: 0.8 }}
-                        className="bg-gradient-to-br from-blue-900/30 via-indigo-900/30 to-black/50 p-8 rounded-xl border border-blue-500/20"
-                      >
-                        <h2 className="text-3xl font-bold text-white mb-4">Design Philosophy</h2>
-                        <div className="space-y-4 text-white/90">
-                          <p>
-                            The Goal Tracker embraces a futuristic, immersive design language that aims to make
-                            goal setting and tracking an engaging experience rather than a mundane task.
-                          </p>
-
-                          <div>
-                            <h3 className="text-xl font-semibold text-white/90 mb-2">Immersive User Interface</h3>
-                            <p>
-                              The floating bubbles and dots create an interactive cosmic environment that responds
-                              to user movements. This design choice creates a sense of depth and makes the interface
-                              feel alive and responsive.
-                            </p>
-                          </div>
-
-                          <div>
-                            <h3 className="text-xl font-semibold text-white/90 mb-2">Intuitive Workflow</h3>
-                            <p>
-                              The application guides users through a logical progression of steps when creating
-                              goals, with contextual information and feedback at each stage.
-                            </p>
-                          </div>
-
-                          <div>
-                            <h3 className="text-xl font-semibold text-white/90 mb-2">Accessibility Considerations</h3>
-                            <p>
-                              Despite the rich visual effects, care has been taken to ensure text remains readable
-                              with appropriate contrast ratios, and interactive elements have clear focus states.
-                            </p>
-                          </div>
-                        </div>
-                      </motion.section>
-
-                      {/* Technical Implementation */}
-                      <motion.section
-                        initial={{ opacity: 0, x: -30 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.6, delay: 1.0 }}
-                        className="bg-gradient-to-br from-teal-900/30 via-blue-900/30 to-black/50 p-8 rounded-xl border border-teal-500/20"
-                      >
-                        <h2 className="text-3xl font-bold text-white mb-4">Technical Highlights</h2>
-                        <div className="space-y-4 text-white/90">
-                          <div>
-                            <h3 className="text-xl font-semibold text-white/90 mb-2">Accurate Progress Calculation</h3>
-                            <p>
-                              Goal progress is calculated based on the cumulative weightage of completed milestones,
-                              providing an accurate representation of advancement toward the overall objective.
-                            </p>
-                          </div>
-
-                          <div>
-                            <h3 className="text-xl font-semibold text-white/90 mb-2">Optimized Animation Performance</h3>
-                            <p>
-                              Animations are optimized using GPU acceleration and selective rendering to maintain
-                              smooth performance even on lower-powered devices.
-                            </p>
-                          </div>
-
-                          <div>
-                            <h3 className="text-xl font-semibold text-white/90 mb-2">Responsive Design Approach</h3>
-                            <p>
-                              The application adapts seamlessly to different screen sizes using a mobile-first
-                              approach, with special attention to touch interactions for mobile users.
-                            </p>
-                          </div>
-                        </div>
-                      </motion.section>
-
-                      {/* Future Enhancements */}
-                      <motion.section
-                        initial={{ opacity: 0, x: 30 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.6, delay: 1.2 }}
-                        className="bg-gradient-to-br from-pink-900/30 via-purple-900/30 to-black/50 p-8 rounded-xl border border-pink-500/20 mb-8"
-                      >
-                        <h2 className="text-3xl font-bold text-white mb-4">Future Enhancements</h2>
-                        <div className="space-y-3 text-white/90">
-                          <p>
-                            While the current implementation provides a solid foundation, several enhancements are planned:
-                          </p>
-                          <ul className="list-disc pl-6 space-y-2 mt-4">
-                            <li>Cloud synchronization to share goals across devices</li>
-                            <li>Advanced analytics to track goal completion patterns over time</li>
-                            <li>Integration with calendar APIs for deadline management</li>
-                            <li>Expanded team collaboration features with real-time updates</li>
-                            <li>Customizable themes and interface options</li>
-                          </ul>
-                        </div>
-                      </motion.section>
-
-                      {/* Navigation hint */}
-                      <div className="text-center my-12 text-white/70">
-                        <p>Scroll up to return to the Goals Dashboard</p>
-                        <svg className="w-8 h-8 mx-auto mt-2 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
-                        </svg>
-                      </div>
-                    </div>
-
-                    {/* Duplicate sections for infinite loop */}
-                    <div className="space-y-12">
-                      {/* Technology Stack (repeated) */}
-                      <section className="bg-gradient-to-br from-indigo-900/30 via-purple-900/30 to-black/50 p-8 rounded-xl border border-indigo-500/20">
-                        <h2 className="text-3xl font-bold text-white mb-4">Technology Stack</h2>
-                        <div className="space-y-3 text-white/90">
-                          <p>
-                            This Goal Tracker application is built using modern React with TypeScript, showcasing
-                            a fully interactive and responsive interface. It leverages several key technologies:
-                          </p>
-                          <ul className="list-disc pl-6 space-y-2 mt-4">
-                            <li>
-                              <span className="text-purple-400 font-semibold">React</span> - For building the
-                              interactive UI components with hooks for state management
-                            </li>
-                            <li>
-                              <span className="text-blue-400 font-semibold">TypeScript</span> - Provides type
-                              safety and better developer experience
-                            </li>
-                            <li>
-                              <span className="text-pink-400 font-semibold">Framer Motion</span> - Powers all
-                              the smooth animations and transitions between states
-                            </li>
-                            <li>
-                              <span className="text-green-400 font-semibold">Recharts</span> - Creates the
-                              interactive pie charts for goal progress visualization
-                            </li>
-                            <li>
-                              <span className="text-yellow-400 font-semibold">LocalStorage API</span> - Persists
-                              user goals and progress across sessions
-                            </li>
-                          </ul>
-                        </div>
-                      </section>
-
-                      {/* Key Features (repeated) */}
-                      <section className="bg-gradient-to-br from-purple-900/30 via-indigo-900/30 to-black/50 p-8 rounded-xl border border-purple-500/20">
-                        <h2 className="text-3xl font-bold text-white mb-4">Key Features</h2>
-                        <div className="space-y-4 text-white/90">
-                          <div>
-                            <h3 className="text-xl font-semibold text-white/90 mb-2">Multi-Level Navigation</h3>
-                            <p>
-                              The application features a unique multi-level navigation system that uses scroll-based
-                              transitions with cloud animations to move between different functional areas.
-                            </p>
-                          </div>
-
-                          <div>
-                            <h3 className="text-xl font-semibold text-white/90 mb-2">Interactive Goal Management</h3>
-                            <p>
-                              Users can create, view, and update both personal and team goals with customizable
-                              milestones. Each milestone has a weightage value that contributes to the overall
-                              goal progress.
-                            </p>
-                          </div>
-                        </div>
-                      </section>
-                    </div>
+                    {/* Enhanced glow effect */}
+                    <div className="absolute -inset-2 bg-blue-500/20 rounded-full blur-xl z-0"></div>
+                    <div className="absolute -inset-1 bg-blue-400/30 rounded-full blur-md z-0"></div>
                   </motion.div>
-
-                  {/* Gradient overlays for top and bottom fade effects */}
-                  <div className="absolute bottom-0 left-0 right-0 h-40 "></div>
-                </motion.div>
-
-                {/* Footer navigation hint */}
-                <motion.div
-                  className="text-center pb-12 text-white/70"
-                  animate={{ opacity: fadeLevel3 ? 0 : 1 }}
-                  transition={{ duration: 0.2, ease: "easeOut" }} // Faster fade for transitions
-                >
-                  <p>Scroll up to return to the Goals Dashboard</p>
-                  <svg className="w-8 h-8 mx-auto mt-2 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
-                  </svg>
-                </motion.div>
-              </div>
+                </div>
+              </motion.div>
             </motion.div>
           )}
-        </AnimatePresence>
 
-      </AnimatePresence>
-
-      {/* Goal Creation Modal */}
-      <AnimatePresence>
-        {isModalOpen && (
-          <motion.div
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-black/90 backdrop-blur-sm z-[100] flex items-center justify-center"
-          >
+          {/* Cloud animation for transitions */}
+          {cloudPhase === "active" && scrollDirection === "down" && (
             <motion.div
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              transition={{ type: "spring", duration: 0.5 }}
-              className="bg-gradient-to-b from-black/95 via-purple-900/80 to-indigo-900/95 rounded-lg p-4 sm:p-8 w-full max-w-[90vw] sm:max-w-3xl max-h-[85vh] sm:max-h-[90vh] overflow-y-auto relative modal-scrollbar"
+              key="cloud-scroll"
+              className="absolute inset-0 z-50 pointer-events-none"
+              initial={{ opacity: 1 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1 }}
             >
-              {/* Close button */}
-              <button
-                onClick={closeModal}
-                className="absolute top-4 right-4 text-white/60 hover:text-white transition-colors"
-              >
-                <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                </svg>
-              </button>
+              {[0, 1, 2, 3, 4].map((i) => (
+                <motion.div
+                  key={`cloud-${i}`}
+                  className="absolute left-0 right-0"
+                  style={{
+                    backgroundImage: `url('/clouds.png')`,
+                    backgroundSize: "100% 100%",
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "top center",
+                    height: "100vh",
+                    width: "100%",
+                    opacity: 0.6 + i * 0.1, // increasing opacity for depth effect
+                    zIndex: 50 + i,
+                  }}
+                  initial={{ y: `${100 + i * 100}%` }}
+                  animate={{ y: `${-100 + i * 50}%` }}
+                  transition={{ duration: 1.5 + i * 0.1, ease: "easeInOut" }}
+                />
+              ))}
+            </motion.div>
+          )}
 
-              {/* Progress indicator */}
-              <div className="flex justify-center mb-8">
-                <div className="flex space-x-2">
-                  {[0, 1, 2, goalType === 'team' ? 3 : 2.5, goalType === 'team' ? 4 : 3.5].filter(Number.isInteger).map((stepNum, index) => (
-                    <div
-                      key={index}
-                      className={`h-2 w-8 rounded-full transition-colors ${step >= stepNum ? 'bg-blue-500' : 'bg-white/20'
-                        }`}
-                    />
-                  ))}
-                </div>
-              </div>
+          {/* Cloud animation for scrolling up */}
+          {cloudPhase === "active" && scrollDirection === "up" && (
+            <motion.div
+              key="cloud-reverse"
+              className="absolute inset-0 z-50 pointer-events-none"
+              initial={{ opacity: 1 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 1 }}
+            >
+              {[0, 1, 2, 3, 4].map((i) => (
+                <motion.div
+                  key={`reverse-cloud-${i}`}
+                  className="absolute left-0 right-0"
+                  style={{
+                    backgroundImage: `url('/clouds.png')`,
+                    backgroundSize: "100% 100%",
+                    backgroundRepeat: "no-repeat",
+                    backgroundPosition: "top center",
+                    height: "100vh",
+                    width: "100%",
+                    opacity: 0.6 + i * 0.1,
+                    zIndex: 50 + i,
+                  }}
+                  initial={{ y: `${-100 + i * 50}%` }}
+                  animate={{ y: `${100 + i * 100}%` }}
+                  transition={{ duration: 1.5 + i * 0.1, ease: "easeInOut" }}
+                />
+              ))}
+            </motion.div>
+          )}
 
-              {/* Modal Steps */}
+          {scrollPhase === "active" && (
+            <motion.div
+              key="scroll-effect"
+              className="absolute inset-0 z-60"
+              initial={{ y: "100%" }}
+              animate={{ y: "0%" }}
+              transition={{ duration: 0.6, ease: "easeInOut" }}
+            />
+          )}
+
+          {/* Level 2 - Goals Dashboard */}
+          {(level === 1) && (
+            <motion.div
+              key="level-2"
+              className="absolute inset-0 z-40"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: level === 1 ? 1 : isExpanding ? 1 : 0 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.5, delay: isExpanding ? 0.7 : 0 }}
+            >
               <AnimatePresence mode="wait">
-                {step === 0 && (
+                {!showGoalsModal ? (
                   <motion.div
-                    key="step-0"
-                    initial={{ x: 50, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    exit={{ x: -50, opacity: 0 }}
-                    transition={{
-                      type: "tween",
-                      duration: 0.2,
-                      ease: "easeOut"
-                    }}
-                    className="text-center"
+                    key="main-cards"
+                    className="h-full flex flex-col md:flex-row items-center justify-center gap-8 md:gap-16 px-4"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.6 }}
                   >
-                    <h2 className="text-4xl font-bold text-white mb-12">What type of goal is this?</h2>
-                    <div className="flex justify-center gap-12">
-                      <motion.div
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.98 }}
-                        onClick={() => { setGoalType('personal'); nextStep(); }}
-                        className="cursor-pointer w-64 h-80 bg-gradient-to-b from-indigo-800/50 to-indigo-900/80 rounded-lg p-8 flex flex-col items-center justify-center border border-indigo-400/30 hover:border-indigo-400/80 transition-all duration-300"
-                      >
-                        <svg className="w-16 h-16 text-indigo-400 mb-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    {/* Personal Goal Card */}
+                    <motion.div
+                      initial={{ opacity: 1, x: 0, y: 0 }}
+                      animate={
+                        activeGoalType === 'team'
+                          ? { x: `-${slideOffset}`, opacity: 0 }
+                          : activeGoalType === 'personal'
+                            ? { opacity: 0 }
+                            : fadeLevel1
+                              ? { opacity: 0, y: 10 } // Changed from 0.3 to 0 for complete fade
+                              : { x: 0, y: 0, opacity: 1 }
+                      }
+                      exit={
+                        activeGoalType === 'team'
+                          ? { x: `-${slideOffset}`, opacity: 0 }
+                          : { opacity: 0 }
+                      }
+                      transition={{ duration: 0.6, ease: 'easeInOut' }} // Faster transition (0.2s instead of 0.3s)
+                      onClick={() => {
+                        setActiveGoalType('personal');
+                        setShowGoalsModal(true);
+                      }}
+                      whileHover={{ scale: 1.02 }}
+                      className="relative w-[90vw] sm:w-[400px] h-[300px] sm:h-[500px] cursor-pointer group overflow-hidden rounded-md"
+                    >
+                      {/* Animated Glowing Borders */}
+                      <span className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-[#0c002b] to-[#1779ff] animate-[borderAnimate1_2s_linear_infinite_1s] z-10"></span>
+                      <span className="absolute top-0 right-0 w-0.5 h-full bg-gradient-to-b from-[#0c002b] to-[#1779ff] animate-[borderAnimate2_2s_linear_infinite_2s] z-10"></span>
+                      <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-l from-[#0c002b] to-[#1779ff] animate-[borderAnimate3_2s_linear_infinite_1s] z-10"></span>
+                      <span className="absolute top-0 left-0 w-0.5 h-full bg-gradient-to-t from-[#0c002b] to-[#1779ff] animate-[borderAnimate4_2s_linear_infinite_2s] z-10"></span>
+
+                      {/* Card background */}
+                      <div className="absolute inset-0 rounded-md bg-gradient-to-br from-indigo-900/50 via-purple-900/50 to-black/70 backdrop-blur-sm border border-indigo-500/20 z-0" />
+
+                      {/* Content */}
+                      <div className="relative z-20 h-full flex flex-col items-center justify-center p-4 sm:p-8">
+                        <svg className="w-16 sm:w-24 h-16 sm:h-24 text-indigo-400 mb-4 sm:mb-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                         </svg>
-                        <h3 className="text-2xl font-bold text-white mb-4">Personal Goal</h3>
-                        <p className="text-white/80 text-center">Set personal milestones and track your individual progress</p>
-                      </motion.div>
-                      <motion.div
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.98 }}
-                        onClick={() => { setGoalType('team'); nextStep(); }}
-                        className="cursor-pointer w-64 h-80 bg-gradient-to-b from-purple-800/50 to-purple-900/80 rounded-lg p-8 flex flex-col items-center justify-center border border-purple-400/30 hover:border-purple-400/80 transition-all duration-300"
-                      >
-                        <svg className="w-16 h-16 text-purple-400 mb-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <h2 className="text-2xl sm:text-4xl font-bold text-white mb-2 sm:mb-4">Personal Goals</h2>
+                        <p className="text-white/80 text-center text-sm sm:text-base">Manage your individual objectives and track personal progress</p>
+                      </div>
+                    </motion.div>
+
+                    {/* Team Goal Card */}
+                    <motion.div
+                      initial={{ opacity: 1, x: 0, y: 0 }}
+                      animate={
+                        activeGoalType === 'personal'
+                          ? { x: slideOffset, opacity: 0 }
+                          : activeGoalType === 'team'
+                            ? { opacity: 0 }
+                            : fadeLevel1
+                              ? { opacity: 0, y: 10 } // Changed from 0.3 to 0 for complete fade
+                              : { x: 0, y: 0, opacity: 1 }
+                      }
+                      exit={
+                        activeGoalType === 'personal'
+                          ? { x: slideOffset, opacity: 0 }
+                          : { opacity: 0 }
+                      }
+                      transition={{ duration: 0.6, ease: 'easeInOut' }} // Faster transition (0.2s instead of 0.3s)
+                      onClick={() => {
+                        setActiveGoalType('team');
+                        setShowGoalsModal(true);
+                      }}
+                      whileHover={{ scale: 1.02 }}
+                      className="relative w-[90vw] sm:w-[400px] h-[300px] sm:h-[500px] cursor-pointer group overflow-hidden rounded-md"
+                    >
+                      {/* Animated Glowing Borders */}
+                      <span className="absolute top-0 left-0 w-full h-0.5 bg-gradient-to-r from-[#0c002b] to-[#ff00cc] animate-[borderAnimate1_2s_linear_infinite_1s] z-10"></span>
+                      <span className="absolute top-0 right-0 w-0.5 h-full bg-gradient-to-b from-[#0c002b] to-[#ff00cc] animate-[borderAnimate2_2s_linear_infinite_2s] z-10"></span>
+                      <span className="absolute bottom-0 left-0 w-full h-0.5 bg-gradient-to-l from-[#0c002b] to-[#ff00cc] animate-[borderAnimate3_2s_linear_infinite_1s] z-10"></span>
+                      <span className="absolute top-0 left-0 w-0.5 h-full bg-gradient-to-t from-[#0c002b] to-[#ff00cc] animate-[borderAnimate4_2s_linear_infinite_2s] z-10"></span>
+
+                      {/* Background */}
+                      <div className="absolute inset-0 rounded-md bg-gradient-to-br from-purple-900/50 via-indigo-900/50 to-black/70 backdrop-blur-sm border border-purple-500/20 z-0" />
+
+                      {/* Content */}
+                      <div className="relative z-20 h-full flex flex-col items-center justify-center p-4 sm:p-8">
+                        <svg className="w-16 sm:w-24 h-16 sm:h-24 text-purple-400 mb-4 sm:mb-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
                         </svg>
-                        <h3 className="text-2xl font-bold text-white mb-4">Team Goal</h3>
-                        <p className="text-white/80 text-center">Collaborate with team members and achieve goals together</p>
-                      </motion.div>
-                    </div>
+                        <h2 className="text-2xl sm:text-4xl font-bold text-white mb-2 sm:mb-4">Team Goals</h2>
+                        <p className="text-white/80 text-center text-sm sm:text-base">Collaborate on shared objectives and monitor team progress</p>
+                      </div>
+                    </motion.div>
                   </motion.div>
-                )}
-
-                {step === 1 && (
+                ) : (
                   <motion.div
-                    key="step-1"
-                    initial={{ x: 50, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    exit={{ x: -50, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
+                    key="goals-modal"
+                    initial={{
+                      opacity: 0,
+                      scale: 0.8,
+                      x: activeGoalType === 'personal'
+                        ? (isMobile ? '0%' : '-25%')
+                        : (isMobile ? '0%' : '25%'),
+                      y: isMobile ? '-10%' : '0%',
+                    }}
+                    animate={{
+                      opacity: 1,
+                      scale: 1,
+                      x: '0%',
+                      y: '0%',
+                    }}
+                    exit={{
+                      opacity: 0,
+                      scale: 0.8,
+                    }}
+                    transition={{ duration: 0.5, ease: 'easeInOut' }}
+                    className="h-full flex items-center justify-center px-4"
+                    style={{
+                      transformOrigin: activeGoalType === 'personal' ? 'left center' : 'right center',
+                    }}
                   >
-                    <h2 className="text-3xl font-bold text-white mb-8">Basic Information</h2>
-                    <div className="space-y-4">
-                      <input
-                        type="text"
-                        value={goalName}
-                        onChange={(e) => setGoalName(e.target.value)}
-                        onKeyDown={(e) => {
-                          // Only proceed if all required fields are filled
-                          if (e.key === 'Enter' && goalName.trim() && deadline) {
-                            nextStep();
-                          }
+                    <div className="relative w-full max-w-6xl h-[90vh] bg-gradient-to-b from-black/95 via-purple-900/80 to-indigo-900/95 rounded-lg p-4 sm:p-8 backdrop-blur-sm border border-indigo-500/20">
+                      {/* Close button */}
+                      <button
+                        onClick={() => {
+                          setShowGoalsModal(false);
+                          setTimeout(() => {
+                            setActiveGoalType(null);
+                          }, 500);
                         }}
-                        placeholder="Goal name"
-                        className="w-full px-4 py-3 rounded-lg bg-white/10 text-white placeholder-white/50 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                      />
-                      <textarea
-                        value={goalDescription}
-                        onChange={(e) => setGoalDescription(e.target.value)}
-                        onKeyDown={(e) => {
-                          // Only proceed if all required fields are filled (description is optional)
-                          if (e.key === 'Enter' && e.ctrlKey && goalName.trim() && deadline) {
-                            nextStep();
-                          }
-                        }}
-                        placeholder="Description (optional)"
-                        className="w-full px-4 py-3 rounded-lg bg-white/10 text-white placeholder-white/50 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[100px]"
-                      />
-                      <div>
-                        <label className="text-white/80 text-sm mb-2 block">Deadline</label>
-                        <input
-                          type="date"
-                          value={deadline}
-                          onChange={(e) => setDeadline(e.target.value)}
-                          className="w-full px-4 py-3 rounded-lg bg-white/10 text-white"
-                        />
+                        className="absolute top-4 right-4 text-white/60 hover:text-white transition-colors z-50"
+                      >
+                        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </button>
+
+                      {/* Header */}
+                      <div className="mb-6 sm:mb-8">
+                        <h2 className="text-2xl sm:text-4xl font-bold text-white mb-2">
+                          {activeGoalType === 'personal' ? 'Personal Goals' : 'Team Goals'}
+                        </h2>
+                        <p className="text-white/80 text-sm sm:text-base">
+                          {activeGoalType === 'personal'
+                            ? 'Track your individual progress and achievements'
+                            : 'Collaborate and achieve goals together'}
+                        </p>
+                      </div>
+
+                      {/* Goals Grid */}
+                      <div className="h-[calc(100%-6rem)] sm:h-[calc(100%-8rem)] overflow-hidden pr-2 sm:pr-4 flex flex-col">
+                        <div className="w-full flex-1 overflow-x-auto overflow-y-hidden hide-scrollbar snap-x snap-mandatory scroll-smooth">
+                          <div className="flex flex-row gap-4 sm:gap-6 h-full py-4">
+                            {goals
+                              .filter(goal => goal.type === activeGoalType)
+                              .map((goal) => (
+                                <motion.div
+                                  key={goal.id}
+                                  initial={{ opacity: 0, x: 100 }}
+                                  animate={{ opacity: 1, x: 0 }}
+                                  transition={{ duration: 0.3 }}
+                                  onClick={() => handleGoalClick(goal)}
+                                  whileHover={{ scale: 1.02 }}
+                                  className="flex-shrink-0 snap-start w-[90vw] sm:w-[400px] h-[520px] bg-gradient-to-br from-indigo-900/30 via-purple-900/30 to-black/50 backdrop-blur-sm rounded-lg p-4 sm:p-6 border border-white/10 relative overflow-hidden flex flex-col cursor-pointer"
+                                >
+                                  {/* Completed checkmark */}
+                                  {goal.completed && (
+                                    <div className="absolute top-4 right-4 w-8 h-8 rounded-full bg-green-500 flex items-center justify-center z-10">
+                                      <svg className="w-5 h-5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                                      </svg>
+                                    </div>
+                                  )}
+
+                                  {/* Title - Fixed height */}
+                                  <div className="h-16 mb-3">
+                                    <h3 className="text-xl font-bold text-white line-clamp-2 leading-8">
+                                      {goal.name}
+                                    </h3>
+                                  </div>
+
+                                  {/* Description - Fixed height */}
+                                  <div className="h-12 mb-3">
+                                    {goal.description && (
+                                      <p className="text-sm text-white/80 line-clamp-2 leading-6">
+                                        {goal.description}
+                                      </p>
+                                    )}
+                                  </div>
+
+                                  {/* Pie Chart - Fixed height */}
+                                  <div className="h-40 flex justify-center items-center mb-3">
+                                    <div className="w-32 h-32 relative">
+                                      <ResponsiveContainer width="100%" height="100%">
+                                        <PieChart>
+                                          <Pie
+                                            data={[
+                                              { value: calculateGoalProgress(goal.milestones) },
+                                              { value: 100 - calculateGoalProgress(goal.milestones) }
+                                            ]}
+                                            cx="50%"
+                                            cy="50%"
+                                            innerRadius="65%"
+                                            outerRadius="95%"
+                                            startAngle={90}
+                                            endAngle={-270}
+                                            dataKey="value"
+                                            strokeWidth={0}
+                                          >
+                                            <Cell fill="#6D28D9" />
+                                            <Cell fill="#374151" />
+                                          </Pie>
+                                        </PieChart>
+                                      </ResponsiveContainer>
+                                      <div className="absolute inset-0 flex items-center justify-center">
+                                        <span className="text-3xl font-bold text-white">
+                                          {calculateGoalProgress(goal.milestones)}%
+                                        </span>
+                                      </div>
+                                    </div>
+                                  </div>
+
+                                  {/* Next Milestone - Fixed height */}
+                                  <div className="h-14 mb-2">
+                                    <h4 className="text-base font-semibold text-white mb-1">Next Milestone</h4>
+                                    <p className="text-white/80 text-sm line-clamp-1">
+                                      {goal.milestones.find(m => !m.completed)?.text || 'All milestones completed!'}
+                                    </p>
+                                  </div>
+
+                                  {/* Deadline - Fixed height */}
+                                  <div className="h-5 mb-3">
+                                    <p className="text-xs text-white/60">Deadline: {new Date(goal.deadline).toLocaleDateString()}</p>
+                                  </div>
+
+                                  {/* Team Members - Fixed height */}
+                                  {goal.type === 'team' && (
+                                    <div className="h-18 mt-auto">
+                                      <h4 className="text-sm font-medium text-white mb-2">Team Members</h4>
+                                      <div className="flex gap-2">
+                                        {goal.teamMembers && goal.teamMembers.length > 0 ? (
+                                          goal.teamMembers.map((member) => (
+                                            <span
+                                              key={member.id}
+                                              className="text-sm text-white/80"
+                                            >
+                                              {member.name}
+                                            </span>
+                                          ))
+                                        ) : (
+                                          <p className="text-white/60 text-sm">No team members assigned</p>
+                                        )}
+                                      </div>
+                                    </div>
+                                  )}
+                                </motion.div>
+                              ))}
+                          </div>
+                        </div>
                       </div>
                     </div>
-                    <div className="flex justify-between mt-8">
-                      <motion.button
-                        onClick={prevStep}
-                        whileHover={{ scale: 1.03 }}
-                        whileTap={{ scale: 0.98 }}
-                        transition={{ duration: 0.1 }}
-                        className="bg-gray-900/80 hover:bg-gray-800 text-white px-8 py-3 rounded-md font-semibold"
-                      >
-                        Back
-                      </motion.button>
-                      <motion.button
-                        onClick={nextStep}
-                        disabled={!goalName || !deadline}
-                        whileHover={goalName && deadline ? { scale: 1.03 } : {}}
-                        whileTap={goalName && deadline ? { scale: 0.98 } : {}}
-                        transition={{ duration: 0.1 }}
-                        className={`px-8 py-3 rounded-md font-semibold ${goalName && deadline ? 'bg-blue-600 hover:bg-blue-700 text-white' : 'bg-gray-600 text-gray-400 cursor-not-allowed'
-                          }`}
-                      >
-                        Next
-                      </motion.button>
-                    </div>
                   </motion.div>
                 )}
+              </AnimatePresence>
+            </motion.div>
+          )}
 
-                {step === 2 && (
+          {/* Level 3 - About the Site */}
+          {/* Level 3 - About the Site with Auto-Scrolling Content */}
+          {/* Level 3 - About the Site with Auto-Scrolling Content */}
+
+          {/* Level 3 - About the Site with Auto-Scrolling Content Inside Container */}
+          <AnimatePresence>
+
+            {(level === 2) && (
+              <motion.div
+                key="level-3"
+                className="absolute inset-0 z-40"
+                initial={{ opacity: 0 }}
+                animate={{ opacity: level === 2 ? 1 : isExpanding ? 1 : 0 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 1, delay: isExpanding ? 0.7 : 0 }}
+              >
+                {/* Full page dark gradient background */}
+                <div className="absolute inset-0 bg-gradient-to-b from-black via-black/90 to-purple-900/40 z-0"></div>
+
+                <div className="h-full w-full overflow-y-auto relative z-10">
+                  {/* Fixed Header - stays at the top */}
                   <motion.div
-                    key="step-2"
-                    initial={{ x: 50, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    exit={{ x: -50, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
+                    initial={{ opacity: 0, y: 30 }}
+                    animate={{ opacity: fadeLevel3 ? 0 : 1, y: fadeLevel3 ? 10 : 0 }}
+                    transition={{ duration: 0.2, ease: "easeOut" }} // Faster fade for transitions
+                    className="sticky top-0 z-30 pt-12 pb-8 text-center bg-gradient-to-b from-black via-black/90 to-transparent"
                   >
-                    <h2 className="text-3xl font-bold text-white mb-8">Add Milestones</h2>
+                    <h1 className="text-5xl md:text-6xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 via-purple-400 to-pink-500 mb-6">
+                      About This Site
+                    </h1>
+                  </motion.div>
 
-                    {/* Add Milestone Form */}
-                    <div className="flex flex-col sm:flex-row gap-2 mb-4">
-                      <input
-                        type="text"
-                        value={currentMilestone}
-                        onChange={(e) => setCurrentMilestone(e.target.value)}
-                        onKeyDown={(e) => {
-                          if (e.key === 'Enter' && currentMilestone.trim() && currentWeightage > 0) {
-                            addMilestone();
-                          }
-                        }}
-                        placeholder="Milestone description"
-                        className="flex-1 px-4 py-2 rounded-lg bg-white/10 text-white placeholder-white/50"
+                  {/* Auto-scrolling container for content */}
+                  <motion.div
+                    className="relative h-[80vh] overflow-hidden mx-auto max-w-4xl px-4 md:px-8 mb-20"
+                    animate={{ opacity: fadeLevel3 ? 0 : 1 }}
+                    transition={{ duration: 0.2, ease: "easeOut" }} // Faster fade for transitions
+                  >                {/* This div will scroll infinitely */}
+                    <motion.div
+                      className="w-full"
+                      initial={{ y: 0 }}
+                      animate={{ y: "-100%" }}
+                      transition={{
+                        duration: 60, // 1 minute to scroll through all content
+                        ease: "linear",
+                        repeat: Infinity,
+                        repeatType: "loop"
+                      }}
+                    >
+                      {/* Content sections */}
+                      <div className="space-y-12 mb-20">
+                        {/* Technology Stack */}
+                        <motion.section
+                          initial={{ opacity: 0, x: -30 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.6, delay: 0.4 }}
+                          className="bg-gradient-to-br from-indigo-900/30 via-purple-900/30 to-black/50 p-8 rounded-xl border border-indigo-500/20"
+                        >
+                          <h2 className="text-3xl font-bold text-white mb-4">Technology Stack</h2>
+                          <div className="space-y-3 text-white/90">
+                            <p>
+                              This Goal Tracker application is built using modern React with TypeScript, showcasing
+                              a fully interactive and responsive interface. It leverages several key technologies:
+                            </p>
+                            <ul className="list-disc pl-6 space-y-2 mt-4">
+                              <li>
+                                <span className="text-purple-400 font-semibold">React</span> - For building the
+                                interactive UI components with hooks for state management
+                              </li>
+                              <li>
+                                <span className="text-blue-400 font-semibold">TypeScript</span> - Provides type
+                                safety and better developer experience
+                              </li>
+                              <li>
+                                <span className="text-pink-400 font-semibold">Framer Motion</span> - Powers all
+                                the smooth animations and transitions between states
+                              </li>
+                              <li>
+                                <span className="text-green-400 font-semibold">Recharts</span> - Creates the
+                                interactive pie charts for goal progress visualization
+                              </li>
+                              <li>
+                                <span className="text-yellow-400 font-semibold">LocalStorage API</span> - Persists
+                                user goals and progress across sessions
+                              </li>
+                            </ul>
+                          </div>
+                        </motion.section>
+
+                        {/* Key Features */}
+                        <motion.section
+                          initial={{ opacity: 0, x: 30 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.6, delay: 0.6 }}
+                          className="bg-gradient-to-br from-purple-900/30 via-indigo-900/30 to-black/50 p-8 rounded-xl border border-purple-500/20"
+                        >
+                          <h2 className="text-3xl font-bold text-white mb-4">Key Features</h2>
+                          <div className="space-y-4 text-white/90">
+                            <div>
+                              <h3 className="text-xl font-semibold text-white/90 mb-2">Multi-Level Navigation</h3>
+                              <p>
+                                The application features a unique multi-level navigation system that uses scroll-based
+                                transitions with cloud animations to move between different functional areas.
+                              </p>
+                            </div>
+
+                            <div>
+                              <h3 className="text-xl font-semibold text-white/90 mb-2">Interactive Goal Management</h3>
+                              <p>
+                                Users can create, view, and update both personal and team goals with customizable
+                                milestones. Each milestone has a weightage value that contributes to the overall
+                                goal progress.
+                              </p>
+                            </div>
+
+                            <div>
+                              <h3 className="text-xl font-semibold text-white/90 mb-2">Progress Visualization</h3>
+                              <p>
+                                Goal progress is visualized through animated pie charts and an interactive milestone
+                                map that shows the path to completion. The visual elements adapt dynamically as users
+                                mark milestones as complete.
+                              </p>
+                            </div>
+
+                            <div>
+                              <h3 className="text-xl font-semibold text-white/90 mb-2">Persistent Storage</h3>
+                              <p>
+                                All user-created goals and progress updates are stored in the browser's localStorage,
+                                ensuring that data persists between sessions without requiring a backend server.
+                              </p>
+                            </div>
+                          </div>
+                        </motion.section>
+
+                        {/* Design Philosophy */}
+                        <motion.section
+                          initial={{ opacity: 0, y: 30 }}
+                          animate={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.6, delay: 0.8 }}
+                          className="bg-gradient-to-br from-blue-900/30 via-indigo-900/30 to-black/50 p-8 rounded-xl border border-blue-500/20"
+                        >
+                          <h2 className="text-3xl font-bold text-white mb-4">Design Philosophy</h2>
+                          <div className="space-y-4 text-white/90">
+                            <p>
+                              The Goal Tracker embraces a futuristic, immersive design language that aims to make
+                              goal setting and tracking an engaging experience rather than a mundane task.
+                            </p>
+
+                            <div>
+                              <h3 className="text-xl font-semibold text-white/90 mb-2">Immersive User Interface</h3>
+                              <p>
+                                The floating bubbles and dots create an interactive cosmic environment that responds
+                                to user movements. This design choice creates a sense of depth and makes the interface
+                                feel alive and responsive.
+                              </p>
+                            </div>
+
+                            <div>
+                              <h3 className="text-xl font-semibold text-white/90 mb-2">Intuitive Workflow</h3>
+                              <p>
+                                The application guides users through a logical progression of steps when creating
+                                goals, with contextual information and feedback at each stage.
+                              </p>
+                            </div>
+
+                            <div>
+                              <h3 className="text-xl font-semibold text-white/90 mb-2">Accessibility Considerations</h3>
+                              <p>
+                                Despite the rich visual effects, care has been taken to ensure text remains readable
+                                with appropriate contrast ratios, and interactive elements have clear focus states.
+                              </p>
+                            </div>
+                          </div>
+                        </motion.section>
+
+                        {/* Technical Implementation */}
+                        <motion.section
+                          initial={{ opacity: 0, x: -30 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.6, delay: 1.0 }}
+                          className="bg-gradient-to-br from-teal-900/30 via-blue-900/30 to-black/50 p-8 rounded-xl border border-teal-500/20"
+                        >
+                          <h2 className="text-3xl font-bold text-white mb-4">Technical Highlights</h2>
+                          <div className="space-y-4 text-white/90">
+                            <div>
+                              <h3 className="text-xl font-semibold text-white/90 mb-2">Accurate Progress Calculation</h3>
+                              <p>
+                                Goal progress is calculated based on the cumulative weightage of completed milestones,
+                                providing an accurate representation of advancement toward the overall objective.
+                              </p>
+                            </div>
+
+                            <div>
+                              <h3 className="text-xl font-semibold text-white/90 mb-2">Optimized Animation Performance</h3>
+                              <p>
+                                Animations are optimized using GPU acceleration and selective rendering to maintain
+                                smooth performance even on lower-powered devices.
+                              </p>
+                            </div>
+
+                            <div>
+                              <h3 className="text-xl font-semibold text-white/90 mb-2">Responsive Design Approach</h3>
+                              <p>
+                                The application adapts seamlessly to different screen sizes using a mobile-first
+                                approach, with special attention to touch interactions for mobile users.
+                              </p>
+                            </div>
+                          </div>
+                        </motion.section>
+
+                        {/* Future Enhancements */}
+                        <motion.section
+                          initial={{ opacity: 0, x: 30 }}
+                          animate={{ opacity: 1, x: 0 }}
+                          transition={{ duration: 0.6, delay: 1.2 }}
+                          className="bg-gradient-to-br from-pink-900/30 via-purple-900/30 to-black/50 p-8 rounded-xl border border-pink-500/20 mb-8"
+                        >
+                          <h2 className="text-3xl font-bold text-white mb-4">Future Enhancements</h2>
+                          <div className="space-y-3 text-white/90">
+                            <p>
+                              While the current implementation provides a solid foundation, several enhancements are planned:
+                            </p>
+                            <ul className="list-disc pl-6 space-y-2 mt-4">
+                              <li>Cloud synchronization to share goals across devices</li>
+                              <li>Advanced analytics to track goal completion patterns over time</li>
+                              <li>Integration with calendar APIs for deadline management</li>
+                              <li>Expanded team collaboration features with real-time updates</li>
+                              <li>Customizable themes and interface options</li>
+                            </ul>
+                          </div>
+                        </motion.section>
+
+                        {/* Navigation hint */}
+                        <div className="text-center my-12 text-white/70">
+                          <p>Scroll up to return to the Goals Dashboard</p>
+                          <svg className="w-8 h-8 mx-auto mt-2 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                          </svg>
+                        </div>
+                      </div>
+
+                      {/* Duplicate sections for infinite loop */}
+                      <div className="space-y-12">
+                        {/* Technology Stack (repeated) */}
+                        <section className="bg-gradient-to-br from-indigo-900/30 via-purple-900/30 to-black/50 p-8 rounded-xl border border-indigo-500/20">
+                          <h2 className="text-3xl font-bold text-white mb-4">Technology Stack</h2>
+                          <div className="space-y-3 text-white/90">
+                            <p>
+                              This Goal Tracker application is built using modern React with TypeScript, showcasing
+                              a fully interactive and responsive interface. It leverages several key technologies:
+                            </p>
+                            <ul className="list-disc pl-6 space-y-2 mt-4">
+                              <li>
+                                <span className="text-purple-400 font-semibold">React</span> - For building the
+                                interactive UI components with hooks for state management
+                              </li>
+                              <li>
+                                <span className="text-blue-400 font-semibold">TypeScript</span> - Provides type
+                                safety and better developer experience
+                              </li>
+                              <li>
+                                <span className="text-pink-400 font-semibold">Framer Motion</span> - Powers all
+                                the smooth animations and transitions between states
+                              </li>
+                              <li>
+                                <span className="text-green-400 font-semibold">Recharts</span> - Creates the
+                                interactive pie charts for goal progress visualization
+                              </li>
+                              <li>
+                                <span className="text-yellow-400 font-semibold">LocalStorage API</span> - Persists
+                                user goals and progress across sessions
+                              </li>
+                            </ul>
+                          </div>
+                        </section>
+
+                        {/* Key Features (repeated) */}
+                        <section className="bg-gradient-to-br from-purple-900/30 via-indigo-900/30 to-black/50 p-8 rounded-xl border border-purple-500/20">
+                          <h2 className="text-3xl font-bold text-white mb-4">Key Features</h2>
+                          <div className="space-y-4 text-white/90">
+                            <div>
+                              <h3 className="text-xl font-semibold text-white/90 mb-2">Multi-Level Navigation</h3>
+                              <p>
+                                The application features a unique multi-level navigation system that uses scroll-based
+                                transitions with cloud animations to move between different functional areas.
+                              </p>
+                            </div>
+
+                            <div>
+                              <h3 className="text-xl font-semibold text-white/90 mb-2">Interactive Goal Management</h3>
+                              <p>
+                                Users can create, view, and update both personal and team goals with customizable
+                                milestones. Each milestone has a weightage value that contributes to the overall
+                                goal progress.
+                              </p>
+                            </div>
+                          </div>
+                        </section>
+                      </div>
+                    </motion.div>
+
+                    {/* Gradient overlays for top and bottom fade effects */}
+                    <div className="absolute bottom-0 left-0 right-0 h-40 "></div>
+                  </motion.div>
+
+                  {/* Footer navigation hint */}
+                  <motion.div
+                    className="text-center pb-12 text-white/70"
+                    animate={{ opacity: fadeLevel3 ? 0 : 1 }}
+                    transition={{ duration: 0.2, ease: "easeOut" }} // Faster fade for transitions
+                  >
+                    <p>Scroll up to return to the Goals Dashboard</p>
+                    <svg className="w-8 h-8 mx-auto mt-2 animate-bounce" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 10l7-7m0 0l7 7m-7-7v18" />
+                    </svg>
+                  </motion.div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
+
+        </AnimatePresence>
+
+        {/* Goal Creation Modal */}
+        <AnimatePresence>
+          {isModalOpen && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              className="fixed inset-0 bg-black/90 backdrop-blur-sm z-[100] flex items-center justify-center"
+            >
+              <motion.div
+                initial={{ scale: 0.9, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.9, opacity: 0 }}
+                transition={{ type: "spring", duration: 0.5 }}
+                className="bg-gradient-to-b from-black/95 via-purple-900/80 to-indigo-900/95 rounded-lg p-4 sm:p-8 w-full max-w-[90vw] sm:max-w-3xl max-h-[85vh] sm:max-h-[90vh] overflow-y-auto relative modal-scrollbar"
+              >
+                {/* Close button */}
+                <button
+                  onClick={closeModal}
+                  className="absolute top-4 right-4 text-white/60 hover:text-white transition-colors"
+                >
+                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                  </svg>
+                </button>
+
+                {/* Progress indicator */}
+                <div className="flex justify-center mb-8">
+                  <div className="flex space-x-2">
+                    {[0, 1, 2, goalType === 'team' ? 3 : 2.5, goalType === 'team' ? 4 : 3.5].filter(Number.isInteger).map((stepNum, index) => (
+                      <div
+                        key={index}
+                        className={`h-2 w-8 rounded-full transition-colors ${step >= stepNum ? 'bg-blue-500' : 'bg-white/20'
+                          }`}
                       />
-                      <div className="relative w-full sm:w-32">
+                    ))}
+                  </div>
+                </div>
+
+                {/* Modal Steps */}
+                <AnimatePresence mode="wait">
+                  {step === 0 && (
+                    <motion.div
+                      key="step-0"
+                      initial={{ x: 50, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      exit={{ x: -50, opacity: 0 }}
+                      transition={{
+                        type: "tween",
+                        duration: 0.2,
+                        ease: "easeOut"
+                      }}
+                      className="text-center"
+                    >
+                      <h2 className="text-4xl font-bold text-white mb-12">What type of goal is this?</h2>
+                      <div className="flex justify-center gap-12">
+                        <motion.div
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.98 }}
+                          onClick={() => { setGoalType('personal'); nextStep(); }}
+                          className="cursor-pointer w-64 h-80 bg-gradient-to-b from-indigo-800/50 to-indigo-900/80 rounded-lg p-8 flex flex-col items-center justify-center border border-indigo-400/30 hover:border-indigo-400/80 transition-all duration-300"
+                        >
+                          <svg className="w-16 h-16 text-indigo-400 mb-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                          </svg>
+                          <h3 className="text-2xl font-bold text-white mb-4">Personal Goal</h3>
+                          <p className="text-white/80 text-center">Set personal milestones and track your individual progress</p>
+                        </motion.div>
+                        <motion.div
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.98 }}
+                          onClick={() => { setGoalType('team'); nextStep(); }}
+                          className="cursor-pointer w-64 h-80 bg-gradient-to-b from-purple-800/50 to-purple-900/80 rounded-lg p-8 flex flex-col items-center justify-center border border-purple-400/30 hover:border-purple-400/80 transition-all duration-300"
+                        >
+                          <svg className="w-16 h-16 text-purple-400 mb-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0zm6 3a2 2 0 11-4 0 2 2 0 014 0zM7 10a2 2 0 11-4 0 2 2 0 014 0z" />
+                          </svg>
+                          <h3 className="text-2xl font-bold text-white mb-4">Team Goal</h3>
+                          <p className="text-white/80 text-center">Collaborate with team members and achieve goals together</p>
+                        </motion.div>
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {step === 1 && (
+                    <motion.div
+                      key="step-1"
+                      initial={{ x: 50, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      exit={{ x: -50, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <h2 className="text-3xl font-bold text-white mb-8">Basic Information</h2>
+                      <div className="space-y-4">
                         <input
-                          type="number"
-                          value={currentWeightage || ''}
-                          onChange={(e) => {
-                            const value = Number(e.target.value);
-                            if (value >= 0 && !isNaN(value)) {
-                              setCurrentWeightage(value);
+                          type="text"
+                          value={goalName}
+                          onChange={(e) => setGoalName(e.target.value)}
+                          onKeyDown={(e) => {
+                            // Only proceed if all required fields are filled
+                            if (e.key === 'Enter' && goalName.trim() && deadline) {
+                              nextStep();
                             }
                           }}
+                          placeholder="Goal name"
+                          className="w-full px-4 py-3 rounded-lg bg-white/10 text-white placeholder-white/50 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        />
+                        <textarea
+                          value={goalDescription}
+                          onChange={(e) => setGoalDescription(e.target.value)}
+                          onKeyDown={(e) => {
+                            // Only proceed if all required fields are filled (description is optional)
+                            if (e.key === 'Enter' && e.ctrlKey && goalName.trim() && deadline) {
+                              nextStep();
+                            }
+                          }}
+                          placeholder="Description (optional)"
+                          className="w-full px-4 py-3 rounded-lg bg-white/10 text-white placeholder-white/50 text-lg focus:outline-none focus:ring-2 focus:ring-blue-500 min-h-[100px]"
+                        />
+                        <div>
+                          <label className="text-white/80 text-sm mb-2 block">Deadline</label>
+                          <input
+                            type="date"
+                            value={deadline}
+                            onChange={(e) => setDeadline(e.target.value)}
+                            className="w-full px-4 py-3 rounded-lg bg-white/10 text-white"
+                          />
+                        </div>
+                      </div>
+                      <div className="flex justify-between mt-8">
+                        <motion.button
+                          onClick={prevStep}
+                          whileHover={{ scale: 1.03 }}
+                          whileTap={{ scale: 0.98 }}
+                          transition={{ duration: 0.1 }}
+                          className="bg-gray-900/80 hover:bg-gray-800 text-white px-8 py-3 rounded-md font-semibold"
+                        >
+                          Back
+                        </motion.button>
+                        <motion.button
+                          onClick={nextStep}
+                          disabled={!goalName || !deadline}
+                          whileHover={goalName && deadline ? { scale: 1.03 } : {}}
+                          whileTap={goalName && deadline ? { scale: 0.98 } : {}}
+                          transition={{ duration: 0.1 }}
+                          className={`px-8 py-3 rounded-md font-semibold ${goalName && deadline ? 'bg-blue-600 hover:bg-blue-700 text-white' : 'bg-gray-600 text-gray-400 cursor-not-allowed'
+                            }`}
+                        >
+                          Next
+                        </motion.button>
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {step === 2 && (
+                    <motion.div
+                      key="step-2"
+                      initial={{ x: 50, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      exit={{ x: -50, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <h2 className="text-3xl font-bold text-white mb-8">Add Milestones</h2>
+
+                      {/* Add Milestone Form */}
+                      <div className="flex flex-col sm:flex-row gap-2 mb-4">
+                        <input
+                          type="text"
+                          value={currentMilestone}
+                          onChange={(e) => setCurrentMilestone(e.target.value)}
                           onKeyDown={(e) => {
                             if (e.key === 'Enter' && currentMilestone.trim() && currentWeightage > 0) {
                               addMilestone();
                             }
                           }}
-                          min="0"
-                          placeholder="Weightage"
-                          className="w-full px-4 py-2 pr-8 rounded-lg bg-white/10 text-white placeholder-white/50 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                          placeholder="Milestone description"
+                          className="flex-1 px-4 py-2 rounded-lg bg-white/10 text-white placeholder-white/50"
                         />
-                        <div className="absolute right-2 top-1/2 -translate-y-1/2 flex flex-col gap-2 h-full justify-center">
-                          <motion.button
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
-                            onClick={() => setCurrentWeightage(prev => prev + 1)}
-                            className="text-white/70 hover:text-white"
-                          >
-                            <svg width="10" height="6" fill="currentColor">
-                              <polygon points="0,6 5,0 10,6" />
-                            </svg>
-                          </motion.button>
-                          <motion.button
-                            whileHover={{ scale: 1.1 }}
-                            whileTap={{ scale: 0.9 }}
-                            onClick={() => setCurrentWeightage(prev => Math.max(0, prev - 1))}
-                            className="text-white/70 hover:text-white"
-                          >
-                            <svg width="10" height="6" fill="currentColor">
-                              <polygon points="0,0 5,6 10,0" />
-                            </svg>
-                          </motion.button>
+                        <div className="relative w-full sm:w-32">
+                          <input
+                            type="number"
+                            value={currentWeightage || ''}
+                            onChange={(e) => {
+                              const value = Number(e.target.value);
+                              if (value >= 0 && !isNaN(value)) {
+                                setCurrentWeightage(value);
+                              }
+                            }}
+                            onKeyDown={(e) => {
+                              if (e.key === 'Enter' && currentMilestone.trim() && currentWeightage > 0) {
+                                addMilestone();
+                              }
+                            }}
+                            min="0"
+                            placeholder="Weightage"
+                            className="w-full px-4 py-2 pr-8 rounded-lg bg-white/10 text-white placeholder-white/50 [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                          />
+                          <div className="absolute right-2 top-1/2 -translate-y-1/2 flex flex-col gap-2 h-full justify-center">
+                            <motion.button
+                              whileHover={{ scale: 1.1 }}
+                              whileTap={{ scale: 0.9 }}
+                              onClick={() => setCurrentWeightage(prev => prev + 1)}
+                              className="text-white/70 hover:text-white"
+                            >
+                              <svg width="10" height="6" fill="currentColor">
+                                <polygon points="0,6 5,0 10,6" />
+                              </svg>
+                            </motion.button>
+                            <motion.button
+                              whileHover={{ scale: 1.1 }}
+                              whileTap={{ scale: 0.9 }}
+                              onClick={() => setCurrentWeightage(prev => Math.max(0, prev - 1))}
+                              className="text-white/70 hover:text-white"
+                            >
+                              <svg width="10" height="6" fill="currentColor">
+                                <polygon points="0,0 5,6 10,0" />
+                              </svg>
+                            </motion.button>
+                          </div>
                         </div>
-                      </div>
-                      <motion.button
-                        onClick={addMilestone}
-                        whileHover={{ scale: 1.05 }}
-                        whileTap={{ scale: 0.98 }}
-                        disabled={!currentMilestone || currentWeightage <= 0}
-                        className={`px-6 py-2 rounded-md ${currentMilestone && currentWeightage > 0
-                          ? 'bg-green-600 hover:bg-green-700 text-white'
-                          : 'bg-gray-600 text-gray-400 cursor-not-allowed'
-                          }`}
-                      >
-                        Add
-                      </motion.button>
-                    </div>
-
-                    {/* Milestone List with Custom Scrollbar */}
-                    <div
-                      className="space-y-3 max-h-60 sm:max-h-80 overflow-y-auto mb-8 pr-2 custom-scrollbar"
-                    >
-                      {milestones.map((milestone, index) => (
-                        <motion.div
-                          key={milestone.id}
-                          layout
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          exit={{ opacity: 0, y: -20 }}
-                          transition={{ duration: 0.2 }}
-                          className="flex flex-col sm:flex-row sm:items-center min-h-[4rem] bg-gradient-to-r from-indigo-900/50 to-purple-900/50 p-4 rounded-lg border border-white/10 gap-2"
-                        >
-                          <div className="flex items-center gap-4 flex-1 min-w-0">
-                            <svg className="w-5 h-5 text-white/40 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
-                            </svg>
-                            <span className="text-white text-lg break-words flex-1">{milestone.text}</span>
-                          </div>
-                          <div className="flex items-center gap-4 sm:gap-6 flex-shrink-0 justify-between sm:justify-end">
-                            <div className="flex items-center gap-2">
-                              <motion.button
-                                whileHover={{ scale: 1.1 }}
-                                whileTap={{ scale: 0.9 }}
-                                onClick={() => editMilestone(milestone.id)}
-                                className="w-8 h-8 rounded-md bg-yellow-600/70 hover:bg-yellow-600 text-white flex items-center justify-center"
-                              >
-                                ✎
-                              </motion.button>
-                              <motion.button
-                                whileHover={{ scale: 1.1 }}
-                                whileTap={{ scale: 0.9 }}
-                                onClick={() => deleteMilestone(milestone.id)}
-                                className="w-8 h-8 rounded-md bg-red-600/70 hover:bg-red-600 text-white flex items-center justify-center"
-                              >
-                                ×
-                              </motion.button>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              <motion.button
-                                whileHover={{ scale: 1.1 }}
-                                whileTap={{ scale: 0.9 }}
-                                onClick={() => moveMilestoneUp(index)}
-                                disabled={index === 0}
-                                className={`w-8 h-8 rounded-md flex items-center justify-center ${index === 0
-                                  ? 'text-gray-400 cursor-not-allowed'
-                                  : 'text-purple-400 hover:text-purple-200'
-                                  }`}
-                              >
-                                <svg width="12" height="8" fill="currentColor">
-                                  <polygon points="0,8 6,0 12,8" />
-                                </svg>
-                              </motion.button>
-                              <motion.button
-                                whileHover={{ scale: 1.1 }}
-                                whileTap={{ scale: 0.9 }}
-                                onClick={() => moveMilestoneDown(index)}
-                                disabled={index === milestones.length - 1}
-                                className={`w-8 h-8 rounded-md flex items-center justify-center ${index === milestones.length - 1
-                                  ? 'text-gray-400 cursor-not-allowed'
-                                  : 'text-purple-400 hover:text-purple-200'
-                                  }`}
-                              >
-                                <svg width="12" height="8" fill="currentColor">
-                                  <polygon points="0,0 6,8 12,0" />
-                                </svg>
-                              </motion.button>
-                            </div>
-                            <span className="w-16 sm:w-12 text-center text-white font-bold text-lg">
-                              W: <motion.span
-                                key={milestone.weightage}
-                                initial={{ opacity: 0, scale: 0.5 }}
-                                animate={{ opacity: 1, scale: 1 }}
-                                transition={{ duration: 0.3 }}
-                              >
-                                {milestone.weightage}
-                              </motion.span>
-                            </span>
-                          </div>
-                        </motion.div>
-                      ))}
-                    </div>
-
-                    <div className="flex justify-between">
-                      <motion.button
-                        onClick={prevStep}
-                        whileHover={{ scale: 1.03 }}
-                        whileTap={{ scale: 0.98 }}
-                        transition={{ duration: 0.1 }}
-                        className="bg-gray-900/80 hover:bg-gray-800 text-white px-8 py-3 rounded-md font-semibold"
-                      >
-                        Back
-                      </motion.button>
-                      <motion.button
-                        onClick={() => {
-                          // Only proceed if at least one milestone exists
-                          if (milestones.length > 0) {
-                            nextStep();
-                          }
-                        }}
-                        disabled={milestones.length === 0}
-                        whileHover={milestones.length > 0 ? { scale: 1.03 } : {}}
-                        whileTap={milestones.length > 0 ? { scale: 0.98 } : {}}
-                        transition={{ duration: 0.1 }}
-                        className={`px-8 py-3 rounded-md font-semibold ${milestones.length > 0 ? 'bg-blue-600 hover:bg-blue-700 text-white' : 'bg-gray-600 text-gray-400 cursor-not-allowed'
-                          }`}
-                      >
-                        Next
-                      </motion.button>
-                    </div>
-                  </motion.div>
-                )}
-
-                {goalType === 'team' && step === 3 && (
-                  <motion.div
-                    key="step-3"
-                    initial={{ x: 50, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    exit={{ x: -50, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <h2 className="text-3xl font-bold text-white mb-8">Choose Team Members</h2>
-                    <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8 max-h-60 sm:max-h-96 overflow-y-auto custom-scrollbar px-4 sm:pr-6 py-4">
-                      {MOCK_TEAM_MEMBERS.map((member) => (
-                        <motion.div
-                          key={member.id}
-                          whileHover={{ y: -5 }}
-                          whileTap={{ scale: 0.96 }}
-                          onClick={() => toggleTeamMember(member)}
-                          className={`cursor-pointer rounded-lg p-4 sm:p-6 text-center transition-all duration-100 ${selectedMembers.some(m => m.id === member.id)
-                            ? 'bg-blue-600/50 ring-2 ring-blue-400'
-                            : 'bg-white/10 hover:bg-white/20'
+                        <motion.button
+                          onClick={addMilestone}
+                          whileHover={{ scale: 1.05 }}
+                          whileTap={{ scale: 0.98 }}
+                          disabled={!currentMilestone || currentWeightage <= 0}
+                          className={`px-6 py-2 rounded-md ${currentMilestone && currentWeightage > 0
+                            ? 'bg-green-600 hover:bg-green-700 text-white'
+                            : 'bg-gray-600 text-gray-400 cursor-not-allowed'
                             }`}
                         >
-                          <img
-                            src={member.avatar}
-                            alt={member.name}
-                            className="w-12 h-12 sm:w-16 sm:h-16 rounded-full mx-auto mb-2"
-                          />
-                          <p className="text-white text-xs sm:text-sm">{member.name}</p>
-                        </motion.div>
-                      ))}
-                    </div>
-                    <div className="flex justify-between mt-8">
-                      <motion.button
-                        onClick={prevStep}
-                        whileHover={{ scale: 1.03 }}
-                        whileTap={{ scale: 0.98 }}
-                        transition={{ duration: 0.1 }}
-                        className="bg-gray-900/80 hover:bg-gray-800 text-white px-8 py-3 rounded-md font-semibold"
-                      >
-                        Back
-                      </motion.button>
-                      <motion.button
-                        onClick={() => {
-                          // Only proceed if at least one team member is selected
-                          if (selectedMembers.length > 0) {
-                            nextStep();
-                          }
-                        }}
-                        disabled={selectedMembers.length === 0}
-                        whileHover={selectedMembers.length > 0 ? { scale: 1.03 } : {}}
-                        whileTap={selectedMembers.length > 0 ? { scale: 0.98 } : {}}
-                        transition={{ duration: 0.1 }}
-                        className={`px-8 py-3 rounded-md font-semibold ${selectedMembers.length > 0 ? 'bg-blue-600 hover:bg-blue-700 text-white' : 'bg-gray-600 text-gray-400 cursor-not-allowed'
-                          }`}
-                      >
-                        Next
-                      </motion.button>
-                    </div>
-                  </motion.div>
-                )}
-
-                {step === (goalType === 'team' ? 4 : 3) && (
-                  <motion.div
-                    key="step-summary"
-                    initial={{ x: 50, opacity: 0 }}
-                    animate={{ x: 0, opacity: 1 }}
-                    exit={{ x: -50, opacity: 0 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    <h2 className="text-3xl font-bold text-white mb-8">Goal Summary</h2>
-                    <div className="modal-scrollbar overflow-y-auto overflow-x-hidden max-h-[50vh] space-y-6">
-                      <div className="bg-white/10 rounded-lg p-6">
-                        <h3 className="text-xl font-bold text-white mb-4">{goalName}</h3>
-                        {goalDescription && (
-                          <p className="text-white/80 mb-4">{goalDescription}</p>
-                        )}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                          <div>
-                            <p className="text-white/60 text-sm">Type</p>
-                            <p className="text-white font-semibold capitalize">{goalType} Goal</p>
-                          </div>
-                          <div>
-                            <p className="text-white/60 text-sm">Deadline</p>
-                            <p className="text-white font-semibold">{new Date(deadline).toLocaleDateString()}</p>
-                          </div>
-                        </div>
+                          Add
+                        </motion.button>
                       </div>
 
-                      <div className="bg-white/10 rounded-lg p-6">
-                        <h4 className="text-lg font-bold text-white mb-4">Milestones ({milestones.length})</h4>
-                        <div className="space-y-3">
-                          {milestones.map((milestone, index) => (
-                            <div key={milestone.id} className="flex items-center gap-4 text-white">
-                              <span className="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-sm">
-                                {index + 1}
-                              </span>
-                              <span className="flex-1">{milestone.text}</span>
-                              <span className="text-white/80 font-semibold">Weight: {milestone.weightage}</span>
+                      {/* Milestone List with Custom Scrollbar */}
+                      <div
+                        className="space-y-3 max-h-60 sm:max-h-80 overflow-y-auto mb-8 pr-2 custom-scrollbar"
+                      >
+                        {milestones.map((milestone, index) => (
+                          <motion.div
+                            key={milestone.id}
+                            layout
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            exit={{ opacity: 0, y: -20 }}
+                            transition={{ duration: 0.2 }}
+                            className="flex flex-col sm:flex-row sm:items-center min-h-[4rem] bg-gradient-to-r from-indigo-900/50 to-purple-900/50 p-4 rounded-lg border border-white/10 gap-2"
+                          >
+                            <div className="flex items-center gap-4 flex-1 min-w-0">
+                              <svg className="w-5 h-5 text-white/40 flex-shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                              </svg>
+                              <span className="text-white text-lg break-words flex-1">{milestone.text}</span>
                             </div>
-                          ))}
-                        </div>
+                            <div className="flex items-center gap-4 sm:gap-6 flex-shrink-0 justify-between sm:justify-end">
+                              <div className="flex items-center gap-2">
+                                <motion.button
+                                  whileHover={{ scale: 1.1 }}
+                                  whileTap={{ scale: 0.9 }}
+                                  onClick={() => editMilestone(milestone.id)}
+                                  className="w-8 h-8 rounded-md bg-yellow-600/70 hover:bg-yellow-600 text-white flex items-center justify-center"
+                                >
+                                  ✎
+                                </motion.button>
+                                <motion.button
+                                  whileHover={{ scale: 1.1 }}
+                                  whileTap={{ scale: 0.9 }}
+                                  onClick={() => deleteMilestone(milestone.id)}
+                                  className="w-8 h-8 rounded-md bg-red-600/70 hover:bg-red-600 text-white flex items-center justify-center"
+                                >
+                                  ×
+                                </motion.button>
+                              </div>
+                              <div className="flex items-center gap-2">
+                                <motion.button
+                                  whileHover={{ scale: 1.1 }}
+                                  whileTap={{ scale: 0.9 }}
+                                  onClick={() => moveMilestoneUp(index)}
+                                  disabled={index === 0}
+                                  className={`w-8 h-8 rounded-md flex items-center justify-center ${index === 0
+                                    ? 'text-gray-400 cursor-not-allowed'
+                                    : 'text-purple-400 hover:text-purple-200'
+                                    }`}
+                                >
+                                  <svg width="12" height="8" fill="currentColor">
+                                    <polygon points="0,8 6,0 12,8" />
+                                  </svg>
+                                </motion.button>
+                                <motion.button
+                                  whileHover={{ scale: 1.1 }}
+                                  whileTap={{ scale: 0.9 }}
+                                  onClick={() => moveMilestoneDown(index)}
+                                  disabled={index === milestones.length - 1}
+                                  className={`w-8 h-8 rounded-md flex items-center justify-center ${index === milestones.length - 1
+                                    ? 'text-gray-400 cursor-not-allowed'
+                                    : 'text-purple-400 hover:text-purple-200'
+                                    }`}
+                                >
+                                  <svg width="12" height="8" fill="currentColor">
+                                    <polygon points="0,0 6,8 12,0" />
+                                  </svg>
+                                </motion.button>
+                              </div>
+                              <span className="w-16 sm:w-12 text-center text-white font-bold text-lg">
+                                W: <motion.span
+                                  key={milestone.weightage}
+                                  initial={{ opacity: 0, scale: 0.5 }}
+                                  animate={{ opacity: 1, scale: 1 }}
+                                  transition={{ duration: 0.3 }}
+                                >
+                                  {milestone.weightage}
+                                </motion.span>
+                              </span>
+                            </div>
+                          </motion.div>
+                        ))}
                       </div>
 
-                      {goalType === 'team' && selectedMembers.length > 0 && (
+                      <div className="flex justify-between">
+                        <motion.button
+                          onClick={prevStep}
+                          whileHover={{ scale: 1.03 }}
+                          whileTap={{ scale: 0.98 }}
+                          transition={{ duration: 0.1 }}
+                          className="bg-gray-900/80 hover:bg-gray-800 text-white px-8 py-3 rounded-md font-semibold"
+                        >
+                          Back
+                        </motion.button>
+                        <motion.button
+                          onClick={() => {
+                            // Only proceed if at least one milestone exists
+                            if (milestones.length > 0) {
+                              nextStep();
+                            }
+                          }}
+                          disabled={milestones.length === 0}
+                          whileHover={milestones.length > 0 ? { scale: 1.03 } : {}}
+                          whileTap={milestones.length > 0 ? { scale: 0.98 } : {}}
+                          transition={{ duration: 0.1 }}
+                          className={`px-8 py-3 rounded-md font-semibold ${milestones.length > 0 ? 'bg-blue-600 hover:bg-blue-700 text-white' : 'bg-gray-600 text-gray-400 cursor-not-allowed'
+                            }`}
+                        >
+                          Next
+                        </motion.button>
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {goalType === 'team' && step === 3 && (
+                    <motion.div
+                      key="step-3"
+                      initial={{ x: 50, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      exit={{ x: -50, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <h2 className="text-3xl font-bold text-white mb-8">Choose Team Members</h2>
+                      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-8 max-h-60 sm:max-h-96 overflow-y-auto custom-scrollbar px-4 sm:pr-6 py-4">
+                        {MOCK_TEAM_MEMBERS.map((member) => (
+                          <motion.div
+                            key={member.id}
+                            whileHover={{ y: -5 }}
+                            whileTap={{ scale: 0.96 }}
+                            onClick={() => toggleTeamMember(member)}
+                            className={`cursor-pointer rounded-lg p-4 sm:p-6 text-center transition-all duration-100 ${selectedMembers.some(m => m.id === member.id)
+                              ? 'bg-blue-600/50 ring-2 ring-blue-400'
+                              : 'bg-white/10 hover:bg-white/20'
+                              }`}
+                          >
+                            <img
+                              src={member.avatar}
+                              alt={member.name}
+                              className="w-12 h-12 sm:w-16 sm:h-16 rounded-full mx-auto mb-2"
+                            />
+                            <p className="text-white text-xs sm:text-sm">{member.name}</p>
+                          </motion.div>
+                        ))}
+                      </div>
+                      <div className="flex justify-between mt-8">
+                        <motion.button
+                          onClick={prevStep}
+                          whileHover={{ scale: 1.03 }}
+                          whileTap={{ scale: 0.98 }}
+                          transition={{ duration: 0.1 }}
+                          className="bg-gray-900/80 hover:bg-gray-800 text-white px-8 py-3 rounded-md font-semibold"
+                        >
+                          Back
+                        </motion.button>
+                        <motion.button
+                          onClick={() => {
+                            // Only proceed if at least one team member is selected
+                            if (selectedMembers.length > 0) {
+                              nextStep();
+                            }
+                          }}
+                          disabled={selectedMembers.length === 0}
+                          whileHover={selectedMembers.length > 0 ? { scale: 1.03 } : {}}
+                          whileTap={selectedMembers.length > 0 ? { scale: 0.98 } : {}}
+                          transition={{ duration: 0.1 }}
+                          className={`px-8 py-3 rounded-md font-semibold ${selectedMembers.length > 0 ? 'bg-blue-600 hover:bg-blue-700 text-white' : 'bg-gray-600 text-gray-400 cursor-not-allowed'
+                            }`}
+                        >
+                          Next
+                        </motion.button>
+                      </div>
+                    </motion.div>
+                  )}
+
+                  {step === (goalType === 'team' ? 4 : 3) && (
+                    <motion.div
+                      key="step-summary"
+                      initial={{ x: 50, opacity: 0 }}
+                      animate={{ x: 0, opacity: 1 }}
+                      exit={{ x: -50, opacity: 0 }}
+                      transition={{ duration: 0.2 }}
+                    >
+                      <h2 className="text-3xl font-bold text-white mb-8">Goal Summary</h2>
+                      <div className="modal-scrollbar overflow-y-auto overflow-x-hidden max-h-[50vh] space-y-6">
                         <div className="bg-white/10 rounded-lg p-6">
-                          <h4 className="text-lg font-bold text-white mb-4">Team Members ({selectedMembers.length})</h4>
-                          <div className="flex flex-wrap gap-4">
-                            {selectedMembers.map((member) => (
-                              <div key={member.id} className="flex items-center gap-2">
-                                <img
-                                  src={member.avatar}
-                                  alt={member.name}
-                                  className="w-8 h-8 rounded-full"
-                                />
-                                <span className="text-white">{member.name}</span>
+                          <h3 className="text-xl font-bold text-white mb-4">{goalName}</h3>
+                          {goalDescription && (
+                            <p className="text-white/80 mb-4">{goalDescription}</p>
+                          )}
+                          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div>
+                              <p className="text-white/60 text-sm">Type</p>
+                              <p className="text-white font-semibold capitalize">{goalType} Goal</p>
+                            </div>
+                            <div>
+                              <p className="text-white/60 text-sm">Deadline</p>
+                              <p className="text-white font-semibold">{new Date(deadline).toLocaleDateString()}</p>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="bg-white/10 rounded-lg p-6">
+                          <h4 className="text-lg font-bold text-white mb-4">Milestones ({milestones.length})</h4>
+                          <div className="space-y-3">
+                            {milestones.map((milestone, index) => (
+                              <div key={milestone.id} className="flex items-center gap-4 text-white">
+                                <span className="w-6 h-6 rounded-full bg-blue-600 text-white flex items-center justify-center text-sm">
+                                  {index + 1}
+                                </span>
+                                <span className="flex-1">{milestone.text}</span>
+                                <span className="text-white/80 font-semibold">Weight: {milestone.weightage}</span>
                               </div>
                             ))}
                           </div>
                         </div>
-                      )}
-                    </div>
 
-                    <div className="flex justify-between mt-8 pr-4">
-                      <motion.button
-                        onClick={prevStep}
-                        whileHover={{ scale: 1.03 }}
-                        whileTap={{ scale: 0.98 }}
-                        transition={{ duration: 0.1 }}
-                        className="bg-gray-900/80 hover:bg-gray-800 text-white px-8 py-3 rounded-md font-semibold"
+                        {goalType === 'team' && selectedMembers.length > 0 && (
+                          <div className="bg-white/10 rounded-lg p-6">
+                            <h4 className="text-lg font-bold text-white mb-4">Team Members ({selectedMembers.length})</h4>
+                            <div className="flex flex-wrap gap-4">
+                              {selectedMembers.map((member) => (
+                                <div key={member.id} className="flex items-center gap-2">
+                                  <img
+                                    src={member.avatar}
+                                    alt={member.name}
+                                    className="w-8 h-8 rounded-full"
+                                  />
+                                  <span className="text-white">{member.name}</span>
+                                </div>
+                              ))}
+                            </div>
+                          </div>
+                        )}
+                      </div>
+
+                      <div className="flex justify-between mt-8 pr-4">
+                        <motion.button
+                          onClick={prevStep}
+                          whileHover={{ scale: 1.03 }}
+                          whileTap={{ scale: 0.98 }}
+                          transition={{ duration: 0.1 }}
+                          className="bg-gray-900/80 hover:bg-gray-800 text-white px-8 py-3 rounded-md font-semibold"
+                        >
+                          Back
+                        </motion.button>
+                        <motion.button
+                          onClick={submitGoal}
+                          onKeyDown={(e) => {
+                            if (e.key === 'Enter') {
+                              submitGoal();
+                            }
+                          }}
+                          whileHover={{ scale: 1.03 }}
+                          whileTap={{ scale: 0.98 }}
+                          transition={{ duration: 0.1 }}
+                          className="px-8 py-3 rounded-md font-semibold bg-green-600 hover:bg-green-700 text-white"
+                        >
+                          Create Goal
+                        </motion.button>
+                      </div>
+                    </motion.div>
+                  )}
+
+                </AnimatePresence>
+
+                {/* Loading/Success overlay */}
+                {(isSubmitting || showSuccess) && (
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    className="fixed inset-0 bg-black/80 z-[150] flex items-center justify-center"
+                  >
+                    {isSubmitting && (
+                      <div className="text-white text-xl">Creating your goal...</div>
+                    )}
+                    {showSuccess && (
+                      <motion.div
+                        initial={{ scale: 0 }}
+                        animate={{ scale: 1 }}
+                        transition={{ type: "spring", duration: 0.5 }}
+                        className="text-center"
                       >
-                        Back
-                      </motion.button>
-                      <motion.button
-                        onClick={submitGoal}
-                        onKeyDown={(e) => {
-                          if (e.key === 'Enter') {
-                            submitGoal();
-                          }
-                        }}
-                        whileHover={{ scale: 1.03 }}
-                        whileTap={{ scale: 0.98 }}
-                        transition={{ duration: 0.1 }}
-                        className="px-8 py-3 rounded-md font-semibold bg-green-600 hover:bg-green-700 text-white"
-                      >
-                        Create Goal
-                      </motion.button>
-                    </div>
+                        <svg className="w-16 h-16 text-green-500 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        <h3 className="text-2xl font-bold text-white">Goal Created Successfully!</h3>
+                      </motion.div>
+                    )}
                   </motion.div>
                 )}
-
-              </AnimatePresence>
-
-              {/* Loading/Success overlay */}
-              {(isSubmitting || showSuccess) && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  className="fixed inset-0 bg-black/80 z-[150] flex items-center justify-center"
-                >
-                  {isSubmitting && (
-                    <div className="text-white text-xl">Creating your goal...</div>
-                  )}
-                  {showSuccess && (
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ type: "spring", duration: 0.5 }}
-                      className="text-center"
-                    >
-                      <svg className="w-16 h-16 text-green-500 mx-auto mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                      </svg>
-                      <h3 className="text-2xl font-bold text-white">Goal Created Successfully!</h3>
-                    </motion.div>
-                  )}
-                </motion.div>
-              )}
+              </motion.div>
             </motion.div>
-          </motion.div>
 
 
-        )}
-      </AnimatePresence> {/* Close outermost AnimatePresence */}
+          )}
+        </AnimatePresence> {/* Close outermost AnimatePresence */}
 
-      {/* Goal Details Page */}
-      {/* Goal Details Page */}
-      <AnimatePresence>
-        {showGoalDetails && selectedGoal && (
-          <motion.div
-            initial={{ x: '100%' }}
-            animate={{ x: 0 }}
-            exit={{ x: '100%' }}
-            transition={{ type: 'tween', duration: 0.3 }}
-            className="fixed inset-0 bg-gradient-to-b from-black/95 via-purple-900/80 to-indigo-900/95 z-50 overflow-y-auto hide-scrollbar"
-          >
-            <div className="max-w-7xl mx-auto p-8">
-              {/* Header */}
-              <div className="flex justify-between items-center mb-8">
-                <button
-                  onClick={() => {
-                    setShowGoalDetails(false);
-                    setSelectedGoal(null);
-                  }}
-                  className="flex items-center gap-2 text-white/70 hover:text-white transition-colors"
-                >
-                  <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
-                  </svg>
-                  Back
-                </button>
-              </div>
-
-              {/* Goal Title and Description */}
-              <div className="mb-12">
-                <h1 className="text-5xl font-bold text-white mb-4 leading-tight break-words">{selectedGoal.name}</h1>
-                {selectedGoal.description && (
-                  <p className="text-xl text-white/80 mb-4 leading-relaxed break-words">{selectedGoal.description}</p>
-                )}
-                <p className="text-white/60">Deadline: {new Date(selectedGoal.deadline).toLocaleDateString()}</p>
-              </div>
-
-              {/* Progress Overview with Improved Pie Charts */}
-              <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
-                {/* Animated Pie Chart */}
-                <motion.div
-                  className="bg-gradient-to-br from-indigo-900/70 to-purple-900/70 p-6 rounded-lg shadow-lg"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <h3 className="text-xl font-semibold text-white mb-4">Overall Progress</h3>
-                  <div className="w-48 h-48 mx-auto relative">
-                    <ResponsiveContainer width="100%" height="100%">
-                      <PieChart>
-                        <Pie
-                          data={[
-                            // Calculate progress directly from milestones to avoid discrepancies
-                            {
-                              name: "Completed",
-                              value: selectedGoal.milestones.filter(m => m.completed).reduce((sum, m) => sum + m.weightage, 0)
-                            },
-                            {
-                              name: "Remaining",
-                              value: selectedGoal.milestones.filter(m => !m.completed).reduce((sum, m) => sum + m.weightage, 0)
-                            }
-                          ]}
-                          cx="50%"
-                          cy="50%"
-                          innerRadius="65%"
-                          outerRadius="95%"
-                          startAngle={90}
-                          endAngle={-270}
-                          dataKey="value"
-                          animationBegin={0}
-                          animationDuration={1200}
-                          animationEasing="ease-out"
-                        >
-                          <Cell fill="#6D28D9" />
-                          <Cell fill="#374151" />
-                          <Tooltip content={({ payload }) => {
-                            if (payload && payload.length) {
-                              return (
-                                <div className="bg-black/80 px-3 py-1 rounded text-white text-sm">
-                                  {payload[0].name}: {payload[0].value}%
-                                </div>
-                              );
-                            }
-                            return null;
-                          }} />
-                        </Pie>
-                      </PieChart>
-                    </ResponsiveContainer>
-                    <motion.div
-                      className="absolute inset-0 flex items-center justify-center"
-                      initial={{ opacity: 0, scale: 0.5 }}
-                      animate={{ opacity: 1, scale: 1 }}
-                      transition={{ delay: 0.5, duration: 0.5 }}
-                    >
-                      <span className="text-5xl font-bold text-white">
-                        {(() => {
-                          // Calculate correct percentage from milestone weights
-                          const completedWeight = selectedGoal.milestones
-                            .filter(m => m.completed)
-                            .reduce((sum, m) => sum + m.weightage, 0);
-                          const totalWeight = selectedGoal.milestones
-                            .reduce((sum, m) => sum + m.weightage, 0);
-
-                          // Calculate percentage (avoiding division by zero)
-                          const percentage = totalWeight > 0
-                            ? Math.round((completedWeight / totalWeight) * 100)
-                            : 0;
-
-                          return `${percentage}%`;
-                        })()}
-                      </span>
-                    </motion.div>
-                  </div>
-                </motion.div>
-
-                {/* Next Milestone Card */}
-                <motion.div
-                  className="bg-gradient-to-br from-blue-900/70 to-indigo-900/70 p-6 rounded-lg shadow-lg"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <h3 className="text-xl font-semibold text-white mb-4">Next Milestone</h3>
-                  {(() => {
-                    const nextMilestone = selectedGoal.milestones.find(m => !m.completed);
-                    return nextMilestone ? (
-                      <>
-                        <p className="text-lg text-white mb-4 break-words">{nextMilestone.text}</p>
-                        <p className="text-white/60 mb-4">Weight: {nextMilestone.weightage}%</p>
-                        <motion.button
-                          onClick={() => {
-                            setSelectedMilestone(nextMilestone);
-                            setShowMilestoneCompletionForm(true);
-                          }}
-                          className="px-6 py-2 rounded-full bg-green-600 hover:bg-green-700 text-white font-semibold"
-                          whileHover={{ scale: 1.05, backgroundColor: "#16a34a" }}
-                          whileTap={{ scale: 0.98 }}
-                        >
-                          Mark as Complete
-                        </motion.button>
-                      </>
-                    ) : (
-                      <p className="text-white/60">All milestones completed! 🎉</p>
-                    );
-                  })()}
-                </motion.div>
-
-                {/* Completed Milestones Summary */}
-                <motion.div
-                  className="bg-gradient-to-br from-green-900/70 to-teal-900/70 p-6 rounded-lg shadow-lg"
-                  whileHover={{ scale: 1.02 }}
-                  transition={{ type: "spring", stiffness: 300 }}
-                >
-                  <h3 className="text-xl font-semibold text-white mb-4">Completed</h3>
-                  <motion.p
-                    className="text-4xl font-bold text-green-400 mb-2"
-                    initial={{ scale: 0.5, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    transition={{ type: "spring", stiffness: 500, delay: 0.2 }}
+        {/* Goal Details Page */}
+        {/* Goal Details Page */}
+        <AnimatePresence>
+          {showGoalDetails && selectedGoal && (
+            <motion.div
+              initial={{ x: '100%' }}
+              animate={{ x: 0 }}
+              exit={{ x: '100%' }}
+              transition={{ type: 'tween', duration: 0.3 }}
+              className="fixed inset-0 bg-gradient-to-b from-black/95 via-purple-900/80 to-indigo-900/95 z-50 overflow-y-auto hide-scrollbar"
+            >
+              <div className="max-w-7xl mx-auto p-8">
+                {/* Header */}
+                <div className="flex justify-between items-center mb-8">
+                  <button
+                    onClick={() => {
+                      setShowGoalDetails(false);
+                      setSelectedGoal(null);
+                    }}
+                    className="flex items-center gap-2 text-white/70 hover:text-white transition-colors"
                   >
-                    {selectedGoal.milestones.filter(m => m.completed).length} / {selectedGoal.milestones.length}
-                  </motion.p>
-                  <p className="text-white/60">Milestones completed</p>
-                </motion.div>
-              </div>
+                    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                    </svg>
+                    Back
+                  </button>
+                </div>
 
-              {/* Progress Map (Improved SVG with opaque background) */}
-              {/* Progress Map (Improved SVG with opaque background) */}
-              {/* Progress Map (Improved SVG with opaque background) */}
-              {/* Progress Map (Improved SVG with opaque background) */}
-              <div className="mb-12">
-                <h2 className="text-3xl font-bold text-white mb-6">Progress Map</h2>
-                <div className="relative bg-gradient-to-br from-indigo-900/80 via-purple-900/70 to-indigo-900/80 rounded-lg p-8 shadow-lg">
-                  {(() => {
-                    // Calculate total weightage
-                    const totalWeightage = selectedGoal.milestones.reduce((sum, m) => sum + m.weightage, 0);
+                {/* Goal Title and Description */}
+                <div className="mb-12">
+                  <h1 className="text-5xl font-bold text-white mb-4 leading-tight break-words">{selectedGoal.name}</h1>
+                  {selectedGoal.description && (
+                    <p className="text-xl text-white/80 mb-4 leading-relaxed break-words">{selectedGoal.description}</p>
+                  )}
+                  <p className="text-white/60">Deadline: {new Date(selectedGoal.deadline).toLocaleDateString()}</p>
+                </div>
 
-                    // Normalize the weightage to ensure it never exceeds 100%
-                    const normalizeWeightage = (weight: number) => {
-                      return totalWeightage > 0 ? (weight / totalWeightage) * 100 : 0;
-                    };
+                {/* Progress Overview with Improved Pie Charts */}
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
+                  {/* Animated Pie Chart */}
+                  <motion.div
+                    className="bg-gradient-to-br from-indigo-900/70 to-purple-900/70 p-6 rounded-lg shadow-lg"
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <h3 className="text-xl font-semibold text-white mb-4">Overall Progress</h3>
+                    <div className="w-48 h-48 mx-auto relative">
+                      <ResponsiveContainer width="100%" height="100%">
+                        <PieChart>
+                          <Pie
+                            data={[
+                              // Calculate progress directly from milestones to avoid discrepancies
+                              {
+                                name: "Completed",
+                                value: selectedGoal.milestones.filter(m => m.completed).reduce((sum, m) => sum + m.weightage, 0)
+                              },
+                              {
+                                name: "Remaining",
+                                value: selectedGoal.milestones.filter(m => !m.completed).reduce((sum, m) => sum + m.weightage, 0)
+                              }
+                            ]}
+                            cx="50%"
+                            cy="50%"
+                            innerRadius="65%"
+                            outerRadius="95%"
+                            startAngle={90}
+                            endAngle={-270}
+                            dataKey="value"
+                            animationBegin={0}
+                            animationDuration={1200}
+                            animationEasing="ease-out"
+                          >
+                            <Cell fill="#6D28D9" />
+                            <Cell fill="#374151" />
+                            <Tooltip content={({ payload }) => {
+                              if (payload && payload.length) {
+                                return (
+                                  <div className="bg-black/80 px-3 py-1 rounded text-white text-sm">
+                                    {payload[0].name}: {payload[0].value}%
+                                  </div>
+                                );
+                              }
+                              return null;
+                            }} />
+                          </Pie>
+                        </PieChart>
+                      </ResponsiveContainer>
+                      <motion.div
+                        className="absolute inset-0 flex items-center justify-center"
+                        initial={{ opacity: 0, scale: 0.5 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.5, duration: 0.5 }}
+                      >
+                        <span className="text-5xl font-bold text-white">
+                          {(() => {
+                            // Calculate correct percentage from milestone weights
+                            const completedWeight = selectedGoal.milestones
+                              .filter(m => m.completed)
+                              .reduce((sum, m) => sum + m.weightage, 0);
+                            const totalWeight = selectedGoal.milestones
+                              .reduce((sum, m) => sum + m.weightage, 0);
 
-                    // Generate a smoother path with curves
-                    const width = 800;
-                    const height = 300;
-                    const paddingX = 80;
-                    const paddingY = 50;
+                            // Calculate percentage (avoiding division by zero)
+                            const percentage = totalWeight > 0
+                              ? Math.round((completedWeight / totalWeight) * 100)
+                              : 0;
 
-                    // Minimum distance between nodes in pixels
-                    const minNodeDistance = 60;
+                            return `${percentage}%`;
+                          })()}
+                        </span>
+                      </motion.div>
+                    </div>
+                  </motion.div>
 
-                    // Starting point (before first milestone)
-                    const startX = paddingX;
-                    const startY = paddingY + height / 2;
+                  {/* Next Milestone Card */}
+                  <motion.div
+                    className="bg-gradient-to-br from-blue-900/70 to-indigo-900/70 p-6 rounded-lg shadow-lg"
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <h3 className="text-xl font-semibold text-white mb-4">Next Milestone</h3>
+                    {(() => {
+                      const nextMilestone = selectedGoal.milestones.find(m => !m.completed);
+                      return nextMilestone ? (
+                        <>
+                          <p className="text-lg text-white mb-4 break-words">{nextMilestone.text}</p>
+                          <p className="text-white/60 mb-4">Weight: {nextMilestone.weightage}%</p>
+                          <motion.button
+                            onClick={() => {
+                              setSelectedMilestone(nextMilestone);
+                              setShowMilestoneCompletionForm(true);
+                            }}
+                            className="px-6 py-2 rounded-full bg-green-600 hover:bg-green-700 text-white font-semibold"
+                            whileHover={{ scale: 1.05, backgroundColor: "#16a34a" }}
+                            whileTap={{ scale: 0.98 }}
+                          >
+                            Mark as Complete
+                          </motion.button>
+                        </>
+                      ) : (
+                        <p className="text-white/60">All milestones completed! 🎉</p>
+                      );
+                    })()}
+                  </motion.div>
 
-                    // Calculate positions based on weightage ratio
-                    let accumulatedWeight = 0;
+                  {/* Completed Milestones Summary */}
+                  <motion.div
+                    className="bg-gradient-to-br from-green-900/70 to-teal-900/70 p-6 rounded-lg shadow-lg"
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ type: "spring", stiffness: 300 }}
+                  >
+                    <h3 className="text-xl font-semibold text-white mb-4">Completed</h3>
+                    <motion.p
+                      className="text-4xl font-bold text-green-400 mb-2"
+                      initial={{ scale: 0.5, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      transition={{ type: "spring", stiffness: 500, delay: 0.2 }}
+                    >
+                      {selectedGoal.milestones.filter(m => m.completed).length} / {selectedGoal.milestones.length}
+                    </motion.p>
+                    <p className="text-white/60">Milestones completed</p>
+                  </motion.div>
+                </div>
 
-                    // First pass - calculate normalized positions
-                    const normalizedPositions = selectedGoal.milestones.map((milestone, index) => {
-                      // Calculate normalized weightage
-                      const normalizedWeight = normalizeWeightage(milestone.weightage);
-                      accumulatedWeight += normalizedWeight;
+                {/* Progress Map (Improved SVG with opaque background) */}
+                {/* Progress Map (Improved SVG with opaque background) */}
+                {/* Progress Map (Improved SVG with opaque background) */}
+                {/* Progress Map (Improved SVG with opaque background) */}
+                <div className="mb-12">
+                  <h2 className="text-3xl font-bold text-white mb-6">Progress Map</h2>
+                  <div className="relative bg-gradient-to-br from-indigo-900/80 via-purple-900/70 to-indigo-900/80 rounded-lg p-8 shadow-lg">
+                    {(() => {
+                      // Calculate total weightage
+                      const totalWeightage = selectedGoal.milestones.reduce((sum, m) => sum + m.weightage, 0);
 
-                      // Calculate x position with padding
-                      const normalizedX = paddingX + (accumulatedWeight * (width - 2 * paddingX) / 100);
-
-                      // Make a gentle wave for y positions
-                      const normalizedY = paddingY + height / 2 + Math.sin(index * 0.8) * (height / 5);
-
-                      return {
-                        x: normalizedX,
-                        y: normalizedY,
-                        weight: normalizedWeight,
-                        rawWeight: milestone.weightage,
-                        completed: milestone.completed,
-                        accumulatedPercent: Math.round(accumulatedWeight)
+                      // Normalize the weightage to ensure it never exceeds 100%
+                      const normalizeWeightage = (weight: number) => {
+                        return totalWeightage > 0 ? (weight / totalWeightage) * 100 : 0;
                       };
-                    });
 
-                    // Second pass - ensure minimum spacing between nodes
-                    const positions = [...normalizedPositions];
+                      // Generate a smoother path with curves
+                      const width = 800;
+                      const height = 300;
+                      const paddingX = 80;
+                      const paddingY = 50;
 
-                    for (let i = 1; i < positions.length; i++) {
-                      const prev = positions[i - 1];
-                      const curr = positions[i];
+                      // Minimum distance between nodes in pixels
+                      const minNodeDistance = 60;
 
-                      // If nodes are too close, push the current node further right
-                      if (curr.x - prev.x < minNodeDistance) {
-                        const shortfall = minNodeDistance - (curr.x - prev.x);
-                        curr.x += shortfall;
+                      // Starting point (before first milestone)
+                      const startX = paddingX;
+                      const startY = paddingY + height / 2;
 
-                        // Also push all subsequent nodes by the same amount
-                        for (let j = i + 1; j < positions.length; j++) {
-                          positions[j].x += shortfall;
+                      // Calculate positions based on weightage ratio
+                      let accumulatedWeight = 0;
+
+                      // First pass - calculate normalized positions
+                      const normalizedPositions = selectedGoal.milestones.map((milestone, index) => {
+                        // Calculate normalized weightage
+                        const normalizedWeight = normalizeWeightage(milestone.weightage);
+                        accumulatedWeight += normalizedWeight;
+
+                        // Calculate x position with padding
+                        const normalizedX = paddingX + (accumulatedWeight * (width - 2 * paddingX) / 100);
+
+                        // Make a gentle wave for y positions
+                        const normalizedY = paddingY + height / 2 + Math.sin(index * 0.8) * (height / 5);
+
+                        return {
+                          x: normalizedX,
+                          y: normalizedY,
+                          weight: normalizedWeight,
+                          rawWeight: milestone.weightage,
+                          completed: milestone.completed,
+                          accumulatedPercent: Math.round(accumulatedWeight)
+                        };
+                      });
+
+                      // Second pass - ensure minimum spacing between nodes
+                      const positions = [...normalizedPositions];
+
+                      for (let i = 1; i < positions.length; i++) {
+                        const prev = positions[i - 1];
+                        const curr = positions[i];
+
+                        // If nodes are too close, push the current node further right
+                        if (curr.x - prev.x < minNodeDistance) {
+                          const shortfall = minNodeDistance - (curr.x - prev.x);
+                          curr.x += shortfall;
+
+                          // Also push all subsequent nodes by the same amount
+                          for (let j = i + 1; j < positions.length; j++) {
+                            positions[j].x += shortfall;
+                          }
                         }
                       }
-                    }
 
-                    // Generate a smooth path with curves, starting from start point
-                    let path = `M ${startX} ${startY}`;
+                      // Generate a smooth path with curves, starting from start point
+                      let path = `M ${startX} ${startY}`;
 
-                    // Add path from start to first milestone
-                    if (positions.length > 0) {
-                      const first = positions[0];
-                      // Use a curve that respects the weight of the first milestone
-                      const firstDistance = first.x - startX;
-                      const cp1x = startX + firstDistance * 0.3;
-                      const cp1y = startY;
-                      const cp2x = first.x - firstDistance * 0.3;
-                      const cp2y = first.y;
-
-                      path += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${first.x} ${first.y}`;
-                    }
-
-                    // Add rest of the path between milestones
-                    for (let i = 0; i < positions.length - 1; i++) {
-                      const curr = positions[i];
-                      const next = positions[i + 1];
-                      const dx = next.x - curr.x;
-
-                      // Calculate control points for smoother curve
-                      const cp1x = curr.x + dx * 0.4;
-                      const cp1y = curr.y;
-                      const cp2x = next.x - dx * 0.4;
-                      const cp2y = next.y;
-
-                      // Add cubic bezier curve
-                      path += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${next.x} ${next.y}`;
-                    }
-
-                    // Find the current milestone index (first non-completed milestone)
-                    const currentMilestoneIndex = selectedGoal.milestones.findIndex(m => !m.completed);
-
-                    // Create the completed path segment
-                    let completedPath = `M ${startX} ${startY}`;
-
-                    // Only draw up to the completed milestones
-                    if (currentMilestoneIndex > 0) {
                       // Add path from start to first milestone
-                      const first = positions[0];
-                      const firstDistance = first.x - startX;
-                      const cp1x = startX + firstDistance * 0.3;
-                      const cp1y = startY;
-                      const cp2x = first.x - firstDistance * 0.3;
-                      const cp2y = first.y;
+                      if (positions.length > 0) {
+                        const first = positions[0];
+                        // Use a curve that respects the weight of the first milestone
+                        const firstDistance = first.x - startX;
+                        const cp1x = startX + firstDistance * 0.3;
+                        const cp1y = startY;
+                        const cp2x = first.x - firstDistance * 0.3;
+                        const cp2y = first.y;
 
-                      completedPath += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${first.x} ${first.y}`;
+                        path += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${first.x} ${first.y}`;
+                      }
 
-                      // Add remaining completed segments
-                      for (let i = 0; i < currentMilestoneIndex - 1; i++) {
+                      // Add rest of the path between milestones
+                      for (let i = 0; i < positions.length - 1; i++) {
                         const curr = positions[i];
                         const next = positions[i + 1];
                         const dx = next.x - curr.x;
 
-                        // Calculate control points
+                        // Calculate control points for smoother curve
                         const cp1x = curr.x + dx * 0.4;
                         const cp1y = curr.y;
                         const cp2x = next.x - dx * 0.4;
                         const cp2y = next.y;
 
                         // Add cubic bezier curve
-                        completedPath += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${next.x} ${next.y}`;
+                        path += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${next.x} ${next.y}`;
                       }
-                    }
 
-                    return (
-                      <svg
-                        viewBox="0 0 800 400"
-                        className="w-full h-auto"
-                      >
-                        <defs>
-                          <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
-                            <feGaussianBlur stdDeviation="5" result="blur" />
-                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
-                          </filter>
+                      // Find the current milestone index (first non-completed milestone)
+                      const currentMilestoneIndex = selectedGoal.milestones.findIndex(m => !m.completed);
 
-                          <filter id="textFilter" x="-20%" y="-20%" width="140%" height="140%">
-                            <feDropShadow dx="2" dy="2" stdDeviation="1" floodColor="#000" floodOpacity="1" />
-                          </filter>
+                      // Create the completed path segment
+                      let completedPath = `M ${startX} ${startY}`;
 
-                          <linearGradient id="pathGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" stopColor="#4338ca" />
-                            <stop offset="100%" stopColor="#6d28d9" />
-                          </linearGradient>
+                      // Only draw up to the completed milestones
+                      if (currentMilestoneIndex > 0) {
+                        // Add path from start to first milestone
+                        const first = positions[0];
+                        const firstDistance = first.x - startX;
+                        const cp1x = startX + firstDistance * 0.3;
+                        const cp1y = startY;
+                        const cp2x = first.x - firstDistance * 0.3;
+                        const cp2y = first.y;
 
-                          <linearGradient id="completedGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                            <stop offset="0%" stopColor="#059669" />
-                            <stop offset="100%" stopColor="#10b981" />
-                          </linearGradient>
-                        </defs>
+                        completedPath += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${first.x} ${first.y}`;
 
-                        {/* Start point */}
-                        <motion.circle
-                          cx={startX}
-                          cy={startY}
-                          r={14}
-                          fill="#1e40af"
-                          filter="url(#glow)"
-                          initial={{ scale: 0, opacity: 0 }}
-                          animate={{ scale: 1, opacity: 1 }}
-                          transition={{ duration: 0.5 }}
-                        />
-                        <motion.circle
-                          cx={startX}
-                          cy={startY}
-                          r={8}
-                          fill="#3b82f6"
-                          stroke="#000"
-                          strokeWidth="1"
-                          initial={{ scale: 0 }}
-                          animate={{ scale: 1 }}
-                          transition={{ duration: 0.5, delay: 0.1 }}
-                        />
-                        <motion.text
-                          x={startX}
-                          y={startY + 4}
-                          textAnchor="middle"
-                          dominantBaseline="middle"
-                          fill="#FFF"
-                          fontSize="12"
-                          fontWeight="bold"
-                          filter="url(#textFilter)"
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ duration: 0.5, delay: 0.2 }}
+                        // Add remaining completed segments
+                        for (let i = 0; i < currentMilestoneIndex - 1; i++) {
+                          const curr = positions[i];
+                          const next = positions[i + 1];
+                          const dx = next.x - curr.x;
+
+                          // Calculate control points
+                          const cp1x = curr.x + dx * 0.4;
+                          const cp1y = curr.y;
+                          const cp2x = next.x - dx * 0.4;
+                          const cp2y = next.y;
+
+                          // Add cubic bezier curve
+                          completedPath += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${next.x} ${next.y}`;
+                        }
+                      }
+
+                      return (
+                        <svg
+                          viewBox="0 0 800 400"
+                          className="w-full h-auto"
                         >
-                          S
-                        </motion.text>
-                        <motion.text
-                          x={startX}
-                          y={startY - 24}
-                          textAnchor="middle"
-                          fill="#FFF"
-                          fontSize="14"
-                          fontWeight="bold"
-                          filter="url(#textFilter)"
-                          initial={{ opacity: 0 }}
-                          animate={{ opacity: 1 }}
-                          transition={{ duration: 0.5, delay: 0.2 }}
-                        >
-                          0%
-                        </motion.text>
+                          <defs>
+                            <filter id="glow" x="-30%" y="-30%" width="160%" height="160%">
+                              <feGaussianBlur stdDeviation="5" result="blur" />
+                              <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                            </filter>
 
-                        {/* Main Path */}
-                        <motion.path
-                          d={path}
-                          stroke="url(#pathGradient)"
-                          strokeWidth="6"
-                          fill="none"
-                          opacity="0.6"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          filter="url(#glow)"
-                          initial={{ pathLength: 0, opacity: 0 }}
-                          animate={{ pathLength: 1, opacity: 0.6 }}
-                          transition={{ duration: 1.5, ease: "easeOut" }}
-                        />
+                            <filter id="textFilter" x="-20%" y="-20%" width="140%" height="140%">
+                              <feDropShadow dx="2" dy="2" stdDeviation="1" floodColor="#000" floodOpacity="1" />
+                            </filter>
 
-                        {/* Completed path segment */}
-                        {currentMilestoneIndex > 0 && (
+                            <linearGradient id="pathGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                              <stop offset="0%" stopColor="#4338ca" />
+                              <stop offset="100%" stopColor="#6d28d9" />
+                            </linearGradient>
+
+                            <linearGradient id="completedGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                              <stop offset="0%" stopColor="#059669" />
+                              <stop offset="100%" stopColor="#10b981" />
+                            </linearGradient>
+                          </defs>
+
+                          {/* Start point */}
+                          <motion.circle
+                            cx={startX}
+                            cy={startY}
+                            r={14}
+                            fill="#1e40af"
+                            filter="url(#glow)"
+                            initial={{ scale: 0, opacity: 0 }}
+                            animate={{ scale: 1, opacity: 1 }}
+                            transition={{ duration: 0.5 }}
+                          />
+                          <motion.circle
+                            cx={startX}
+                            cy={startY}
+                            r={8}
+                            fill="#3b82f6"
+                            stroke="#000"
+                            strokeWidth="1"
+                            initial={{ scale: 0 }}
+                            animate={{ scale: 1 }}
+                            transition={{ duration: 0.5, delay: 0.1 }}
+                          />
+                          <motion.text
+                            x={startX}
+                            y={startY + 4}
+                            textAnchor="middle"
+                            dominantBaseline="middle"
+                            fill="#FFF"
+                            fontSize="12"
+                            fontWeight="bold"
+                            filter="url(#textFilter)"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.5, delay: 0.2 }}
+                          >
+                            S
+                          </motion.text>
+                          <motion.text
+                            x={startX}
+                            y={startY - 24}
+                            textAnchor="middle"
+                            fill="#FFF"
+                            fontSize="14"
+                            fontWeight="bold"
+                            filter="url(#textFilter)"
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            transition={{ duration: 0.5, delay: 0.2 }}
+                          >
+                            0%
+                          </motion.text>
+
+                          {/* Main Path */}
                           <motion.path
-                            d={completedPath}
-                            stroke="url(#completedGradient)"
-                            strokeWidth="8"
+                            d={path}
+                            stroke="url(#pathGradient)"
+                            strokeWidth="6"
                             fill="none"
+                            opacity="0.6"
                             strokeLinecap="round"
                             strokeLinejoin="round"
                             filter="url(#glow)"
                             initial={{ pathLength: 0, opacity: 0 }}
-                            animate={{ pathLength: 1, opacity: 1 }}
-                            transition={{ duration: 2, ease: "easeOut", delay: 0.5 }}
+                            animate={{ pathLength: 1, opacity: 0.6 }}
+                            transition={{ duration: 1.5, ease: "easeOut" }}
                           />
-                        )}
 
-                        {/* Milestone nodes */}
-                        {normalizedPositions.map((pos, index) => {
-                          const milestone = selectedGoal.milestones[index];
-                          const isCompleted = milestone.completed;
-                          const isCurrent = !isCompleted && index === currentMilestoneIndex;
+                          {/* Completed path segment */}
+                          {currentMilestoneIndex > 0 && (
+                            <motion.path
+                              d={completedPath}
+                              stroke="url(#completedGradient)"
+                              strokeWidth="8"
+                              fill="none"
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              filter="url(#glow)"
+                              initial={{ pathLength: 0, opacity: 0 }}
+                              animate={{ pathLength: 1, opacity: 1 }}
+                              transition={{ duration: 2, ease: "easeOut", delay: 0.5 }}
+                            />
+                          )}
 
-                          // Size based on normalized weightage (between 12-24px)
-                          const nodeSize = 12 + Math.min((pos.weight / 5), 12);
-                          const labelYOffset = Math.max(20, nodeSize * 1.5);
+                          {/* Milestone nodes */}
+                          {normalizedPositions.map((pos, index) => {
+                            const milestone = selectedGoal.milestones[index];
+                            const isCompleted = milestone.completed;
+                            const isCurrent = !isCompleted && index === currentMilestoneIndex;
 
-                          return (
-                            <g key={index}>
-                              {/* Node circle with glow */}
-                              <motion.circle
-                                cx={pos.x}
-                                cy={pos.y}
-                                r={isCurrent ? nodeSize * 1.2 : nodeSize}
-                                fill={isCompleted ? '#059669' : isCurrent ? '#EAB308' : '#6B7280'}
-                                opacity={isCompleted ? 1 : isCurrent ? 0.9 : 0.6}
-                                filter="url(#glow)"
-                                initial={{ scale: 0, opacity: 0 }}
-                                animate={{ scale: 1, opacity: isCompleted ? 1 : isCurrent ? 0.9 : 0.6 }}
-                                transition={{ duration: 0.5, delay: 0.8 + index * 0.1 }}
-                              />
+                            // Size based on normalized weightage (between 12-24px)
+                            const nodeSize = 12 + Math.min((pos.weight / 5), 12);
+                            const labelYOffset = Math.max(20, nodeSize * 1.5);
 
-                              {/* Inner circle */}
-                              <motion.circle
-                                cx={pos.x}
-                                cy={pos.y}
-                                r={isCurrent ? nodeSize * 0.7 : nodeSize * 0.6}
-                                fill={isCompleted ? '#10b981' : isCurrent ? '#fcd34d' : '#9ca3af'}
-                                stroke="#000"
-                                strokeWidth="1"
-                                initial={{ scale: 0 }}
-                                animate={{ scale: 1 }}
-                                transition={{ duration: 0.5, delay: 0.9 + index * 0.1 }}
-                              />
+                            return (
+                              <g key={index}>
+                                {/* Node circle with glow */}
+                                <motion.circle
+                                  cx={pos.x}
+                                  cy={pos.y}
+                                  r={isCurrent ? nodeSize * 1.2 : nodeSize}
+                                  fill={isCompleted ? '#059669' : isCurrent ? '#EAB308' : '#6B7280'}
+                                  opacity={isCompleted ? 1 : isCurrent ? 0.9 : 0.6}
+                                  filter="url(#glow)"
+                                  initial={{ scale: 0, opacity: 0 }}
+                                  animate={{ scale: 1, opacity: isCompleted ? 1 : isCurrent ? 0.9 : 0.6 }}
+                                  transition={{ duration: 0.5, delay: 0.8 + index * 0.1 }}
+                                />
 
-                              {/* Node label */}
-                              <motion.text
-                                x={pos.x}
-                                y={pos.y + 4}
-                                textAnchor="middle"
-                                dominantBaseline="middle"
-                                fill="#FFF"
-                                fontSize="14"
-                                fontWeight="bold"
-                                filter="url(#textFilter)"
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                transition={{ duration: 0.5, delay: 1 + index * 0.1 }}
-                              >
-                                {index + 1}
-                              </motion.text>
+                                {/* Inner circle */}
+                                <motion.circle
+                                  cx={pos.x}
+                                  cy={pos.y}
+                                  r={isCurrent ? nodeSize * 0.7 : nodeSize * 0.6}
+                                  fill={isCompleted ? '#10b981' : isCurrent ? '#fcd34d' : '#9ca3af'}
+                                  stroke="#000"
+                                  strokeWidth="1"
+                                  initial={{ scale: 0 }}
+                                  animate={{ scale: 1 }}
+                                  transition={{ duration: 0.5, delay: 0.9 + index * 0.1 }}
+                                />
 
-                              {/* Cumulative percentage above node */}
-                              {typeof pos.accumulatedPercent === 'number' && (
+                                {/* Node label */}
                                 <motion.text
                                   x={pos.x}
-                                  y={pos.y - labelYOffset}
+                                  y={pos.y + 4}
                                   textAnchor="middle"
-                                  fill="#FFFFFF"
-                                  fontSize="16"
+                                  dominantBaseline="middle"
+                                  fill="#FFF"
+                                  fontSize="14"
                                   fontWeight="bold"
                                   filter="url(#textFilter)"
                                   initial={{ opacity: 0 }}
                                   animate={{ opacity: 1 }}
                                   transition={{ duration: 0.5, delay: 1 + index * 0.1 }}
                                 >
-                                  {pos.accumulatedPercent}%
+                                  {index + 1}
                                 </motion.text>
-                              )}
+
+                                {/* Cumulative percentage above node */}
+                                {typeof pos.accumulatedPercent === 'number' && (
+                                  <motion.text
+                                    x={pos.x}
+                                    y={pos.y - labelYOffset}
+                                    textAnchor="middle"
+                                    fill="#FFFFFF"
+                                    fontSize="16"
+                                    fontWeight="bold"
+                                    filter="url(#textFilter)"
+                                    initial={{ opacity: 0 }}
+                                    animate={{ opacity: 1 }}
+                                    transition={{ duration: 0.5, delay: 1 + index * 0.1 }}
+                                  >
+                                    {pos.accumulatedPercent}%
+                                  </motion.text>
+                                )}
 
 
 
-                              {/* Tooltip on hover */}
-                              <title>{milestone.text} (Weight: {milestone.weightage})</title>
-                            </g>
-                          );
-                        })}
-                      </svg>
-                    );
-                  })()}
+                                {/* Tooltip on hover */}
+                                <title>{milestone.text} (Weight: {milestone.weightage})</title>
+                              </g>
+                            );
+                          })}
+                        </svg>
+                      );
+                    })()}
+                  </div>
                 </div>
-              </div>
 
-              {/* Milestones List with h-auto */}
-              <div className="space-y-6">
-                <h2 className="text-3xl font-bold text-white mb-6">Milestones</h2>
+                {/* Milestones List with h-auto */}
+                <div className="space-y-6">
+                  <h2 className="text-3xl font-bold text-white mb-6">Milestones</h2>
 
-                <div className="h-auto pink-scrollbar pr-4">
-                  <div className="space-y-4">
-                    {selectedGoal.milestones.map((milestone, index) => {
-                      const currentMilestoneIndex = selectedGoal.milestones.findIndex(m => !m.completed);
+                  <div className="h-auto pink-scrollbar pr-4">
+                    <div className="space-y-4">
+                      {selectedGoal.milestones.map((milestone, index) => {
+                        const currentMilestoneIndex = selectedGoal.milestones.findIndex(m => !m.completed);
 
-                      return (
-                        <motion.div
-                          key={milestone.id}
-                          className={`p-6 rounded-lg border-2 ${milestone.completed
-                            ? 'border-green-500 bg-green-900/40'
-                            : index === currentMilestoneIndex
-                              ? 'border-yellow-500 bg-yellow-900/40'
-                              : 'border-gray-600 bg-gray-900/40'
-                            }`}
-                          initial={{ opacity: 0, y: 20 }}
-                          animate={{ opacity: 1, y: 0 }}
-                          transition={{ delay: index * 0.1 }}
-                        >
-                          <div className="flex justify-between items-start">
-                            <div>
-                              <h3 className="text-xl font-semibold text-white mb-2 break-words">
-                                Milestone {index + 1}: {milestone.text}
-                              </h3>
-                              <p className="text-white/60 mb-2">Weight: {milestone.weightage}%</p>
+                        return (
+                          <motion.div
+                            key={milestone.id}
+                            className={`p-6 rounded-lg border-2 ${milestone.completed
+                              ? 'border-green-500 bg-green-900/40'
+                              : index === currentMilestoneIndex
+                                ? 'border-yellow-500 bg-yellow-900/40'
+                                : 'border-gray-600 bg-gray-900/40'
+                              }`}
+                            initial={{ opacity: 0, y: 20 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: index * 0.1 }}
+                          >
+                            <div className="flex justify-between items-start">
+                              <div>
+                                <h3 className="text-xl font-semibold text-white mb-2 break-words">
+                                  Milestone {index + 1}: {milestone.text}
+                                </h3>
+                                <p className="text-white/60 mb-2">Weight: {milestone.weightage}%</p>
 
-                              {milestone.completed && milestone.completionDetails && (
-                                <div className="mt-4 p-4 bg-black/20 rounded">
-                                  <p className="text-white/80">
-                                    <strong>Completed on:</strong> {new Date(milestone.completionDetails.date).toLocaleDateString()}
-                                  </p>
-                                  <p className="text-white/80 mt-2 break-words">
-                                    <strong>Notes:</strong> {milestone.completionDetails.details}
-                                  </p>
+                                {milestone.completed && milestone.completionDetails && (
+                                  <div className="mt-4 p-4 bg-black/20 rounded">
+                                    <p className="text-white/80">
+                                      <strong>Completed on:</strong> {new Date(milestone.completionDetails.date).toLocaleDateString()}
+                                    </p>
+                                    <p className="text-white/80 mt-2 break-words">
+                                      <strong>Notes:</strong> {milestone.completionDetails.details}
+                                    </p>
+                                  </div>
+                                )}
+                              </div>
+
+                              {milestone.completed ? (
+                                <div className="flex items-center gap-2">
+                                  <motion.svg
+                                    className="w-8 h-8 text-green-500"
+                                    fill="none"
+                                    viewBox="0 0 24 24"
+                                    stroke="currentColor"
+                                    initial={{ scale: 0, opacity: 0 }}
+                                    animate={{ scale: 1, opacity: 1 }}
+                                    transition={{ type: "spring", stiffness: 500 }}
+                                  >
+                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                                  </motion.svg>
                                 </div>
+                              ) : index === currentMilestoneIndex && (
+                                <motion.button
+                                  onClick={() => {
+                                    setSelectedMilestone(milestone);
+                                    setShowMilestoneCompletionForm(true);
+                                  }}
+                                  className="px-4 py-2 rounded-md bg-green-600 hover:bg-green-700 text-white text-sm"
+                                  whileHover={{ scale: 1.05, backgroundColor: "#16a34a" }}
+                                  whileTap={{ scale: 0.98 }}
+                                >
+                                  Mark Complete
+                                </motion.button>
                               )}
                             </div>
-
-                            {milestone.completed ? (
-                              <div className="flex items-center gap-2">
-                                <motion.svg
-                                  className="w-8 h-8 text-green-500"
-                                  fill="none"
-                                  viewBox="0 0 24 24"
-                                  stroke="currentColor"
-                                  initial={{ scale: 0, opacity: 0 }}
-                                  animate={{ scale: 1, opacity: 1 }}
-                                  transition={{ type: "spring", stiffness: 500 }}
-                                >
-                                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-                                </motion.svg>
-                              </div>
-                            ) : index === currentMilestoneIndex && (
-                              <motion.button
-                                onClick={() => {
-                                  setSelectedMilestone(milestone);
-                                  setShowMilestoneCompletionForm(true);
-                                }}
-                                className="px-4 py-2 rounded-md bg-green-600 hover:bg-green-700 text-white text-sm"
-                                whileHover={{ scale: 1.05, backgroundColor: "#16a34a" }}
-                                whileTap={{ scale: 0.98 }}
-                              >
-                                Mark Complete
-                              </motion.button>
-                            )}
-                          </div>
-                        </motion.div>
-                      );
-                    })}
+                          </motion.div>
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            {/* Milestone Completion Modal with Fixed Inputs */}
-            <AnimatePresence>
-              {showMilestoneCompletionForm && selectedMilestone && (
-                <motion.div
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
-                  className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center"
-                >
+              {/* Milestone Completion Modal with Fixed Inputs */}
+              <AnimatePresence>
+                {showMilestoneCompletionForm && selectedMilestone && (
                   <motion.div
-                    initial={{ scale: 0.9, opacity: 0 }}
-                    animate={{ scale: 1, opacity: 1 }}
-                    exit={{ scale: 0.9, opacity: 0 }}
-                    className="bg-gradient-to-b from-black/95 via-purple-900/80 to-indigo-900/95 rounded-lg p-8 w-full max-w-md mx-4"
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    className="fixed inset-0 bg-black/90 z-50 flex items-center justify-center"
                   >
-                    <h3 className="text-2xl font-bold text-white mb-4 break-words">
-                      Complete Milestone: {selectedMilestone.text}
-                    </h3>
+                    <motion.div
+                      initial={{ scale: 0.9, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      exit={{ scale: 0.9, opacity: 0 }}
+                      className="bg-gradient-to-b from-black/95 via-purple-900/80 to-indigo-900/95 rounded-lg p-8 w-full max-w-md mx-4"
+                    >
+                      <h3 className="text-2xl font-bold text-white mb-4 break-words">
+                        Complete Milestone: {selectedMilestone.text}
+                      </h3>
 
-                    <div className="space-y-4">
-                      <div>
-                        <label className="text-white/80 text-sm mb-2 block">Date Completed</label>
-                        <input
-                          type="date"
-                          value={milestoneDate}
-                          onChange={(e) => setMilestoneDate(e.target.value)}
-                          className="w-full px-4 py-2 rounded-lg bg-white/10 text-white"
-                        />
+                      <div className="space-y-4">
+                        <div>
+                          <label className="text-white/80 text-sm mb-2 block">Date Completed</label>
+                          <input
+                            type="date"
+                            value={milestoneDate}
+                            onChange={(e) => setMilestoneDate(e.target.value)}
+                            className="w-full px-4 py-2 rounded-lg bg-white/10 text-white"
+                          />
+                        </div>
+
+                        <div>
+                          <label className="text-white/80 text-sm mb-2 block">Details/Notes</label>
+                          <textarea
+                            value={milestoneDetails}
+                            onChange={(e) => setMilestoneDetails(e.target.value)}
+                            className="w-full px-4 py-2 rounded-lg bg-white/10 text-white"
+                            rows={3}
+                            placeholder="Add any notes about completing this milestone..."
+                          />
+                        </div>
                       </div>
 
-                      <div>
-                        <label className="text-white/80 text-sm mb-2 block">Details/Notes</label>
-                        <textarea
-                          value={milestoneDetails}
-                          onChange={(e) => setMilestoneDetails(e.target.value)}
-                          className="w-full px-4 py-2 rounded-lg bg-white/10 text-white"
-                          rows={3}
-                          placeholder="Add any notes about completing this milestone..."
-                        />
-                      </div>
-                    </div>
-
-                    <div className="flex justify-end gap-4 mt-6">
-                      <motion.button
-                        onClick={() => {
-                          setShowMilestoneCompletionForm(false);
-                          setSelectedMilestone(null);
-                        }}
-                        className="px-4 py-2 rounded-md bg-gray-600 hover:bg-gray-700 text-white"
-                        whileHover={{ scale: 1.05, backgroundColor: "#4b5563" }}
-                        whileTap={{ scale: 0.98 }}
-                      >
-                        Cancel
-                      </motion.button>
-                      <motion.button
-                        onClick={() => {
-                          if (selectedGoal && selectedMilestone) {
-                            handleMarkMilestoneComplete(
-                              selectedGoal.id,
-                              selectedMilestone.id,
-                              {
-                                details: milestoneDetails,
-                                date: milestoneDate
-                              }
-                            );
+                      <div className="flex justify-end gap-4 mt-6">
+                        <motion.button
+                          onClick={() => {
                             setShowMilestoneCompletionForm(false);
                             setSelectedMilestone(null);
-                          }
-                        }}
-                        className="px-4 py-2 rounded-md bg-green-600 hover:bg-green-700 text-white"
-                        whileHover={{ scale: 1.05, backgroundColor: "#16a34a" }}
-                        whileTap={{ scale: 0.98 }}
-                      >
-                        Mark Complete
-                      </motion.button>
-                    </div>
+                          }}
+                          className="px-4 py-2 rounded-md bg-gray-600 hover:bg-gray-700 text-white"
+                          whileHover={{ scale: 1.05, backgroundColor: "#4b5563" }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          Cancel
+                        </motion.button>
+                        <motion.button
+                          onClick={() => {
+                            if (selectedGoal && selectedMilestone) {
+                              handleMarkMilestoneComplete(
+                                selectedGoal.id,
+                                selectedMilestone.id,
+                                {
+                                  details: milestoneDetails,
+                                  date: milestoneDate
+                                }
+                              );
+                              setShowMilestoneCompletionForm(false);
+                              setSelectedMilestone(null);
+                            }
+                          }}
+                          className="px-4 py-2 rounded-md bg-green-600 hover:bg-green-700 text-white"
+                          whileHover={{ scale: 1.05, backgroundColor: "#16a34a" }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          Mark Complete
+                        </motion.button>
+                      </div>
+                    </motion.div>
                   </motion.div>
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </motion.div>
-        )}
-      </AnimatePresence>
-    </div>
+                )}
+              </AnimatePresence>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
+    </>
   );
 };
 

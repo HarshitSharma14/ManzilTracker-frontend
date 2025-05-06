@@ -56,7 +56,10 @@ module.exports = {
             backgroundImage: {
                 'level1': 'linear-gradient(to bottom, var(--tw-gradient-stops))',
                 'level2': 'linear-gradient(to bottom, var(--tw-gradient-stops))',
-            }
+            },
+            fontFamily: {
+                futuristic: ['Orbitron', 'sans-serif'],
+            },
         },
     },
     plugins: [require('@tailwindcss/line-clamp')],
