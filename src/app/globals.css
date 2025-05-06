@@ -1,0 +1,127 @@
+@import "tailwindcss";
+
+@keyframes cloudDrift {
+    0% {
+        transform: scale(1) translateY(30px);
+        opacity: 0.5;
+    }
+
+    50% {
+        transform: scale(1.05) translateY(0px);
+        opacity: 0.9;
+    }
+
+    100% {
+        transform: scale(1.1) translateY(-30px);
+        opacity: 0.6;
+    }
+}
+
+.mix-blend-screen {
+    mix-blend-mode: screen;
+}
+
+/* Pink scrollbar for goals */
+.pink-scrollbar::-webkit-scrollbar {
+    height: 8px;
+}
+
+.pink-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.pink-scrollbar::-webkit-scrollbar-thumb {
+    background-color: #be185d;
+    /* Pink-700 */
+    border-radius: 8px;
+    border: 2px solid transparent;
+    background-clip: padding-box;
+}
+
+.pink-scrollbar::-webkit-scrollbar-thumb:hover {
+    background-color: #9d174d;
+    /* Pink-800 */
+}
+
+.pink-scrollbar {
+    scrollbar-width: thin;
+    scrollbar-color: #be185d transparent;
+}
+
+.octagon-button {
+    position: relative;
+    padding: 1.5rem 3rem;
+    font-size: 1.2rem;
+    color: #fff;
+    background-color: #0D1127;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.2s ease;
+    clip-path: polygon(30% 0%, 70% 0%,
+            100% 30%, 100% 70%,
+            70% 100%, 30% 100%,
+            0% 70%, 0% 30%);
+    box-shadow: 0 0 0 5px #5978F3;
+}
+
+.octagon-button:hover {
+    background-color: #0F1C53;
+    transform: scale(1.05);
+}
+
+.octagon-button:active {
+    transform: scale(0.95);
+}
+
+@keyframes borderAnimate1 {
+    0% {
+        transform: translateX(-100%);
+    }
+
+    100% {
+        transform: translateX(100%);
+    }
+}
+
+@keyframes borderAnimate2 {
+    0% {
+        transform: translateY(-100%);
+    }
+
+    100% {
+        transform: translateY(100%);
+    }
+}
+
+@keyframes borderAnimate3 {
+    0% {
+        transform: translateX(100%);
+    }
+
+    100% {
+        transform: translateX(-100%);
+    }
+}
+
+
+
+@keyframes borderAnimate4 {
+    0% {
+        transform: translateY(100%);
+    }
+
+    100% {
+        transform: translateY(-100%);
+    }
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.hide-scrollbar {
+    -ms-overflow-style: none;
+    /* IE and Edge */
+    scrollbar-width: none;
+    /* Firefox */
+}
