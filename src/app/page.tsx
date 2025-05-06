@@ -979,7 +979,7 @@ const GoalTracker: React.FC = () => {
                         textShadow: "0 0 15px rgba(96, 165, 250, 0.8), 0 0 10px rgba(37, 99, 235, 0.6)"
                       }}
                       whileTap={{ scale: 0.98 }}
-                      className="relative px-6 sm:px-8 py-2 text-sm sm:text-base tracking-wider uppercase text-blue-400 font-medium rounded-md overflow-hidden bg-transparent backdrop-blur-sm transition-all duration-300 font-['Rajdhani'] font-semibold letter-spacing-wider"
+                      className="relative px-6 sm:px-8 py-2 text-sm sm:text-base tracking-wider uppercase text-blue-400 font-medium rounded-md overflow-hidden bg-transparent  transition-all duration-300 font-['Rajdhani'] font-semibold letter-spacing-wider"
                     >
                       <span className="relative z-10">GOALS</span>
                       <motion.div
@@ -1020,7 +1020,7 @@ const GoalTracker: React.FC = () => {
                         textShadow: "0 0 15px rgba(192, 132, 252, 0.8), 0 0 10px rgba(126, 34, 206, 0.6)"
                       }}
                       whileTap={{ scale: 0.98 }}
-                      className="relative px-6 sm:px-8 py-2 text-sm sm:text-base tracking-wider uppercase text-purple-400  rounded-md overflow-hidden bg-transparent backdrop-blur-sm transition-all duration-300 font-['Rajdhani'] font-semibold letter-spacing-wider"
+                      className="relative px-6 sm:px-8 py-2 text-sm sm:text-base tracking-wider uppercase text-purple-400  rounded-md overflow-hidden bg-transparent  transition-all duration-300 font-['Rajdhani'] font-semibold letter-spacing-wider"
                     >
                       <span className="relative z-10">ABOUT</span>
                       <motion.div
