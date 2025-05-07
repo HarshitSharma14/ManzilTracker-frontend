@@ -502,8 +502,10 @@ const GoalTracker: React.FC = () => {
   const [milestoneDate, setMilestoneDate] = useState<string>(new Date().toISOString().split('T')[0]);
   const [milestoneDetails, setMilestoneDetails] = useState<string>('');
   const [touchStartY, setTouchStartY] = useState<number | null>(null);
+  const [touchStartX, setTouchStartX] = useState<number | null>(null);
   const [isTouching, setIsTouching] = useState<boolean>(false);
   const touchThreshold: number = 50; // Minimum distance to trigger a swipe
+  const horizontalScrollRef = useRef<HTMLDivElement>(null);
 
   const [fadeLevel3, setFadeLevel3] = useState<boolean>(false);
 
@@ -565,33 +567,71 @@ const GoalTracker: React.FC = () => {
   // Add these handlers for touch events
   const handleTouchStart = (e: React.TouchEvent): void => {
     setTouchStartY(e.touches[0].clientY);
+    setTouchStartX(e.touches[0].clientX);
     setIsTouching(true);
   };
 
   const handleTouchMove = (e: React.TouchEvent): void => {
-    // Prevent default to avoid page scrolling while in the app
-    e.preventDefault();
+    // Only prevent default if we're not in a scrollable area
+    if (!isInScrollableArea(e.target as HTMLElement)) {
+      e.preventDefault();
+    }
   };
 
 
   const handleTouchEnd = (e: React.TouchEvent): void => {
-    if (!touchStartY || !isTouching) return;
+    if (!touchStartY || !touchStartX || !isTouching) return;
 
     const touchEndY: number = e.changedTouches[0].clientY;
+    const touchEndX: number = e.changedTouches[0].clientX;
     const deltaY: number = touchStartY - touchEndY;
+    const deltaX: number = touchStartX - touchEndX;
 
     // Reset touch state
     setIsTouching(false);
     setTouchStartY(null);
+    setTouchStartX(null);
 
-    // If the swipe distance is small, ignore it (prevents accidental transitions)
-    if (Math.abs(deltaY) < touchThreshold) return;
+    // If we're in a scrollable area, don't process swipe for level transitions
+    if (isInScrollableArea(e.target as HTMLElement)) {
+      return;
+    }
 
-    // Process swipe as if it were a wheel event
-    // Positive deltaY means swipe up (like scrolling down)
-    // Negative deltaY means swipe down (like scrolling up)
-    processDirectionalInput(deltaY);
+    // Determine if this is mostly a horizontal or vertical swipe
+    if (Math.abs(deltaY) > Math.abs(deltaX)) {
+      // Vertical swipe - use for level transitions if it's not in a modal
+      if (Math.abs(deltaY) < touchThreshold) return;
+
+      // Only process vertical swipes for level transitions if we're not in a modal
+      if (!isModalOpen && !showGoalsModal && !showGoalDetails) {
+        processDirectionalInput(deltaY);
+      }
+    } else {
+      // Horizontal swipe - use for goal list navigation
+      if (Math.abs(deltaX) < touchThreshold) return;
+
+      // Process horizontal swipe only in goal lists
+      if (showGoalsModal && horizontalScrollRef.current) {
+        const scrollContainer = horizontalScrollRef.current;
+        // Scroll left or right based on swipe direction
+        scrollContainer.scrollBy({
+          left: deltaX > 0 ? 400 : -400, // Scroll distance
+          behavior: 'smooth'
+        });
+      }
+    }
   };
+
+  const isInScrollableArea = (element: HTMLElement): boolean => {
+    // Check if we're inside a modal with scrollable content
+    const isInModalScrollable = !!element.closest('.modal-scrollbar');
+    const isInHideScrollbar = !!element.closest('.hide-scrollbar');
+    const isInPinkScrollbar = !!element.closest('.pink-scrollbar');
+    const isInCustomScrollbar = !!element.closest('.custom-scrollbar');
+
+    return isInModalScrollable || isInHideScrollbar || isInPinkScrollbar || isInCustomScrollbar;
+  };
+
   // Create a unified function to handle both wheel and touch events
   const processDirectionalInput = (deltaY: number): void => {
     // If a modal is open
@@ -699,9 +739,24 @@ const GoalTracker: React.FC = () => {
 
   // Wheel event handler with typed event
   const handleWheel = (e: WheelEvent): void => {
+    // Check if the wheel event originated in a scrollable container
+    const target = e.target as HTMLElement;
+    const isInModalScrollable = !!target.closest('.modal-scrollbar');
+    const isInHideScrollbar = !!target.closest('.hide-scrollbar');
+    const isInPinkScrollbar = !!target.closest('.pink-scrollbar');
+    const isInCustomScrollbar = !!target.closest('.custom-scrollbar');
+
+    // If we're in a scrollable area, let the default scroll happen
+    if (isInModalScrollable || isInHideScrollbar || isInPinkScrollbar || isInCustomScrollbar) {
+      return;
+    }
+
+    // Prevent default scrolling for level transitions
+    e.preventDefault();
+
+    // Process the wheel event for level transitions
     processDirectionalInput(e.deltaY);
   };
-
   // Animate floating dots
   const animateDots = (): void => {
     setDots(prevDots =>
@@ -784,7 +839,7 @@ const GoalTracker: React.FC = () => {
         window.removeEventListener("touchend", handleTouchEndEvent);
       }
     };
-  }, [level, transitioning, mousePos.x, mousePos.y, isModalOpen, showGoalsModal, showGoalDetails, touchStartY, isTouching]);
+  }, [level, transitioning, mousePos.x, mousePos.y, isModalOpen, showGoalsModal, showGoalDetails, touchStartY, touchStartX, isTouching]);
 
   // Goal management handlers with typed parameters
   const handleGoalClick = (goal: Goal): void => {
@@ -1573,7 +1628,8 @@ const GoalTracker: React.FC = () => {
 
                       {/* Goals Grid */}
                       <div className="h-[calc(100%-6rem)] sm:h-[calc(100%-8rem)] overflow-hidden pr-2 sm:pr-4 flex flex-col">
-                        <div className="w-full flex-1 overflow-x-auto overflow-y-hidden hide-scrollbar snap-x snap-mandatory scroll-smooth">
+                        <div ref={horizontalScrollRef} // Add this ref
+                          className="w-full flex-1 overflow-x-auto overflow-y-hidden hide-scrollbar snap-x snap-mandatory scroll-smooth">
                           <div className="flex flex-row gap-4 sm:gap-6 h-full py-4">
                             {goals
                               .filter(goal => goal.type === activeGoalType)
