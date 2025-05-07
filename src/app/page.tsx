@@ -501,6 +501,9 @@ const GoalTracker: React.FC = () => {
   const [selectedMilestone, setSelectedMilestone] = useState<Milestone | null>(null);
   const [milestoneDate, setMilestoneDate] = useState<string>(new Date().toISOString().split('T')[0]);
   const [milestoneDetails, setMilestoneDetails] = useState<string>('');
+  const [touchStartY, setTouchStartY] = useState<number | null>(null);
+  const [isTouching, setIsTouching] = useState<boolean>(false);
+  const touchThreshold: number = 50; // Minimum distance to trigger a swipe
 
   const [fadeLevel3, setFadeLevel3] = useState<boolean>(false);
 
@@ -559,24 +562,46 @@ const GoalTracker: React.FC = () => {
     }
   };
 
-  // Wheel event handler with typed event
-  const handleWheel = (e: WheelEvent): void => {
+  // Add these handlers for touch events
+  const handleTouchStart = (e: React.TouchEvent): void => {
+    setTouchStartY(e.touches[0].clientY);
+    setIsTouching(true);
+  };
+
+  const handleTouchMove = (e: React.TouchEvent): void => {
+    // Prevent default to avoid page scrolling while in the app
+    e.preventDefault();
+  };
+
+
+  const handleTouchEnd = (e: React.TouchEvent): void => {
+    if (!touchStartY || !isTouching) return;
+
+    const touchEndY: number = e.changedTouches[0].clientY;
+    const deltaY: number = touchStartY - touchEndY;
+
+    // Reset touch state
+    setIsTouching(false);
+    setTouchStartY(null);
+
+    // If the swipe distance is small, ignore it (prevents accidental transitions)
+    if (Math.abs(deltaY) < touchThreshold) return;
+
+    // Process swipe as if it were a wheel event
+    // Positive deltaY means swipe up (like scrolling down)
+    // Negative deltaY means swipe down (like scrolling up)
+    processDirectionalInput(deltaY);
+  };
+  // Create a unified function to handle both wheel and touch events
+  const processDirectionalInput = (deltaY: number): void => {
     // If a modal is open
     if (isModalOpen || showGoalsModal || showGoalDetails) {
-      // Allow scroll inside modal content
-      const target = e.target as HTMLElement;
-
-      // Check if the scroll originated inside a modal scroll container
-      const isInsideModal = target.closest('.modal-scrollbar') || target.closest('.hide-scrollbar');
-
-      if (!isInsideModal) {
-        e.preventDefault(); // Prevent only background (non-modal) scrolls
-      }
-      return; // Exit so level logic isn't triggered
+      // Allow scroll inside modal content only
+      return;
     }
 
     // Level transitions
-    if (e.deltaY > 5 && level === 0 && !transitioning) {
+    if (deltaY > 0 && level === 0 && !transitioning) {
       // Set fadeLevel1 FIRST before any transitions
       setFadeLevel1(true);
 
@@ -601,7 +626,7 @@ const GoalTracker: React.FC = () => {
         }, 1200);
       }, 200); // Small delay to allow cards to fade first
     }
-    else if (e.deltaY > 5 && level === 1 && !transitioning) {
+    else if (deltaY > 0 && level === 1 && !transitioning) {
       // Set fadeLevel1 FIRST before any transitions
       setFadeLevel1(true);
 
@@ -626,7 +651,7 @@ const GoalTracker: React.FC = () => {
         }, 1200);
       }, 200); // Small delay to allow cards to fade first
     }
-    else if (e.deltaY < -5 && level === 1 && !transitioning) {
+    else if (deltaY < 0 && level === 1 && !transitioning) {
       // Set fadeLevel1 FIRST before any transitions
       setFadeLevel1(true);
 
@@ -648,7 +673,7 @@ const GoalTracker: React.FC = () => {
         }, 1000);
       }, 200); // Small delay to allow cards to fade first
     }
-    else if (e.deltaY < -5 && level === 2 && !transitioning) {
+    else if (deltaY < 0 && level === 2 && !transitioning) {
       // First set fadeLevel3 to true to fade out level 3 content
       setFadeLevel3(true);
 
@@ -670,6 +695,11 @@ const GoalTracker: React.FC = () => {
         }, 1000);
       }, 200); // Small delay to allow content to fade first
     }
+  };
+
+  // Wheel event handler with typed event
+  const handleWheel = (e: WheelEvent): void => {
+    processDirectionalInput(e.deltaY);
   };
 
   // Animate floating dots
@@ -715,16 +745,31 @@ const GoalTracker: React.FC = () => {
     animationRef.current = requestAnimationFrame(animateDots);
   };
 
-  // Set up animation and event listeners
+  // Update your useEffect to add touch event listeners
   useEffect(() => {
     animationRef.current = requestAnimationFrame(animateDots);
 
     const handleWheelEvent = (e: WheelEvent): void => handleWheel(e);
     const handleMouseMoveEvent = (e: MouseEvent): void => handleMouseMove(e);
+    const handleTouchStartEvent = (e: TouchEvent): void => {
+      // Convert DOM event to React event for processing
+      handleTouchStart(e as unknown as React.TouchEvent);
+    };
+    const handleTouchMoveEvent = (e: TouchEvent): void => {
+      // Convert DOM event to React event for processing
+      handleTouchMove(e as unknown as React.TouchEvent);
+    };
+    const handleTouchEndEvent = (e: TouchEvent): void => {
+      // Convert DOM event to React event for processing
+      handleTouchEnd(e as unknown as React.TouchEvent);
+    };
 
     if (typeof window !== 'undefined') {
       window.addEventListener("wheel", handleWheelEvent, { passive: false });
       window.addEventListener("mousemove", handleMouseMoveEvent);
+      window.addEventListener("touchstart", handleTouchStartEvent, { passive: false });
+      window.addEventListener("touchmove", handleTouchMoveEvent, { passive: false });
+      window.addEventListener("touchend", handleTouchEndEvent, { passive: false });
     }
 
     return () => {
@@ -734,9 +779,12 @@ const GoalTracker: React.FC = () => {
       if (typeof window !== 'undefined') {
         window.removeEventListener("wheel", handleWheelEvent);
         window.removeEventListener("mousemove", handleMouseMoveEvent);
+        window.removeEventListener("touchstart", handleTouchStartEvent);
+        window.removeEventListener("touchmove", handleTouchMoveEvent);
+        window.removeEventListener("touchend", handleTouchEndEvent);
       }
     };
-  }, [level, transitioning, mousePos.x, mousePos.y, isModalOpen, showGoalsModal, showGoalDetails]);
+  }, [level, transitioning, mousePos.x, mousePos.y, isModalOpen, showGoalsModal, showGoalDetails, touchStartY, isTouching]);
 
   // Goal management handlers with typed parameters
   const handleGoalClick = (goal: Goal): void => {
