@@ -1,36 +1,84 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# 🎯 ManzilTracker Frontend
 
-## Getting Started
+A beautiful, modern frontend showcase featuring a unique **3-level interactive website** with stunning animations and UI design. Built with Next.js, TypeScript, Material-UI, and Framer Motion to demonstrate advanced web development skills and design aesthetics.
 
-First, run the development server:
+![Next.js](https://img.shields.io/badge/Next.js-14-black)
+![TypeScript](https://img.shields.io/badge/TypeScript-blue)
+![Material-UI](https://img.shields.io/badge/Material--UI-007FFF)
+![Framer Motion](https://img.shields.io/badge/Framer--Motion-FF0055)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✨ What Makes This Special
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+**🎨 Modern Design Philosophy**
+- Beautiful, contemporary UI with clean aesthetics
+- Smooth animations and micro-interactions
+- Responsive design that works on all devices
+- Dark/Light theme support with smooth transitions
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+**🏗️ Unique Level-Based Architecture**
+- **3 Interactive Levels** - Not your typical scrollable website
+- Each level offers a different experience and functionality
+- Seamless navigation between levels with animated transitions
+- Progressive disclosure of content and features
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+**🗺️ Goal Progression Maps**
+- Interactive visual maps showing your journey toward goals
+- Beautiful progress indicators and milestone markers
+- Animated path progression as you advance
+- Visual storytelling through design and motion
 
-## Learn More
+## 🛠️ Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+- **Next.js 14** - Modern React framework with App Router
+- **TypeScript** - Type-safe development
+- **Material-UI (MUI)** - Beautiful, accessible React components
+- **Framer Motion** - Smooth animations and page transitions
+- **React** - Component-based architecture
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🎪 Features
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+### 🎭 Level-Based Experience
+- **Level 1** - Introduction and overview with animated elements
+- **Level 2** - Interactive goal setting and progress visualization
+- **Level 3** - About the website
 
-## Deploy on Vercel
+### 🎨 Design Excellence
+- Modern, minimalist interface
+- Smooth page transitions and micro-animations
+- Interactive hover effects and button animations
+- Responsive grid layouts with beautiful spacing
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 🗺️ Visual Progress Tracking
+- Interactive maps showing goal progression
+- Animated progress bars and completion indicators
+- Visual milestones and achievement markers
+- Beautiful data visualization components
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🚀 Live Demo
+
+[Visit the live application](https://manziltracker-frontend.vercel.app) *(Update with your actual demo link)*
+
+## 📸 Preview
+
+*Add screenshots of your 3 levels and progression maps here*
+
+## 🎯 Purpose
+
+This is a **frontend-only project** designed to showcase:
+- Advanced React/Next.js development skills
+- Modern UI/UX design principles
+- Complex animations and interactions
+- Creative problem-solving in web development
+- Beautiful, functional user interfaces
+
+## 👨‍💻 Built By
+
+**Harshit Sharma**
+- GitHub: [@HarshitSharma14](https://github.com/HarshitSharma14)
+- LinkedIn: [Your LinkedIn Profile]
+
+---
+
+⭐ **Star this repo if you love beautiful, interactive web experiences!**
+
+🌟 **ManzilTracker - Where goals meet beautiful design**
